@@ -1,0 +1,156 @@
+# Default values for placeos.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+###############################
+##### Configmap Variable #####
+###############################
+x-rethinkdbPassword: &rethinkdbPassword password
+
+x-deployment-env: &deployment-env
+  ENV: development
+  SG_ENV: development
+  TZ: Australia/Sydney
+
+x-elastic-client-env: &elastic-client-env
+  ES_HOST: dev-elasticsearch-master.default
+  ES_PORT: 9200
+
+x-etcd-client-env: &etcd-client-env
+  ETCD_HOST: dev-etcd-headless.default
+  ETCD_PORT: 2379
+
+x-place-loader-client-env: &place-loader-client-env
+  PLACE_LOADER_URI: http://dev-frontends.default:3000
+
+x-redis-client-env: &redis-client-env
+  REDIS_URL: redis://dev-redis-headless.default:6379
+
+x-rethinkdb-client-env: &rethinkdb-client-env
+  RETHINKDB_HOST: dev-rethinkdb-proxy.default
+  RETHINKDB_PORT: 28015
+  RETHINKDB_DB: place_development
+  RETHINKDB_USER: admin
+  RETHINKDB_PASSWORD: *rethinkdbPassword
+
+x-rubber-soul-client-env: &rubber-soul-client-env
+  RUBBER_SOUL_URI: http://dev-rubber-soul.default:3000
+
+x-smtp-client-env: &smtp-client-env
+  SMTP_SERVER: ""
+  SMTP_PORT: 587
+  SMTP_USER: ""
+  SMTP_PASS: ""
+  SMTP_SECURE: ""
+############################
+##### PlaceOS Services #####
+############################
+api:
+  enabled: true
+  configmap:
+    # Environment
+    << : *deployment-env
+    # Service Hosts
+    << : *elastic-client-env
+    << : *etcd-client-env
+    << : *place-loader-client-env
+    << : *redis-client-env
+    << : *rethinkdb-client-env
+    << : *rubber-soul-client-env
+auth:
+  enabled: true
+  configmap:
+    << : *rethinkdb-client-env
+    COAUTH_NO_SSL: "true"
+    TZ: ""
+core:
+  enabled: true
+  deployment:
+    replicaCount: 1
+  configmap:
+    # Service Hosts
+    << : *etcd-client-env
+    << : *redis-client-env
+    << : *rethinkdb-client-env
+    # Environment
+    << : *deployment-env
+dispatch:
+  enabled: true
+  deployment:
+    replicaCount: 1
+  configmap:
+frontends:
+  enabled: true
+  configmap:
+    PLACE_LOADER_WWW: www
+    << : *rethinkdb-client-env
+    # Environment
+    << : *deployment-env
+rubber-soul:
+  enabled: true
+  configmap:
+    # Service Hosts
+    << : *rethinkdb-client-env
+    << : *elastic-client-env
+    # Environment
+    << : *deployment-env
+triggers:
+  enabled: true
+  configmap:
+    # Service Hosts
+    << : *etcd-client-env
+    << : *redis-client-env
+    << : *rethinkdb-client-env
+    << : *smtp-client-env
+    # Environment
+    << : *deployment-env
+init:
+  enabled: true
+  configmap:
+    # User/Application Configuration
+    PLACE_DOMAIN: localhost:9080
+    PLACE_APPLICATION: backoffice
+    PLACE_AUTH_HOST: dev-auth.default:8081
+    PLACE_USERNAME: "Place Support (localhost:9080)"
+    PLACE_EMAIL: support@place.tech
+    PLACE_PASSWORD: development
+    PLACE_TLS: true
+    # Service Hosts
+    << : *rethinkdb-client-env
+    << : *elastic-client-env
+    # Environment
+    << : *deployment-env
+###############################
+##### Supporting Services #####
+###############################
+etcd:
+  enabled: true
+  auth:
+    rbac:
+      enabled: false
+elasticsearch:
+  enabled: true
+  master:
+    replicas: 1
+  data:
+    replicas: 0
+  coordinating:
+    replicas: 0
+rethinkdb:
+  enabled: true
+  cluster:
+    replicas: 1
+  rethinkdbPassword: *rethinkdbPassword
+redis:
+  enabled: true
+  usePassword: false
+  cluster:
+    enabled: false
+influxdb:
+  enabled: true
+mosquitto:
+  enabled: true
+
+
+# global:
+#   namespace: 

@@ -1,0 +1,21 @@
+dependencies:
+- name: etcd
+  repository: https://charts.bitnami.com/bitnami
+  version: 4.10.1
+- name: rethinkdb
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.1.2
+- name: elasticsearch
+  repository: https://charts.bitnami.com/bitnami
+  version: 12.6.3
+- name: redis
+  repository: https://charts.bitnami.com/bitnami
+  version: 10.8.2
+- name: influxdb
+  repository: https://charts.bitnami.com/bitnami
+  version: 0.6.6
+- name: mosquitto
+  repository: https://halkeye.github.io/helm-charts/
+  version: 0.2.0
+digest: sha256:66e1d58288207ad35739927a7fa832d78dc3d7cffaee3a3657743fa455ceb06f
+generated: "2020-09-11T15:00:33.817965564+10:00"
