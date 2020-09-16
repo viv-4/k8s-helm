@@ -16,7 +16,7 @@ helm dependency update [chart root folder]
 For local development:
 
 ```sh
-k3d cluster create --agents 3 -p 9080:80@loadbalancer  --update-default-kubeconfig
+k3d cluster create --agents 3 -p 8443:443@loadbalancer  --update-default-kubeconfig
 
 helm install dev placeos/
 helm upgrade dev placeos/

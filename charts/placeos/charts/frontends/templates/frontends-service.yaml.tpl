@@ -23,7 +23,7 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 80
+    - port: {{ .Values.httpservice.port }}
       targetPort: http-nginx
       protocol: TCP
       name: http

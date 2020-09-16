@@ -108,10 +108,10 @@ init:
   enabled: true
   configmap:
     # User/Application Configuration
-    PLACE_DOMAIN: localhost:9080
+    PLACE_DOMAIN: localhost:8443
     PLACE_APPLICATION: backoffice
     PLACE_AUTH_HOST: dev-auth.default:8081
-    PLACE_USERNAME: "Place Support (localhost:9080)"
+    PLACE_USERNAME: "Place Support (localhost:8443)"
     PLACE_EMAIL: support@place.tech
     PLACE_PASSWORD: development
     PLACE_TLS: true
@@ -133,7 +133,7 @@ elasticsearch:
   master:
     replicas: 1
   data:
-    replicas: 0
+    replicas: 1
   coordinating:
     replicas: 0
 rethinkdb:
@@ -146,6 +146,11 @@ redis:
   usePassword: false
   cluster:
     enabled: false
+  configmap: |-
+    notify-keyspace-events Kg$
+keydb:
+  enabled: false
+  nodes: 1
 influxdb:
   enabled: true
 mosquitto:

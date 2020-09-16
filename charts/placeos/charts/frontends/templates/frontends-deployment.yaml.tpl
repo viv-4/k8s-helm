@@ -61,7 +61,7 @@ spec:
           name: http-nginx
         resources: {}
         volumeMounts:
-        - mountPath: /etc/nginx/html/
+        - mountPath: /usr/share/nginx/html/
           name: www
           readOnly: true
       {{- with .Values.deployment.nodeSelector }}

@@ -60,3 +60,15 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Generate certificates for ingress server
+*/}}
+
+{{- define "tls.gen-certs" -}}
+{{- $altNames := .Values.domain.altNames -}}
+{{- $ca := genCA "placeos-ca" 365 -}}
+{{- $cert := genSignedCert ( .Values.domain.cname ) nil $altNames 365 $ca -}}
+tls.crt: {{ $cert.Cert | b64enc }}
+tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}
