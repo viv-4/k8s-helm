@@ -51,6 +51,17 @@ spec:
         envFrom:
           - configMapRef:
               name:  {{ include "core.fullname" . }}
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: POD_NAMESPACE
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.namespace
+          - name: CORE_HOST
+            value: "$(POD_NAME).{{ include "core.fullname" . }}.$(POD_NAMESPACE).svc.cluster.local"
         image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
