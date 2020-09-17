@@ -154,7 +154,7 @@ keydb:
 influxdb:
   enabled: true
 mosquitto:
-  enabled: true
+  enabled: false
 
 
 # global:

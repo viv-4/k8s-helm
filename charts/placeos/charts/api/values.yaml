@@ -68,9 +68,7 @@ configmap: {}
 ingress:
   enabled: true
   annotations:
-    ingress.kubernetes.io/ssl-redirect: "true"
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
      - host: localhost
        paths:

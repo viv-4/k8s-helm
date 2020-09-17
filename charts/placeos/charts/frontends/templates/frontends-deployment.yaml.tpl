@@ -64,6 +64,9 @@ spec:
         - mountPath: /usr/share/nginx/html/
           name: www
           readOnly: true
+        - mountPath: /etc/nginx/conf.d/
+          name: default-conf
+          readOnly: true
       {{- with .Values.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -81,3 +84,6 @@ spec:
       - name: www
         persistentVolumeClaim:
           claimName: {{ .Values.persistentVolume.name }}
+      - name: default-conf
+        configMap:
+          name: {{ include "frontends.fullname" . }}-nginx-conf
