@@ -34,29 +34,29 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "placeos.labels" -}}
-helm.sh/chart: {{ include "placeos.chart" . }}
+helm.sh/parent-chart: {{ include "placeos.chart" . }}
 {{ include "placeos.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+app.kubernetes.io/parent-version: {{ .Chart.AppVersion | quote }}
 {{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "placeos.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "placeos.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/parent-name: {{ include "placeos.name" . }}
+app.kubernetes.io/parent-instance: {{ .Release.Name }}
 {{- end }}
 
-{{/*
-Create the name of the service account to use
+{{/* 
+dependent service name overrides.
+This makes the service endpoint predictable
 */}}
-{{- define "placeos.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "placeos.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
-{{- end }}
+{{- define "elasticsearch.master.fullname" -}}
+{{- printf "%s" .Values.templateOverrides.elasticsearchMasterfullName | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "rethinkdb.fullname" -}}
+{{- printf "%s" .Values.templateOverrides.rethinkdbFullName | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

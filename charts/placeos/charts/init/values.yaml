@@ -44,6 +44,8 @@ serviceAccount:
 
 configmap: {}
 
+secrets: {}
+
 domain:
   cname: localhost
   altNames:

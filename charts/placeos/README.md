@@ -51,5 +51,3 @@ Add or modify following to docker daemon start command
 ```
 
 # Supporting Service Endpoint Names
-
-

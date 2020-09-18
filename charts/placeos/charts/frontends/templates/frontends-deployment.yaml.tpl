@@ -34,6 +34,8 @@ spec:
         envFrom:
           - configMapRef:
               name:  {{ include "frontends.fullname" . }}
+          - secretRef:
+              name: {{ include "frontends.fullname" . }}
         image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:

@@ -86,3 +86,5 @@ httpservice:
   port: 80
 
 configmap: {}
+
+secrets: {}

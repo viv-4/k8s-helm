@@ -64,3 +64,5 @@ service:
   port: 8084
 
 configmap: {}
+
+secrets: {}

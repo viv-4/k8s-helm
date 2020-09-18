@@ -1,0 +1,25 @@
+# TODO
+
+- ~~move passwords to secrets.~~
+- configmap host names to be calculated
+- fill out pvc options for core / including cloud specific options
+- create chart for distributed http serving
+- make tls secret name computed.
+- make nginx sidecar in frontend optional / local deployment ?
+- fillout the readme
+- fillout the umbrella chart NOTES.txt
+- review fullName options
+- conditional svc account attachment
+- tagging and app release versions
+- tcp / udp ingress
+- look at cloud provider options logic
+- timings for all health probes
+- Pod Priorities
+- HPAs
+- extract `domain` from init chart and put in umbrella values file/link to deployment domain
+- Chart.yaml descriptions:
+- health probes for:
+  - auth
+  - dispatch
+  - rubber-soul
+  - triggers

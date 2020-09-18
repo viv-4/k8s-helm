@@ -65,6 +65,8 @@ service:
 
 configmap: {}
 
+secrets: {}
+
 ingress:
   enabled: true
   annotations:

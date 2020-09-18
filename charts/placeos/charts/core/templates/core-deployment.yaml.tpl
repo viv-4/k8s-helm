@@ -51,6 +51,8 @@ spec:
         envFrom:
           - configMapRef:
               name:  {{ include "core.fullname" . }}
+          - secretRef:
+              name: {{ include "core.fullname" . }}
         env:
           - name: POD_NAME
             valueFrom:

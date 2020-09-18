@@ -30,6 +30,8 @@ spec:
           envFrom:
           - configMapRef:
               name:  {{ include "init.fullname" . }}
+          - secretRef:
+              name: {{ include "init.fullname" . }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
       restartPolicy: Never
