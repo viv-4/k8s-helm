@@ -53,6 +53,7 @@ app.kubernetes.io/parent-instance: {{ .Release.Name }}
 dependent service name overrides.
 This makes the service endpoint predictable
 */}}
+
 {{- define "elasticsearch.master.fullname" -}}
 {{- printf "%s" .Values.templateOverrides.elasticsearchMasterfullName | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

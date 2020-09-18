@@ -17,22 +17,22 @@ x-deployment-env: &deployment-env
   TZ: Australia/Sydney
 
 x-elastic-client-env: &elastic-client-env
-  ES_HOST: elasticsearch-master.default
-  ES_PORT: "9200"
+  ES_HOST: elasticsearch-master
+  ES_PORT: 9200
 
 x-etcd-client-env: &etcd-client-env
-  ETCD_HOST: etcd-headless.default
-  ETCD_PORT: "2379"
+  ETCD_HOST: etcd-headless
+  ETCD_PORT: 2379
 
 x-place-loader-client-env: &place-loader-client-env
   PLACE_LOADER_URI: http://frontends:3000
 
 x-redis-client-env: &redis-client-env
-  REDIS_URL: redis://redis-headless.default:6379
+  REDIS_URL: redis://redis-headless:6379
 
 x-rethinkdb-client-env: &rethinkdb-client-env
-  RETHINKDB_HOST: rethinkdb-proxy.default
-  RETHINKDB_PORT: "28015"
+  RETHINKDB_HOST: rethinkdb-proxy
+  RETHINKDB_PORT: 28015
   RETHINKDB_DB: place_development
   RETHINKDB_USER: admin
 
@@ -40,11 +40,11 @@ x-rethinkdb-client-secrets: &rethinkdb-client-secrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
 
 x-rubber-soul-client-env: &rubber-soul-client-env
-  RUBBER_SOUL_URI: http://rubber-soul.default:3000
+  RUBBER_SOUL_URI: http://dev-rubber-zoul:3000
 
 x-smtp-client-env: &smtp-client-env
   SMTP_SERVER: ""
-  SMTP_PORT: "587"
+  SMTP_PORT: 587
   SMTP_USER: ""
   SMTP_SECURE: ""
 
@@ -115,7 +115,7 @@ frontends:
     << : *rethinkdb-client-secrets
 rubber-soul:
   enabled: true
-  fullnameOverride: rubber-soul
+  fullnameOverride: rubber-zoul
   configmap:
     # Service Hosts
     << : *rethinkdb-client-env
@@ -148,8 +148,8 @@ init:
     # User/Application Configuration
     PLACE_DOMAIN: localhost:8443
     PLACE_APPLICATION: backoffice
-    PLACE_AUTH_HOST: auth:8081
-    PLACE_USERNAME: "Place Support"
+    PLACE_AUTH_HOST: auth:3000
+    PLACE_USERNAME: "Place Support (localhost:8443)"
     PLACE_EMAIL: support@place.tech
     PLACE_TLS: true
     # Service Hosts
@@ -160,10 +160,6 @@ init:
   secrets:
     << : *rethinkdb-client-secrets
     PLACE_PASSWORD: *placePassword
-
-templateOverrides:
-  elasticsearchMasterfullName: elasticsearch-master
-  rethinkdbFullName: rethinkdb
 
 ###############################
 ##### Supporting Services #####

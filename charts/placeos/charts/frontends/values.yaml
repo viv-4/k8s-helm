@@ -60,7 +60,7 @@ serviceAccount:
 
 service:
   type: ClusterIP
-  port: 8087
+  port: 3000
 
 persistentVolume:
   name: www

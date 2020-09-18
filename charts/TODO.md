@@ -15,6 +15,7 @@
 - look at cloud provider options logic
 - timings for all health probes
 - Pod Priorities
+- Review existing env vars
 - HPAs
 - extract `domain` from init chart and put in umbrella values file/link to deployment domain
 - Chart.yaml descriptions:
