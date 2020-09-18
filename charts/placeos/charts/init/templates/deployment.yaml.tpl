@@ -34,5 +34,5 @@ spec:
               name: {{ include "init.fullname" . }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
-      restartPolicy: Never
+      restartPolicy: OnFailure
   backoffLimit: 10

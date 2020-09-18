@@ -4,7 +4,7 @@
 
 deployment:
   replicaCount: 1
-
+  #podPriorityClassName:
   image:
     repository: placeos/frontends
     pullPolicy: IfNotPresent
@@ -79,7 +79,7 @@ ingress:
   tls:
     - hosts:
         - localhost
-      secretName: dev-init-certs
+  secretName: tls-ingress-secret
 
 httpservice:
   type: ClusterIP

@@ -10,6 +10,8 @@ x-smtpPassword: &smtpPassword ""
 x-placePassword: &placePassword "development"
 x-serverSecret: &serverSecret "development"
 x-placeDomain: &placeDomain "localhost"
+x-mediumPriorityClassName: &mediumPriorityClassName medium
+x-highPriorityClassName: &highPriorityClassName high
 
 x-deployment-env: &deployment-env
   ENV: development
@@ -40,7 +42,7 @@ x-rethinkdb-client-secrets: &rethinkdb-client-secrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
 
 x-rubber-soul-client-env: &rubber-soul-client-env
-  RUBBER_SOUL_URI: http://dev-rubber-zoul:3000
+  RUBBER_SOUL_URI: http://rubber-zoul:3000
 
 x-smtp-client-env: &smtp-client-env
   SMTP_SERVER: ""
@@ -60,6 +62,10 @@ x-dispatch-secrets: &dispatch-secrets
 api:
   enabled: true
   fullnameOverride: api
+  deployment:
+    podPriorityClassName: *highPriorityClassName
+  ingress:
+    secretName: *placeDomain
   configmap:
     # Environment
     << : *deployment-env
@@ -75,6 +81,10 @@ api:
 auth:
   enabled: true
   fullnameOverride: auth
+  deployment:
+    podPriorityClassName: *highPriorityClassName
+  ingress:
+    secretName: *placeDomain
   configmap:
     << : *rethinkdb-client-env
     COAUTH_NO_SSL: "true"
@@ -86,6 +96,7 @@ core:
   fullnameOverride: core
   deployment:
     replicaCount: 1
+    podPriorityClassName: *highPriorityClassName
   configmap:
     # Service Hosts
     << : *etcd-client-env
@@ -106,6 +117,10 @@ dispatch:
 frontends:
   enabled: true
   fullnameOverride: frontends
+  ingress:
+    secretName: *placeDomain
+  deployment:
+    podPriorityClassName: *mediumPriorityClassName
   configmap:
     PLACE_LOADER_WWW: www
     << : *rethinkdb-client-env
@@ -144,6 +159,9 @@ init:
     cname: *placeDomain
     altNames:
       - 127.0.0.1
+  podPriorities:
+    mediumClassName: *mediumPriorityClassName
+    highClassName: *highPriorityClassName
   configmap:
     # User/Application Configuration
     PLACE_DOMAIN: localhost:8443
@@ -161,9 +179,9 @@ init:
     << : *rethinkdb-client-secrets
     PLACE_PASSWORD: *placePassword
 
-###############################
-##### Supporting Services #####
-###############################
+###########################################
+##### Third Party Supporting Services #####
+###########################################
 etcd:
   enabled: true
   fullnameOverride: etcd

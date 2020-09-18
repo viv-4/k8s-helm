@@ -69,6 +69,9 @@ spec:
         - mountPath: /etc/nginx/conf.d/
           name: default-conf
           readOnly: true
+      {{- if .Values.deployment.podPriorityClassName }}
+      priorityClassName: {{ .Values.deployment.podPriorityClassName }}
+      {{ end }}
       {{- with .Values.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

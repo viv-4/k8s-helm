@@ -1,23 +1,25 @@
 # TODO
 
 - ~~move passwords to secrets.~~
-- configmap host names to be calculated
+- ~~configmap host names to be calculated~~
 - fill out pvc options for core / including cloud specific options
 - create chart for distributed http serving
-- make tls secret name computed.
+- ~~make tls secret name computed.~~
 - make nginx sidecar in frontend optional / local deployment ?
 - fillout the readme
 - fillout the umbrella chart NOTES.txt
-- review fullName options
-- conditional svc account attachment
+- ~~review fullName options~~
+- ~~conditional svc account attachment~~
 - tagging and app release versions
 - tcp / udp ingress
 - look at cloud provider options logic
-- timings for all health probes
-- Pod Priorities
-- Review existing env vars
+- timings for all health probes ( core can take a while and gets killed sometimes )
+- ~~Pod Priorities~~
+- Review existing env vars. k8s auto injection of env vars can break pods. eg rubber-soul
 - HPAs
-- extract `domain` from init chart and put in umbrella values file/link to deployment domain
+- Quote values
+- parent labels
+- ~~extract `domain` from init chart and put in umbrella values file/link to deployment domain~~
 - Chart.yaml descriptions:
 - health probes for:
   - auth

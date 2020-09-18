@@ -55,6 +55,9 @@ spec:
         volumeMounts:
         - mountPath: /app/tmp/
           name: app-tmp
+      {{- if .Values.deployment.podPriorityClassName }}
+      priorityClassName: {{ .Values.deployment.podPriorityClassName }}
+      {{ end }}
       {{- with .Values.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -5,6 +5,8 @@
 deployment:
   replicaCount: 1
 
+  #podPriorityClassName:
+
   image:
     repository: placeos/core
     pullPolicy: IfNotPresent

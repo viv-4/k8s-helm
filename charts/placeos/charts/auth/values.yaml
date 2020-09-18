@@ -5,6 +5,8 @@
 deployment:
   replicaCount: 1
 
+  #podPriorityClassName:
+
   image:
     repository: placeos/auth
     pullPolicy: IfNotPresent
@@ -78,4 +80,4 @@ ingress:
   tls:
     - hosts:
         - localhost
-      secretName: dev-init-certs
+  secretName: tls-ingress-secret
