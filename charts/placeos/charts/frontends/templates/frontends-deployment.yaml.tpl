@@ -55,11 +55,14 @@ spec:
         volumeMounts:
         - mountPath: /app/www
           name: www
+      {{- if .Values.httpSidecar }}
       - name: nginx
         image: nginx:1.18
         imagePullPolicy: ""
+        {{/* securityContext:
+          {{- toYaml .Values.deployment.securityContext | nindent 12 }} */}}
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           name: http-nginx
         resources: {}
         volumeMounts:
@@ -69,9 +72,10 @@ spec:
         - mountPath: /etc/nginx/conf.d/
           name: default-conf
           readOnly: true
+      {{- end }}
       {{- if .Values.deployment.podPriorityClassName }}
       priorityClassName: {{ .Values.deployment.podPriorityClassName }}
-      {{ end }}
+      {{- end }}
       {{- with .Values.deployment.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

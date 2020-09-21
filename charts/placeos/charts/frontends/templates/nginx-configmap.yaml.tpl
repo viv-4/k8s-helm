@@ -7,8 +7,8 @@ metadata:
 data:
   default.conf: |
       server {
-        listen       80;
-        listen  [::]:80;
+        listen       8080;
+        listen  [::]:8080;
         server_name  localhost;
 
         #charset koi8-r;

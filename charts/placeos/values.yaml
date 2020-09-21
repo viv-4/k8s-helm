@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 ###############################
-##### Configmap Variable #####
+##### Configmap Variable ######
 ###############################
 x-rethinkdbPassword: &rethinkdbPassword "password"
 x-smtpPassword: &smtpPassword ""
@@ -12,11 +12,12 @@ x-serverSecret: &serverSecret "development"
 x-placeDomain: &placeDomain "localhost"
 x-mediumPriorityClassName: &mediumPriorityClassName medium
 x-highPriorityClassName: &highPriorityClassName high
+x-tz: &TZ Australia/Sydney
 
 x-deployment-env: &deployment-env
   ENV: development
   SG_ENV: development
-  TZ: Australia/Sydney
+  TZ: *TZ
 
 x-elastic-client-env: &elastic-client-env
   ES_HOST: elasticsearch-master
@@ -88,7 +89,7 @@ auth:
   configmap:
     << : *rethinkdb-client-env
     COAUTH_NO_SSL: "true"
-    TZ: ""
+    TZ: *TZ
   secrets:
     << : *rethinkdb-client-secrets
 core:
@@ -116,6 +117,7 @@ dispatch:
     << : *dispatch-secrets
 frontends:
   enabled: true
+  httpSidecar: true
   fullnameOverride: frontends
   ingress:
     secretName: *placeDomain
@@ -221,5 +223,6 @@ mosquitto:
   fullnameOverride: mosquitto
 
 
-# global:
-#   namespace: 
+global:
+  placeDomain: localhost
+  provider: local
