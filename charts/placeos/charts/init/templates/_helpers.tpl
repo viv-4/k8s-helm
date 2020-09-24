@@ -65,9 +65,18 @@ Create the name of the service account to use
 Generate certificates for ingress server
 */}}
 {{- define "tls.gen-certs" -}}
-{{- $altNames := concat  ( list .Values.domain.cname )  .Values.domain.altNames  -}}
+{{- $altNames := concat  ( list .Values.global.placeDomain )  .Values.domain.altNames  -}}
 {{- $ca := genCA "placeos-ca" 365 -}}
-{{- $cert := genSignedCert ( .Values.domain.cname ) nil $altNames 365 $ca -}}
+{{- $cert := genSignedCert ( .Values.global.placeDomain ) nil $altNames 365 $ca -}}
 tls.crt: {{ $cert.Cert | b64enc }}
 tls.key: {{ $cert.Key | b64enc }}
+{{- end -}}
+
+{{/* custom oath redirect port for standard http or https ports */}}
+{{- define "init.redirectURI" -}}
+{{- if .Values.domain.customRedirectPort }}
+{{- print .Values.global.placeDomain ":" .Values.domain.customRedirectPort | quote }}
+{{- else -}}
+{{- print .Values.global.placeDomain }}
+{{- end }}
 {{- end -}}

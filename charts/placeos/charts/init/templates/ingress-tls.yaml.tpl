@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Secret
 type: kubernetes.io/tls
 metadata:
-  name: {{ .Values.domain.cname }}
+  name: {{ .Values.global.placeDomain }}
   labels:
     {{- include "init.labels" . | nindent 4 }}
   annotations:

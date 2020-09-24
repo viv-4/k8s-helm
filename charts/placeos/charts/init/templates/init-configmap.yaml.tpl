@@ -8,3 +8,4 @@ data:
   {{- range $key, $val := .Values.configmap }}
   {{ $key }}: {{ $val | quote }}
   {{- end }}
+  PLACE_DOMAIN: {{ include "init.redirectURI" . }}

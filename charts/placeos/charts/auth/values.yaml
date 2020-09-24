@@ -74,10 +74,10 @@ ingress:
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
   hosts:
-     - host: localhost
+     - host: "_"
        paths:
        - /auth/
   tls:
     - hosts:
-        - localhost
+        - "_"
   secretName: tls-ingress-secret

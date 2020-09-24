@@ -78,6 +78,9 @@ spec:
           httpGet:
             path: /api/core/v1
             port: http
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          failureThreshold: 10
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
         volumeMounts:

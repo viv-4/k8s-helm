@@ -9,7 +9,6 @@ x-rethinkdbPassword: &rethinkdbPassword "password"
 x-smtpPassword: &smtpPassword ""
 x-placePassword: &placePassword "development"
 x-serverSecret: &serverSecret "development"
-x-placeDomain: &placeDomain "localhost"
 x-mediumPriorityClassName: &mediumPriorityClassName medium
 x-highPriorityClassName: &highPriorityClassName high
 x-tz: &TZ Australia/Sydney
@@ -65,8 +64,6 @@ api:
   fullnameOverride: api
   deployment:
     podPriorityClassName: *highPriorityClassName
-  ingress:
-    secretName: *placeDomain
   configmap:
     # Environment
     << : *deployment-env
@@ -84,8 +81,6 @@ auth:
   fullnameOverride: auth
   deployment:
     podPriorityClassName: *highPriorityClassName
-  ingress:
-    secretName: *placeDomain
   configmap:
     << : *rethinkdb-client-env
     COAUTH_NO_SSL: "true"
@@ -119,8 +114,6 @@ frontends:
   enabled: true
   httpSidecar: true
   fullnameOverride: frontends
-  ingress:
-    secretName: *placeDomain
   deployment:
     podPriorityClassName: *mediumPriorityClassName
   configmap:
@@ -157,8 +150,9 @@ triggers:
     << : *smtp-client-secrets
 init:
   enabled: true
+  runJob: true
   domain:
-    cname: *placeDomain
+    customRedirectPort: 8443
     altNames:
       - 127.0.0.1
   podPriorities:
@@ -166,10 +160,9 @@ init:
     highClassName: *highPriorityClassName
   configmap:
     # User/Application Configuration
-    PLACE_DOMAIN: localhost:8443
     PLACE_APPLICATION: backoffice
     PLACE_AUTH_HOST: auth:3000
-    PLACE_USERNAME: "Place Support (localhost:8443)"
+    PLACE_USERNAME: "Place Support"
     PLACE_EMAIL: support@place.tech
     PLACE_TLS: true
     # Service Hosts
@@ -216,7 +209,7 @@ redis:
   configmap: |-
     notify-keyspace-events Kg$
 influxdb:
-  enabled: true
+  enabled: false
   fullnameOverride: influxdb
 mosquitto:
   enabled: false
@@ -224,5 +217,4 @@ mosquitto:
 
 
 global:
-  placeDomain: localhost
-  provider: local
+  placeDomain: "localhost"

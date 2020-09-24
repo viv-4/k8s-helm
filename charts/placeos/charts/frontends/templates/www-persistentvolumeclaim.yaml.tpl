@@ -10,7 +10,9 @@ spec:
   resources:
     requests:
       storage: {{ .Values.persistentVolume.storage }}
-
+  {{- if .Values.persistentVolume.storageClassName }}
+  storageClassName: {{ .Values.persistentVolume.storageClassName }}
+  {{- end }}
 
 
 ## See front end loader: https://github.com/PlaceOS/www-core

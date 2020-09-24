@@ -16,6 +16,6 @@ data:
 
         location / {
             root   /usr/share/nginx/html;
-            try_files $uri $uri/index.html /backoffice/index.html =404;
+            try_files $uri $uri/index.html backoffice/$uri =404;
         }
       }

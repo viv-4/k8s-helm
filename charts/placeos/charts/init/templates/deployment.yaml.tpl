@@ -1,3 +1,4 @@
+{{ if .Values.runJob -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -36,3 +37,4 @@ spec:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
       restartPolicy: OnFailure
   backoffLimit: 10
+{{- end }}

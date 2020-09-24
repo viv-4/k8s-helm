@@ -21,14 +21,14 @@ spec:
     {{- range .Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ . | quote }}
+        - {{ $.Values.global.placeDomain | quote }}
         {{- end }}
-      secretName: {{ $.Values.ingress.secretName }}
+      secretName: {{ $.Values.global.placeDomain }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ $.Values.global.placeDomain | quote }}
       http:
         paths:
           {{- range .paths }}

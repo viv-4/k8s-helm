@@ -1,3 +1,4 @@
+ {{/* not neeeded core service is for internal use only */}}
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "dispatch.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
@@ -21,14 +22,14 @@ spec:
     {{- range .Values.ingress.tls }}
     - hosts:
         {{- range .hosts }}
-        - {{ . | quote }}
+        - {{ $.Values.global.placeDomain | quote }}
         {{- end }}
       secretName: {{ .secretName }}
     {{- end }}
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ $.Values.global.placeDomain | quote }}
       http:
         paths:
           {{- range .paths }}

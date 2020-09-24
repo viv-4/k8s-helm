@@ -38,6 +38,20 @@ spec:
           - name: http
             containerPort: 8080
             protocol: TCP
+        {{- range $_ , $value := .Values.udpLoadbalancer.portMappings }}
+        {{- range $lbPort, $podPort := $value }}
+          - name: udp-{{ $podPort }}
+            containerPort: {{ $podPort }}
+            protocol: UDP
+        {{- end }}
+        {{- end }}
+        {{- range $_ , $value := .Values.tcpLoadbalancer.portMappings }}
+        {{- range $lbPort, $podPort := $value }}
+          - name: tcp-{{ $podPort }}
+            containerPort: {{ $podPort }}
+            protocol: TCP
+        {{- end }}
+        {{- end }}
         {{/*
         livenessProbe:
           httpGet:
