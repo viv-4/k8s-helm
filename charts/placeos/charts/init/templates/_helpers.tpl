@@ -72,10 +72,10 @@ tls.crt: {{ $cert.Cert | b64enc }}
 tls.key: {{ $cert.Key | b64enc }}
 {{- end -}}
 
-{{/* custom oath redirect port for standard http or https ports */}}
+{{/* custom oath redirect port for non-standard http or https ports */}}
 {{- define "init.redirectURI" -}}
-{{- if .Values.domain.customRedirectPort }}
-{{- print .Values.global.placeDomain ":" .Values.domain.customRedirectPort | quote }}
+{{- if .Values.global.customRedirectPort }}
+{{- print .Values.global.placeDomain ":" .Values.global.customRedirectPort | quote }}
 {{- else -}}
 {{- print .Values.global.placeDomain }}
 {{- end }}

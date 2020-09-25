@@ -139,10 +139,6 @@ triggers:
     << : *smtpClientSecrets
 init:
   enabled: true
-  domain:
-    customRedirectPort: 8443
-    altNames:
-      - 127.0.0.1
   configmap:
     # User/Application Configuration
     PLACE_APPLICATION: backoffice
@@ -202,3 +198,4 @@ mosquitto:
 
 global:
   placeDomain: "localhost"
+  customRedirectPort: 8443

@@ -12,6 +12,7 @@ Currently supported deployment scenarios are:
 - helm v3 installed
 - kubectl command line tool
 - docker daemon installed and running ( for local deployments only )
+- k3d installed see [K3D](https://k3d.io/)
 
 ```sh
 
@@ -19,14 +20,16 @@ helm repo add halkeye https://halkeye.github.io/helm-charts/
 helm repo add bitnami  https://charts.bitnami.com/bitnami
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo add cnieg https://cnieg.github.io/helm-charts
-
-helm dependency update [chart root folder]
+cd charts/placeos
+helm dependency update .
 
 ```
 
-### Local Deployment
+### Local Deployment with K3d
 
-For local development:
+K3S is a lightweight distribution of kubernetes by Rancher. [K3D](https://k3d.io/) is a k3s deployed as docker containers
+
+For local deployment create and start the cluster whilst mapping port 8443 on localhost to the k3s ingress loadbalancer.
 
 ```sh
 k3d cluster create --agents 3 -p 8443:443@loadbalancer  --update-default-kubeconfig
@@ -35,15 +38,19 @@ kubectl config set current-context  k3d-k3s-default
 
 ```
 
-Install the chart
+Install placeos chart
 
 ```sh
 cd charts/
 
-helm install RELEASE_NAME placeos/
+helm install dev -f placeos/values-local.yaml  placeos/
 
-# cluster will be available at https://localhost:8443
-helm upgrade dev placeos/
+# the cluster will be available at https://localhost:8443/backoffice
+```
+
+Delete the chart and resource
+
+```sh
 helm uninstall dev
 ```
 
@@ -54,8 +61,7 @@ Read and complete the instructions in the k8s-terraform repository gcp folder wh
 - deploying GKE
 - deploying a public ingress
 
-
-```
+```sh
 cd charts/
 export PLACE_DOMAIN=$(kubectl get svc -n ingress-nginx place-os-ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[*].ip}')
 helm install dev placeos/ -f placeos/values-gcp.yaml --set global.placeDomain="${PLACE_DOMAIN}.xip.io"
@@ -66,7 +72,7 @@ The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
 ## Known Issues
 
-When destroying a stateful set PVCs and PVs are not deleted. Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and re-added as in a development scenario, ( ie helm install > helm uninstall > helm install ).
+When destroying a stateful set PVCs and the underlying PVs are not deleted. Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and redeployed as in a development scenario, ( ie helm install > helm uninstall > helm install ).
 
 Because configurations such as the Etcd master password is randomly generated redeploying will generate a new password as a secret which will not match the secret stored in the etcd PV and the deployment will fail
 
