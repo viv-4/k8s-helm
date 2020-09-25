@@ -5,7 +5,7 @@
 deployment:
   replicaCount: 1
 
-  #podPriorityClassName:
+  podPriorityClassName: high
 
   image:
     repository: placeos/auth
@@ -80,4 +80,3 @@ ingress:
   tls:
     - hosts:
         - "_"
-  secretName: tls-ingress-secret

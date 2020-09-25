@@ -9,8 +9,6 @@ xrethinkdbPassword: &rethinkdbPassword "password"
 xsmtpPassword: &smtpPassword ""
 xplacePassword: &placePassword "development"
 xserverSecret: &serverSecret "development"
-xmediumPriorityClassName: &mediumPriorityClassName medium
-xhighPriorityClassName: &highPriorityClassName high
 xtz: &TZ Australia/Sydney
 
 xdeploymentEnv: &deploymentEnv
@@ -62,8 +60,6 @@ xdispatchSecrets: &dispatchSecrets
 api:
   enabled: true
   fullnameOverride: api
-  deployment:
-    podPriorityClassName: *highPriorityClassName
   configmap:
     # Environment
     << : *deploymentEnv
@@ -79,8 +75,6 @@ api:
 auth:
   enabled: true
   fullnameOverride: auth
-  deployment:
-    podPriorityClassName: *highPriorityClassName
   configmap:
     << : *rethinkdbClientEnv
     COAUTH_NO_SSL: "true"
@@ -90,9 +84,6 @@ auth:
 core:
   enabled: true
   fullnameOverride: core
-  deployment:
-    replicaCount: 1
-    podPriorityClassName: *highPriorityClassName
   configmap:
     # Service Hosts
     << : *etcdClientEnv
@@ -114,8 +105,6 @@ frontends:
   enabled: true
   httpSidecar: true
   fullnameOverride: frontends
-  deployment:
-    podPriorityClassName: *mediumPriorityClassName
   configmap:
     PLACE_LOADER_WWW: www
     << : *rethinkdbClientEnv
@@ -150,14 +139,10 @@ triggers:
     << : *smtpClientSecrets
 init:
   enabled: true
-  runJob: true
   domain:
     customRedirectPort: 8443
     altNames:
       - 127.0.0.1
-  podPriorities:
-    mediumClassName: *mediumPriorityClassName
-    highClassName: *highPriorityClassName
   configmap:
     # User/Application Configuration
     PLACE_APPLICATION: backoffice

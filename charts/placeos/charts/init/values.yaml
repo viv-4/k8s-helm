@@ -47,10 +47,9 @@ configmap: {}
 secrets: {}
 
 domain:
-  cname: localhost
   altNames:
     - 127.0.0.1
 
 podPriorities:
-  mediumClassName: medium-priority
-  highClassName: high-priority
+  mediumClassName: medium
+  highClassName: high

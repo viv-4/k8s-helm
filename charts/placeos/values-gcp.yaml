@@ -9,8 +9,6 @@ xrethinkdbPassword: &rethinkdbPassword "password"
 xsmtpPassword: &smtpPassword ""
 xplacePassword: &placePassword "development"
 xserverSecret: &serverSecret "development"
-xmediumPriorityClassName: &mediumPriorityClassName medium
-xhighPriorityClassName: &highPriorityClassName high
 xtz: &TZ Australia/Sydney
 
 xdeploymentEnv: &deploymentEnv
@@ -62,8 +60,6 @@ xdispatchSecrets: &dispatchSecrets
 api:
   enabled: true
   fullnameOverride: api
-  deployment:
-    podPriorityClassName: *highPriorityClassName
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
@@ -83,8 +79,6 @@ api:
 auth:
   enabled: true
   fullnameOverride: auth
-  deployment:
-    podPriorityClassName: *highPriorityClassName
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
@@ -98,9 +92,6 @@ auth:
 core:
   enabled: true
   fullnameOverride: core
-  deployment:
-    replicaCount: 1
-    podPriorityClassName: *highPriorityClassName
   configmap:
     # Service Hosts
     << : *etcdClientEnv
@@ -126,18 +117,11 @@ frontends:
   enabled: true
   httpSidecar: false
   fullnameOverride: frontends
-  # persistentVolume:
-  #   storageClassName: gcp-regionalpv
-  #   storage: 200Gi
-  #   accessModes:
-  #   - ReadOnlyMany
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/app-root: "/backoffice/"
-  deployment:
-    podPriorityClassName: *mediumPriorityClassName
   configmap:
     PLACE_LOADER_WWW: www
     << : *rethinkdbClientEnv
@@ -172,13 +156,6 @@ triggers:
     << : *smtpClientSecrets
 init:
   enabled: true
-  runJob: true
-  domain:
-    altNames:
-      - 127.0.0.1
-  podPriorities:
-    mediumClassName: *mediumPriorityClassName
-    highClassName: *highPriorityClassName
   configmap:
     # User/Application Configuration
     PLACE_APPLICATION: backoffice
@@ -232,10 +209,10 @@ redis:
   configmap: |-
     notify-keyspace-events Kg$
 influxdb:
-  enabled: false
+  enabled: true
   fullnameOverride: influxdb
 mosquitto:
-  enabled: false
+  enabled: true
   fullnameOverride: mosquitto
 
 global:

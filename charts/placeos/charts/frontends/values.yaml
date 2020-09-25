@@ -2,11 +2,13 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# httpSidecar server static UI resources as a htp server side car to frontend container.
+# if true deploy as a seperate pod. See persistentVolume.accessModes
 httpSidecar: false
 
 httpDeployment:
   replicaCount: 1
-  #podPriorityClassName:
+  podPriorityClassName: medium
   image:
     repository: nginx
     tag: "1.18"
@@ -56,7 +58,7 @@ httpDeployment:
 
 deployment:
   replicaCount: 1
-  #podPriorityClassName:
+  podPriorityClassName: medium
   image:
     repository: placeos/frontends
     pullPolicy: IfNotPresent
@@ -115,7 +117,8 @@ service:
   port: 3000
 
 # persistentVolume configuration for the volume that conatains the static resources to serve backend
-# persistentVolume.accssMode ReadWriteMany is required for distributed http serving
+# persistentVolume.accssMode ReadWriteMany is required for distributed http serving which is set when httpSidecar: true
+# see https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
 persistentVolume:
   name: www
   accessModes:
@@ -133,7 +136,6 @@ ingress:
   tls:
     - hosts:
         - "_"
-  secretName: tls-ingress-secret
 
 httpservice:
   type: ClusterIP
