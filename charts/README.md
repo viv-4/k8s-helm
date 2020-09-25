@@ -61,9 +61,18 @@ Read and complete the instructions in the k8s-terraform repository gcp folder wh
 - deploying GKE
 - deploying a public ingress
 
+If no ingress has been deployed yet:
+
+```sh
+## Install Load Balancer. See https://hub.helm.sh/charts/ingress-nginx/ingress-nginx
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install placeos -n ingress-nginx --create-namespace  ingress-nginx/ingress-nginx
+
+```
+
 ```sh
 cd charts/
-export PLACE_DOMAIN=$(kubectl get svc -n ingress-nginx place-os-ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[*].ip}')
+export PLACE_DOMAIN=$(kubectl get svc -n ingress-nginx placeos-ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[*].ip}')
 helm install dev placeos/ -f placeos/values-gcp.yaml --set global.placeDomain="${PLACE_DOMAIN}.xip.io"
 
 ```

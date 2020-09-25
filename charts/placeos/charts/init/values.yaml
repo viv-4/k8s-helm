@@ -1,3 +1,4 @@
+runJob: true
 deployment:
   replicaCount: 1
 
