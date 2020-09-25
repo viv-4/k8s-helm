@@ -51,7 +51,18 @@ deployment:
 
   tolerations: []
 
-  affinity: {}
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+            - key: core
+              operator: In
+              values:
+              - core
+          topologyKey: kubernetes.io/hostname
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -71,6 +82,11 @@ configmap: {}
 secrets: {}
 
 persistentVolumeClaim:
+  accessModes:
+    - ReadWriteOnce
+  storage: 1Gi
+
+persistentVolumeClaimRepos:
   accessModes:
     - ReadWriteOnce
   storage: 1Gi

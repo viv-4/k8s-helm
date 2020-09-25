@@ -1,6 +1,6 @@
 apiVersion: v2
 name: placeos
-description: A Helm chart for Kubernetes
+description: An Umbrella Chart for PlaceOS and its dependencies
 
 # A chart can be either an 'application' or a 'library' chart.
 #
@@ -57,42 +57,42 @@ dependencies: # A list of the chart requirements (optional)
 
 # Supporting Services
   - name: etcd
-    version: 4.10.1
+    version: ~4.10.1
     repository: https://charts.bitnami.com/bitnami
     condition: etcd.enabled
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
   - name: rethinkdb
-    version: 1.1.2
+    version: ~1.1.2
     repository: https://kubernetes-charts.storage.googleapis.com/
     condition: rethinkdb.enabled
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
   - name: elasticsearch
-    version: 12.6.3
+    version: ~12.6.3
     repository: https://charts.bitnami.com/bitnami
     condition: elasticsearch.enabled
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
   - name: redis
-    version: 10.8.2
+    version: ~10.8.2
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
   - name: influxdb
-    version: 0.6.6
+    version: ~0.6.6
     repository: https://charts.bitnami.com/bitnami
     condition: influxdb.enabled
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
   - name: mosquitto
-    version: 0.2.0
+    version: ~0.2.0
     repository: https://halkeye.github.io/helm-charts/
     condition: mosquitto.enabled
     # tags: # (optional)

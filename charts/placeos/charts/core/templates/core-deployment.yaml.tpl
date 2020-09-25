@@ -32,17 +32,7 @@ spec:
       securityContext:
           {{- toYaml .Values.deployment.podSecurityContext | nindent 8 }}
       affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchExpressions:
-                - key: core
-                  operator: In
-                  values:
-                  - {{ include "core.fullname" . }}
-              topologyKey: kubernetes.io/hostname
+        {{- toYaml .Values.deployment.affinity | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
       containers:
       - name: {{ .Chart.Name }}
@@ -116,13 +106,19 @@ spec:
       resources:
         requests:
           storage: {{ .Values.persistentVolumeClaim.storage | quote }}
+      {{- if .Values.persistentVolumeClaim.storageClassName }}
+      storageClassName: {{ .Values.persistentVolumeClaim.storageClassName }}
+      {{- end }}
   - metadata:
       name: {{ include "core.fullname" . }}-repos
       annotations:
         pv.beta.kubernetes.io/gid: {{ .Values.deployment.podSecurityContext.fsGroup | quote }}
     spec:
       accessModes:
-        {{- toYaml .Values.persistentVolumeClaim.accessModes | nindent 8 }}
+        {{- toYaml .Values.persistentVolumeClaimRepos.accessModes | nindent 8 }}
       resources:
         requests:
-          storage: {{ .Values.persistentVolumeClaim.storage | quote }}
+          storage: {{ .Values.persistentVolumeClaimRepos.storage | quote }}
+      {{- if .Values.persistentVolumeClaimRepos.storageClassName }}
+      storageClassName: {{ .Values.persistentVolumeClaimRepos.storageClassName }}
+      {{- end }}

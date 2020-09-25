@@ -8,7 +8,8 @@ httpDeployment:
   replicaCount: 1
   #podPriorityClassName:
   image:
-    repository: placeos/frontends
+    repository: nginx
+    tag: "1.18"
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
 
@@ -20,11 +21,13 @@ httpDeployment:
   podSecurityContext:
     fsGroup: 10001
   securityContext:
+    allowPrivilegeEscalation: true
     capabilities:
+      add:
+      - NET_BIND_SERVICE
       drop:
       - ALL
     readOnlyRootFilesystem: false
-    runAsNonRoot: false
     runAsUser: 10001
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -111,6 +114,8 @@ service:
   type: ClusterIP
   port: 3000
 
+# persistentVolume configuration for the volume that conatains the static resources to serve backend
+# persistentVolume.accssMode ReadWriteMany is required for distributed http serving
 persistentVolume:
   name: www
   accessModes:

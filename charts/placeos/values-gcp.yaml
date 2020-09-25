@@ -5,55 +5,55 @@
 ###############################
 ##### Configmap Variable ######
 ###############################
-x-rethinkdbPassword: &rethinkdbPassword "password"
-x-smtpPassword: &smtpPassword ""
-x-placePassword: &placePassword "development"
-x-serverSecret: &serverSecret "development"
-x-mediumPriorityClassName: &mediumPriorityClassName medium
-x-highPriorityClassName: &highPriorityClassName high
-x-tz: &TZ Australia/Sydney
+xrethinkdbPassword: &rethinkdbPassword "password"
+xsmtpPassword: &smtpPassword ""
+xplacePassword: &placePassword "development"
+xserverSecret: &serverSecret "development"
+xmediumPriorityClassName: &mediumPriorityClassName medium
+xhighPriorityClassName: &highPriorityClassName high
+xtz: &TZ Australia/Sydney
 
-x-deployment-env: &deployment-env
+xdeploymentEnv: &deploymentEnv
   ENV: development
   SG_ENV: development
   TZ: *TZ
 
-x-elastic-client-env: &elastic-client-env
+xelasticClientEnv: &elasticClientEnv
   ES_HOST: elasticsearch-master
   ES_PORT: 9200
 
-x-etcd-client-env: &etcd-client-env
+xetcdClientEnv: &etcdClientEnv
   ETCD_HOST: etcd-headless
   ETCD_PORT: 2379
 
-x-place-loader-client-env: &place-loader-client-env
+xplaceLoaderClientEnv: &placeLoaderClientEnv
   PLACE_LOADER_URI: http://frontends:3000
 
-x-redis-client-env: &redis-client-env
+xredisClientEnv: &redisClientEnv
   REDIS_URL: redis://redis-headless:6379
 
-x-rethinkdb-client-env: &rethinkdb-client-env
+xrethinkdbClientEnv: &rethinkdbClientEnv
   RETHINKDB_HOST: rethinkdb-proxy
   RETHINKDB_PORT: 28015
   RETHINKDB_DB: place_development
   RETHINKDB_USER: admin
 
-x-rethinkdb-client-secrets: &rethinkdb-client-secrets
+xrethinkdbClientSecrets: &rethinkdbClientSecrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
 
-x-rubber-soul-client-env: &rubber-soul-client-env
-  RUBBER_SOUL_URI: http://rubber-zoul:3000
+xrubberSoulClientEnv: &rubberSoulClientEnv
+  RUBBER_SOUL_URI: http://rubbersoul:3000
 
-x-smtp-client-env: &smtp-client-env
+xsmtpClientEnv: &smtpClientEnv
   SMTP_SERVER: ""
   SMTP_PORT: 587
   SMTP_USER: ""
   SMTP_SECURE: ""
 
-x-smtp-client-secrets: &smtp-client-secrets
+xsmtpClientSecrets: &smtpClientSecrets
   SMTP_PASS: *smtpPassword
 
-x-dispatch-secrets: &dispatch-secrets
+xdispatchSecrets: &dispatchSecrets
   SERVER_SECRET: *serverSecret
 
 ############################
@@ -70,16 +70,16 @@ api:
       ingress.kubernetes.io/ssl-redirect: "true"
   configmap:
     # Environment
-    << : *deployment-env
+    << : *deploymentEnv
     # Service Hosts
-    << : *elastic-client-env
-    << : *etcd-client-env
-    << : *place-loader-client-env
-    << : *redis-client-env
-    << : *rethinkdb-client-env
-    << : *rubber-soul-client-env
+    << : *elasticClientEnv
+    << : *etcdClientEnv
+    << : *placeLoaderClientEnv
+    << : *redisClientEnv
+    << : *rethinkdbClientEnv
+    << : *rubberSoulClientEnv
   secrets:
-    << : *rethinkdb-client-secrets
+    << : *rethinkdbClientSecrets
 auth:
   enabled: true
   fullnameOverride: auth
@@ -90,11 +90,11 @@ auth:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
   configmap:
-    << : *rethinkdb-client-env
+    << : *rethinkdbClientEnv
     COAUTH_NO_SSL: "true"
     TZ: *TZ
   secrets:
-    << : *rethinkdb-client-secrets
+    << : *rethinkdbClientSecrets
 core:
   enabled: true
   fullnameOverride: core
@@ -103,13 +103,13 @@ core:
     podPriorityClassName: *highPriorityClassName
   configmap:
     # Service Hosts
-    << : *etcd-client-env
-    << : *redis-client-env
-    << : *rethinkdb-client-env
+    << : *etcdClientEnv
+    << : *redisClientEnv
+    << : *rethinkdbClientEnv
     # Environment
-    << : *deployment-env
+    << : *deploymentEnv
   secrets:
-    << : *rethinkdb-client-secrets
+    << : *rethinkdbClientSecrets
 dispatch:
   enabled: true
   ingress:
@@ -121,7 +121,7 @@ dispatch:
     replicaCount: 1
   configmap:
   secrets:
-    << : *dispatch-secrets
+    << : *dispatchSecrets
 frontends:
   enabled: true
   httpSidecar: false
@@ -140,36 +140,36 @@ frontends:
     podPriorityClassName: *mediumPriorityClassName
   configmap:
     PLACE_LOADER_WWW: www
-    << : *rethinkdb-client-env
+    << : *rethinkdbClientEnv
     # Environment
-    << : *deployment-env
+    << : *deploymentEnv
   secrets:
-    << : *rethinkdb-client-secrets
+    << : *rethinkdbClientSecrets
 rubber-soul:
   enabled: true
-  fullnameOverride: rubber-zoul
+  fullnameOverride: rubbersoul
   configmap:
     # Service Hosts
-    << : *rethinkdb-client-env
-    << : *elastic-client-env
+    << : *rethinkdbClientEnv
+    << : *elasticClientEnv
     # Environment
-    << : *deployment-env
+    << : *deploymentEnv
   secrets:
-    << : *rethinkdb-client-secrets
+    << : *rethinkdbClientSecrets
 triggers:
   enabled: true
   fullnameOverride: triggers
   configmap:
     # Service Hosts
-    << : *etcd-client-env
-    << : *redis-client-env
-    << : *rethinkdb-client-env
-    << : *smtp-client-env
+    << : *etcdClientEnv
+    << : *redisClientEnv
+    << : *rethinkdbClientEnv
+    << : *smtpClientEnv
     # Environment
-    << : *deployment-env
+    << : *deploymentEnv
   secrets:
-    << : *rethinkdb-client-secrets
-    << : *smtp-client-secrets
+    << : *rethinkdbClientSecrets
+    << : *smtpClientSecrets
 init:
   enabled: true
   runJob: true
@@ -183,16 +183,16 @@ init:
     # User/Application Configuration
     PLACE_APPLICATION: backoffice
     PLACE_AUTH_HOST: auth:3000
-    PLACE_USERNAME: "Place Support "
+    PLACE_USERNAME: "Place Support"
     PLACE_EMAIL: support@place.tech
     PLACE_TLS: true
     # Service Hosts
-    << : *rethinkdb-client-env
-    << : *elastic-client-env
+    << : *rethinkdbClientEnv
+    << : *elasticClientEnv
     # Environment
-    << : *deployment-env
+    << : *deploymentEnv
   secrets:
-    << : *rethinkdb-client-secrets
+    << : *rethinkdbClientSecrets
     PLACE_PASSWORD: *placePassword
 
 ###########################################

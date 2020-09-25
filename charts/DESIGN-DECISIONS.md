@@ -5,8 +5,10 @@ Sub chart for each container
 
 - more flexibility
 - less requirement for nested vars
+- templates easier to understand as
 - convenience for partner deployments
 - sub charts can be extracted easily and managed as seperate repositories if required.
+- duplication across charts can be managed by adding a library chart
 
 Seperate Secrets file for each deployment with same values
 ============================================================

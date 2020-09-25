@@ -10,8 +10,6 @@ spec:
   selector:
     matchLabels:
       {{- include "frontends.selectorLabels" . | nindent 6 }}
-  strategy:
-    type: Recreate
   template:
     metadata:
     {{- with .Values.httpDeployment.podAnnotations }}
@@ -30,14 +28,15 @@ spec:
           {{- toYaml .Values.httpDeployment.podSecurityContext | nindent 8 }}
       containers:
       - name: {{ .Chart.Name }}
-        {{/* securityContext:
-          {{- toYaml .Values.httpDeployment.securityContext | nindent 12 }} */}}
-        image: nginx:1.18
-        imagePullPolicy: ""
+        securityContext:
+          {{- toYaml .Values.httpDeployment.securityContext | nindent 12 }}
+        image: "{{ .Values.httpDeployment.image.repository }}:{{ .Values.httpDeployment.image.tag }}"
+        imagePullPolicy: "{{ .Values.httpDeployment.image.pullPolicy }}"
         ports:
         - containerPort: 8080
           name: http-nginx
-        resources: {}
+        resources:
+          {{- toYaml .Values.httpDeployment.resources | nindent 12 }}
         volumeMounts:
         - mountPath: /usr/share/nginx/html/
           name: www
@@ -47,6 +46,8 @@ spec:
           readOnly: true
         - mountPath: /var/cache/nginx
           name: cache
+        - mountPath: /var/run/
+          name: pid
       {{- if .Values.httpDeployment.podPriorityClassName }}
       priorityClassName: {{ .Values.httpDeployment.podPriorityClassName }}
       {{ end }}
@@ -65,6 +66,8 @@ spec:
       restartPolicy: Always
       volumes:
       - name: cache
+        emptyDir: {}
+      - name: pid
         emptyDir: {}
       - name: www
         persistentVolumeClaim:
