@@ -11,8 +11,13 @@ Currently supported deployment scenarios are:
 
 - helm v3 installed
 - kubectl command line tool
-- docker daemon installed and running ( for local deployments only )
+
+For local deployments only
+
+- docker daemon installed and running
 - k3d installed see [K3D](https://k3d.io/)
+
+Install third party resource dependencies
 
 ```sh
 
@@ -27,9 +32,9 @@ helm dependency update .
 
 ### Local Deployment with K3d
 
-K3S is a lightweight distribution of kubernetes by Rancher. [K3D](https://k3d.io/) is a k3s deployed as docker containers
+K3S is a lightweight distribution of kubernetes by Rancher. [K3D](https://k3d.io/) deploys a k3s cluster as docker containers.
 
-For local deployment create and start the cluster whilst mapping port 8443 on localhost to the k3s ingress loadbalancer.
+For local deployment create and start the k3s cluster and map port 8443 on localhost to the k3s ingress loadbalancer.
 
 ```sh
 k3d cluster create --agents 3 -p 8443:443@loadbalancer  --update-default-kubeconfig
@@ -38,7 +43,7 @@ kubectl config set current-context  k3d-k3s-default
 
 ```
 
-Install placeos chart
+Deploy the placeos charts to the local cluster
 
 ```sh
 cd charts/
