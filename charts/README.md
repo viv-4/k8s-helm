@@ -59,14 +59,21 @@ Delete the chart and resource
 helm uninstall dev
 ```
 
-### GCP Deployment
+### GCP / Azure Deployment
 
-Read and complete the instructions in the k8s-terraform repository gcp folder which includes.
+Read and complete the instructions in the k8s-terraform repository
+
+The gcp folder includes.
 
 - deploying GKE
 - deploying a public ingress
 
-If no ingress has been deployed yet:
+The azure folder includes.
+
+- deploying AKS
+- deploying a public ingress
+
+If no ingress has been deployed yet ( works for both Azure and GCP ):
 
 ```sh
 ## Install Load Balancer. See https://hub.helm.sh/charts/ingress-nginx/ingress-nginx
@@ -75,10 +82,22 @@ helm install placeos -n ingress-nginx --create-namespace  ingress-nginx/ingress-
 
 ```
 
+Extract the public IP of the Loadbalancer
+
+```sh
+export PLACE_DOMAIN=$(kubectl get svc -n ingress-nginx placeos-ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[*].ip}')
+```
+
+Deploy the charts:
+
 ```sh
 cd charts/
-export PLACE_DOMAIN=$(kubectl get svc -n ingress-nginx placeos-ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[*].ip}')
+
+# For GCP
 helm install dev placeos/ -f placeos/values-gcp.yaml --set global.placeDomain="${PLACE_DOMAIN}.xip.io"
+
+# For Azure
+helm install dev placeos/ -f placeos/values-azure.yaml --set global.placeDomain="${PLACE_DOMAIN}.xip.io"
 
 ```
 

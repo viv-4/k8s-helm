@@ -107,10 +107,13 @@ dispatch:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
+  udpLoadbalancer:
+    annotations:
+      cloud.google.com/load-balancer-type: "Internal"
+  tcpLoadbalancer:
+    annotations:
+      cloud.google.com/load-balancer-type: "Internal"
   fullnameOverride: dispatch
-  deployment:
-    replicaCount: 1
-  configmap:
   secrets:
     << : *dispatchSecrets
 frontends:

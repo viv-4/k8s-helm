@@ -12,12 +12,13 @@
 - ~~make global : placeDomain~~
 - fillout the readme
 - fillout the umbrella chart NOTES.txt
+- versioning of containers in charts
 - ~~review fullName options~~
 - ~~conditional svc account attachment~~
 - tagging and app release versions
 - ~~tcp / udp ingress~~
 - look at cloud provider options logic
-- timings for all health probes ( core can take a while and gets killed sometimes )
+- ~~timings for all health probes ( core can take a while and gets killed sometimes )~~
 - ~~Pod Priorities~~
 - Review existing env vars. k8s auto injection of env vars can break pods. eg rubber-soul
 - HPAs
@@ -30,3 +31,4 @@
   - dispatch
   - rubber-soul
   - triggers
+- seperate namespace deployment
