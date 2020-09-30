@@ -173,8 +173,7 @@ triggers:
 # init is the overide configuration for the embedded init subchart
 init:
   enabled: true
-  fullnameOverride: init
-  configmap:
+  config:
     # User/Application Configuration
     << : *initConfigEnv
     # Service Hosts
@@ -182,7 +181,6 @@ init:
     << : *elasticClientEnv
     # Environment
     << : *deploymentEnv
-  secrets:
     << : *rethinkdbClientSecrets
     PLACE_PASSWORD: *placePassword
 
@@ -201,6 +199,7 @@ etcd:
       enabled: false
 elasticsearch:
   enabled: false
+  # templateOverrides. A work around to override the full name of the ElasticSearch master. See templates/_helpers.tpl
   templateOverrides:
     elasticsearchMasterfullName: elasticsearch-master
   master:
@@ -211,6 +210,7 @@ elasticsearch:
     replicas: 0
 rethinkdb:
   enabled: false
+  # templateOverrides. A work around to override the full name of the RethinkDb full name. See templates/_helpers.tpl
   templateOverrides:
     rethinkdbFullName: rethinkdb
   cluster:

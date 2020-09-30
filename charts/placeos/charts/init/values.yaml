@@ -1,7 +1,7 @@
 runJob: true
 deployment:
   replicaCount: 1
-
+  ttlSecondsAfterFinished: 60
   image:
     repository: placeos/init
     pullPolicy: IfNotPresent
@@ -36,16 +36,14 @@ deployment:
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-configmap: {}
-
-secrets: {}
+config: {}
 
 domain:
   altNames:
@@ -54,3 +52,9 @@ domain:
 podPriorities:
   mediumClassName: medium
   highClassName: high
+
+global:
+  #placeDomain the initial PlaceOS domain. No default value, Must be set
+  placeDomain: null
+  #customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
+  customRedirectPort: null

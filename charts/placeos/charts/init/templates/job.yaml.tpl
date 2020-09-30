@@ -6,12 +6,16 @@ metadata:
   labels:
     {{- include "init.labels" . | nindent 4 }}
 spec:
+  {{- if .Values.deployment.ttlSecondsAfterFinished }}
+  ttlSecondsAfterFinished: {{ .Values.deployment.ttlSecondsAfterFinished }}
+  {{ end }}
   template:
     metadata:
-    {{- with .Values.deployment.podAnnotations }}
       annotations:
+        "helm.sh/hook": "post-install"
+      {{- with .Values.deployment.podAnnotations }}
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
       labels:
         {{- include "init.selectorLabels" . | nindent 8 }}
     spec:
@@ -28,11 +32,13 @@ spec:
             {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
-          envFrom:
-          - configMapRef:
-              name:  {{ include "init.fullname" . }}
-          - secretRef:
-              name: {{ include "init.fullname" . }}
+          env:
+          {{- range $name, $val := .Values.config }}
+            - name: {{ $name | quote }}
+              value: {{ $val | quote }}
+          {{- end }}
+            - name: PLACE_DOMAIN
+              value: {{ include "init.redirectURI" . }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
       restartPolicy: OnFailure

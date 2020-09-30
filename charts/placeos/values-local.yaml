@@ -19,5 +19,5 @@ redis:
   enabled: true
 
 global:
-  placeDomain: "localhost"
+  placeDomain: localhost
   customRedirectPort: 8443
