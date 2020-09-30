@@ -6,16 +6,17 @@ Currently supported deployment scenarios are:
 
 - Local deployment to a k3d cluster ( kubernetes in docker )
 - GCP deployment to GKE
+- Azure deployment to AKS
 
 ## Prerequisites
 
-- helm v3 installed
+- helm v3 installed ( Tested with v3.3.1 )
 - kubectl command line tool
 
 For local deployments only
 
 - docker daemon installed and running
-- k3d installed see [K3D](https://k3d.io/)
+- k3d installed see [K3D](https://k3d.io/).
 
 Install third party resource dependencies
 
@@ -32,13 +33,15 @@ helm dependency update .
 
 ### Local Deployment with K3d
 
-K3S is a lightweight distribution of kubernetes by Rancher. [K3D](https://k3d.io/) deploys a k3s cluster as docker containers.
+We use k3d in this example however it should work with any local k8s deployment assumimg you adjust your deployment for the exposed host and port mapping via the `global.domain` and `global.customRedirectPort`
+
+K3S is a lightweight distribution of kubernetes by Rancher. [K3D](https://k3d.io/) is a utility to deploy a k3s cluster as docker containers.
 
 For local deployment create and start the k3s cluster and map port 8443 on localhost to the k3s ingress loadbalancer.
 
 ```sh
 k3d cluster create --agents 3 -p 8443:443@loadbalancer  --update-default-kubeconfig
-# or for an existing cluster
+# or if connecting to a previously created default k3s cluster
 kubectl config set current-context  k3d-k3s-default
 
 ```
@@ -100,6 +103,8 @@ helm install dev placeos/ -f placeos/values-gcp.yaml --set global.placeDomain="$
 helm install dev placeos/ -f placeos/values-azure.yaml --set global.placeDomain="${PLACE_DOMAIN}.xip.io"
 
 ```
+
+**Note**: we use xip.io for a ready made domain for development and demonstration purposes.
 
 The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
