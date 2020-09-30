@@ -1,108 +1,19 @@
-# Default values for placeos.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-###############################
-##### Configmap Variable ######
-###############################
-xrethinkdbPassword: &rethinkdbPassword "password"
-xsmtpPassword: &smtpPassword ""
-xplacePassword: &placePassword "development"
-xserverSecret: &serverSecret "development"
-xtz: &TZ Australia/Sydney
-
-xdeploymentEnv: &deploymentEnv
-  ENV: development
-  SG_ENV: development
-  TZ: *TZ
-
-xelasticClientEnv: &elasticClientEnv
-  ES_HOST: elasticsearch-master
-  ES_PORT: 9200
-
-xetcdClientEnv: &etcdClientEnv
-  ETCD_HOST: etcd-headless
-  ETCD_PORT: 2379
-
-xplaceLoaderClientEnv: &placeLoaderClientEnv
-  PLACE_LOADER_URI: http://frontends:3000
-
-xredisClientEnv: &redisClientEnv
-  REDIS_URL: redis://redis-headless:6379
-
-xrethinkdbClientEnv: &rethinkdbClientEnv
-  RETHINKDB_HOST: rethinkdb-proxy
-  RETHINKDB_PORT: 28015
-  RETHINKDB_DB: place_development
-  RETHINKDB_USER: admin
-
-xrethinkdbClientSecrets: &rethinkdbClientSecrets
-  RETHINKDB_PASSWORD: *rethinkdbPassword
-
-xrubberSoulClientEnv: &rubberSoulClientEnv
-  RUBBER_SOUL_URI: http://rubbersoul:3000
-
-xsmtpClientEnv: &smtpClientEnv
-  SMTP_SERVER: ""
-  SMTP_PORT: 587
-  SMTP_USER: ""
-  SMTP_SECURE: ""
-
-xsmtpClientSecrets: &smtpClientSecrets
-  SMTP_PASS: *smtpPassword
-
-xdispatchSecrets: &dispatchSecrets
-  SERVER_SECRET: *serverSecret
+# Example with override values for a Azure placeos deployment.
 
 ############################
 ##### PlaceOS Services #####
 ############################
 api:
-  enabled: true
-  fullnameOverride: api
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
-  configmap:
-    # Environment
-    << : *deploymentEnv
-    # Service Hosts
-    << : *elasticClientEnv
-    << : *etcdClientEnv
-    << : *placeLoaderClientEnv
-    << : *redisClientEnv
-    << : *rethinkdbClientEnv
-    << : *rubberSoulClientEnv
-  secrets:
-    << : *rethinkdbClientSecrets
 auth:
-  enabled: true
-  fullnameOverride: auth
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
-  configmap:
-    << : *rethinkdbClientEnv
-    COAUTH_NO_SSL: "true"
-    TZ: *TZ
-  secrets:
-    << : *rethinkdbClientSecrets
-core:
-  enabled: true
-  fullnameOverride: core
-  configmap:
-    # Service Hosts
-    << : *etcdClientEnv
-    << : *redisClientEnv
-    << : *rethinkdbClientEnv
-    # Environment
-    << : *deploymentEnv
-  secrets:
-    << : *rethinkdbClientSecrets
 dispatch:
-  enabled: true
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
@@ -113,110 +24,25 @@ dispatch:
   tcpLoadbalancer:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-  fullnameOverride: dispatch
-  secrets:
-    << : *dispatchSecrets
 frontends:
-  enabled: true
   httpSidecar: true
-  fullnameOverride: frontends
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/app-root: "/backoffice/"
-  configmap:
-    PLACE_LOADER_WWW: www
-    << : *rethinkdbClientEnv
-    # Environment
-    << : *deploymentEnv
-  secrets:
-    << : *rethinkdbClientSecrets
-rubber-soul:
-  enabled: true
-  fullnameOverride: rubbersoul
-  configmap:
-    # Service Hosts
-    << : *rethinkdbClientEnv
-    << : *elasticClientEnv
-    # Environment
-    << : *deploymentEnv
-  secrets:
-    << : *rethinkdbClientSecrets
-triggers:
-  enabled: true
-  fullnameOverride: triggers
-  configmap:
-    # Service Hosts
-    << : *etcdClientEnv
-    << : *redisClientEnv
-    << : *rethinkdbClientEnv
-    << : *smtpClientEnv
-    # Environment
-    << : *deploymentEnv
-  secrets:
-    << : *rethinkdbClientSecrets
-    << : *smtpClientSecrets
-init:
-  enabled: true
-  configmap:
-    # User/Application Configuration
-    PLACE_APPLICATION: backoffice
-    PLACE_AUTH_HOST: auth:3000
-    PLACE_USERNAME: "Place Support"
-    PLACE_EMAIL: support@place.tech
-    PLACE_TLS: true
-    # Service Hosts
-    << : *rethinkdbClientEnv
-    << : *elasticClientEnv
-    # Environment
-    << : *deploymentEnv
-  secrets:
-    << : *rethinkdbClientSecrets
-    PLACE_PASSWORD: *placePassword
 
 ###########################################
 ##### Third Party Supporting Services #####
 ###########################################
 etcd:
   enabled: true
-  fullnameOverride: etcd
-  auth:
-    rbac:
-      enabled: false
 elasticsearch:
   enabled: true
-  templateOverrides:
-    elasticsearchMasterfullName: elasticsearch-master
-  master:
-    replicas: 1
-  data:
-    replicas: 1
-  coordinating:
-    replicas: 0
 rethinkdb:
   enabled: true
-  templateOverrides:
-    rethinkdbFullName: rethinkdb
-  cluster:
-    replicas: 1
-    persistentVolume:
-      size: 8Gi
-  rethinkdbPassword: *rethinkdbPassword
 redis:
   enabled: true
-  fullnameOverride: redis
-  usePassword: false
-  cluster:
-    enabled: false
-  configmap: |-
-    notify-keyspace-events Kg$
-influxdb:
-  enabled: true
-  fullnameOverride: influxdb
-mosquitto:
-  enabled: true
-  fullnameOverride: mosquitto
 
 global:
   placeDomain: ""

@@ -5,62 +5,62 @@
 ##### Configmap Variable ######
 ###############################
 
-#xrethinkdbPassword the admin password for RethinkDb. 
-# Used to set the admin password in RethinkDB if enabled is used by multiple containers in a k8s secret
+# xrethinkdbPassword the admin password for RethinkDb.
+#  Used to set the admin password in RethinkDB if enabled is used by multiple containers in a k8s secret
 xrethinkdbPassword: &rethinkdbPassword "password"
 
-#xsmtpPassword. the smtp password used by triggers
+# xsmtpPassword. the smtp password used by triggers
 xsmtpPassword: &smtpPassword ""
 
-#xplacePassword. The value used by the init subchart to set the default domain users password
+# xplacePassword. The value used by the init subchart to set the default domain users password
 xplacePassword: &placePassword "development"
 
-#xserverSecret for the dispatch service
+# xserverSecret for the dispatch service
 xserverSecret: &serverSecret "development"
 
-#xtz the local time zone for the deployment
+# xtz the local time zone for the deployment
 xtz: &TZ Australia/Sydney
 
-#xdeploymentEnv configmap values exposed as environment variables to PlaceOS containers
+# xdeploymentEnv configmap values exposed as environment variables to PlaceOS containers
 xdeploymentEnv: &deploymentEnv
   ENV: development
   SG_ENV: development
   TZ: *TZ
 
-#xelasticClientEnv configmap values for ElasticSearch Service exposed as environment variables to PlaceOS containers
+# xelasticClientEnv configmap values for ElasticSearch Service exposed as environment variables to PlaceOS containers
 xelasticClientEnv: &elasticClientEnv
   ES_HOST: elasticsearch-master
   ES_PORT: 9200
 
-#xetcdClientEnv configmap values for Etcd end point Service as environment variables to PlaceOS containers
+# xetcdClientEnv configmap values for Etcd end point Service as environment variables to PlaceOS containers
 xetcdClientEnv: &etcdClientEnv
   ETCD_HOST: etcd-headless
   ETCD_PORT: 2379
 
-#xplaceLoaderClientEnv configmap values for the frontend Service exposed as environment variables to PlaceOS containers
+# xplaceLoaderClientEnv configmap values for the frontend Service exposed as environment variables to PlaceOS containers
 xplaceLoaderClientEnv: &placeLoaderClientEnv
   PLACE_LOADER_URI: http://frontends:3000
 
-#xredisClientEnv configmap values for the redis Service exposed as environment variables to PlaceOS containers
+# xredisClientEnv configmap values for the redis Service exposed as environment variables to PlaceOS containers
 xredisClientEnv: &redisClientEnv
   REDIS_URL: redis://redis-headless:6379
 
-#xrethinkdbClientEnv configmap values for RethinkDB Service exposed as environment variables to PlaceOS containers
+# xrethinkdbClientEnv configmap values for RethinkDB Service exposed as environment variables to PlaceOS containers
 xrethinkdbClientEnv: &rethinkdbClientEnv
   RETHINKDB_HOST: rethinkdb-proxy
   RETHINKDB_PORT: 28015
   RETHINKDB_DB: place_development
   RETHINKDB_USER: admin
 
-#xrethinkdbClientSecrets secret values for the rethinkdb password exposed as environment variables to PlaceOS containers
+# xrethinkdbClientSecrets secret values for the rethinkdb password exposed as environment variables to PlaceOS containers
 xrethinkdbClientSecrets: &rethinkdbClientSecrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
 
-#xrubberSoulClientEnv configmap values for the Rubber Soul service exposed as environment variables to PlaceOS containers
+# xrubberSoulClientEnv configmap values for the Rubber Soul service exposed as environment variables to PlaceOS containers
 xrubberSoulClientEnv: &rubberSoulClientEnv
   RUBBER_SOUL_URI: http://rubbersoul:3000
 
-#xsmtpClientEnv configmap values for the SMTP server exposed as environment variables for the trigger service
+# xsmtpClientEnv configmap values for the SMTP server exposed as environment variables for the trigger service
 xsmtpClientEnv: &smtpClientEnv
   SMTP_SERVER: ""
   SMTP_PORT: 587
@@ -74,11 +74,11 @@ xinitConfigEnv: &initConfigEnv
     PLACE_EMAIL: support@place.tech
     PLACE_TLS: true
 
-#xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
+# xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
 xsmtpClientSecrets: &smtpClientSecrets
   SMTP_PASS: *smtpPassword
 
-#dispatchSecrets secret values exposed as environment variables for the dispatch service
+# dispatchSecrets secret values exposed as environment variables for the dispatch service
 xdispatchSecrets: &dispatchSecrets
   SERVER_SECRET: *serverSecret
 
