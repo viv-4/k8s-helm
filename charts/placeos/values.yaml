@@ -143,8 +143,8 @@ frontends:
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
-# rubber-soul is the overide configuration for the embedded rubber-soul subchart
-rubber-soul:
+# rubbersoul is the overide configuration for the embedded rubber-soul subchart
+rubbersoul:
   enabled: true
   fullnameOverride: rubbersoul
   configmap:
@@ -173,6 +173,7 @@ triggers:
 # init is the overide configuration for the embedded init subchart
 init:
   enabled: true
+  fullnameOverride: init
   configmap:
     # User/Application Configuration
     << : *initConfigEnv
@@ -231,7 +232,7 @@ mosquitto:
   fullnameOverride: mosquitto
 
 global:
-  #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate services
+  #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
   placeDomain: null
   #customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   # Used by the init service to configure the appropriate services

@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "rubber-soul.fullname" . }}
+  name: {{ include "rubbersoul.fullname" . }}
   labels:
-    {{- include "rubber-soul.labels" . | nindent 4 }}
+    {{- include "rubbersoul.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      {{- include "rubber-soul.selectorLabels" . | nindent 6 }}
+      {{- include "rubbersoul.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.deployment.podAnnotations }}
@@ -16,13 +16,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "rubber-soul.selectorLabels" . | nindent 8 }}
+        {{- include "rubbersoul.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.deployment.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "rubber-soul.serviceAccountName" . }}
+      serviceAccountName: {{ include "rubbersoul.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.deployment.podSecurityContext | nindent 8 }}
       containers:
@@ -31,9 +31,9 @@ spec:
           {{- toYaml .Values.deployment.securityContext | nindent 12 }}
         envFrom:
           - configMapRef:
-              name:  {{ include "rubber-soul.fullname" . }}
+              name:  {{ include "rubbersoul.fullname" . }}
           - secretRef:
-              name: {{ include "rubber-soul.fullname" . }}
+              name: {{ include "rubbersoul.fullname" . }}
         image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
@@ -43,11 +43,11 @@ spec:
         {{/*
         livenessProbe:
           httpGet:
-            path: /api/rubber-soul/v1
+            path: /api/rubbersoul/v1
             port: http
         readinessProbe:
           httpGet:
-            path: /api/rubber-soul/v1
+            path: /api/rubbersoul/v1
             port: http
         */}}
         resources:

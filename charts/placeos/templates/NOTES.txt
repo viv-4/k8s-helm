@@ -1,1 +1,57 @@
+PlaceOS Services Configured:
 
+{{ if .Values.api.enabled -}}
+- api
+{{- end }}
+{{ if .Values.auth.enabled -}}
+- auth
+{{- end }}
+{{ if .Values.core.enabled -}}
+- core
+{{- end }}
+{{ if .Values.dispatch.enabled -}}
+- dispatch
+{{- end }}
+{{ if .Values.frontends.enabled -}}
+- frontends
+{{- end }}
+{{ if .Values.rubbersoul.enabled -}}
+- rubbersoul
+{{- end }}
+{{ if .Values.triggers.enabled -}}
+- triggers
+{{- end }}
+{{ if .Values.init.enabled -}}
+- init
+{{- end }}
+
+Third Party Services Configured:
+
+{{ if .Values.etcd.enabled -}}
+- etcd
+{{- end }}
+{{ if .Values.rethinkdb.enabled -}}
+- rethinkdb
+{{- end }}
+{{ if .Values.elasticsearch.enabled -}}
+- elasticsearch
+{{- end }}
+{{ if .Values.redis.enabled -}}
+- redis
+{{- end }}
+{{ if .Values.influxdb.enabled -}}
+- influxdb
+{{- end }}
+{{ if .Values.mosquitto.enabled -}}
+- mosquitto
+{{- end }}
+
+
+The Adminstrative interface can be accessed at the following URL:
+
+https://{{- .Values.global.placeDomain -}}
+{{- if .Values.global.customRedirectPort -}}
+{{- .Values.global.customRedirectPort | printf ":%d"  -}}
+{{- end -}}/backoffice
+
+Note: It may take 10-15 mins for all services to become available

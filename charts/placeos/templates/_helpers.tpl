@@ -61,7 +61,3 @@ This makes the service endpoint predictable as the actual charts do not cater fo
 {{- define "rethinkdb.fullname" -}}
 {{- printf "%s" .Values.templateOverrides.rethinkdbFullName | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
-{{/* 
-{{- define "placeos.domain" -}}
-{{- printf "%s" .Values.placeDomain | trunc 63 | trimSuffix "-" -}}
-{{- end -}} */}}

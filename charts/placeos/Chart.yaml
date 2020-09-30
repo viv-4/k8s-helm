@@ -42,7 +42,7 @@ dependencies: # A list of the chart requirements (optional)
   - name: frontends
     version: 0.1.0
     condition: frontends.enabled
-  - name: rubber-soul
+  - name: rubbersoul
     version: 0.1.0
 #    repository:
     condition: rubber-soul.enabled
