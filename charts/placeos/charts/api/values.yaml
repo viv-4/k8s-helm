@@ -2,34 +2,38 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# deployment configuration for the api pod
 deployment:
   replicaCount: 1
   podPriorityClassName: high
   image:
     repository: placeos/rest-api
     pullPolicy: IfNotPresent
-    # Overrides the image tag whose default is the chart appVersion.
+    # tag Overrides the image tag whose default is the chart appVersion.
+    # tag:
 
   imagePullSecrets: []
   nameOverride: ""
   fullnameOverride: ""
+
   podAnnotations: {}
 
+  # podSecurityContext for the pod
   podSecurityContext:
+    #fsGroup is defined at container build time and in most circumstances should not be changed
     fsGroup: 10001
 
+  # securityContext for the container
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
+    #runAsUser is defined at container build time and in most circumstances should not be changed
     runAsUser: 10001
+
   resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
@@ -37,18 +41,19 @@ deployment:
   #   cpu: 100m
   #   memory: 128Mi
 
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
-
   nodeSelector: {}
 
   tolerations: []
 
   affinity: {}
+
+# autoscaling configuration for pod
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -59,14 +64,33 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# service exposed by deployment
 service:
   type: ClusterIP
   port: 3000
 
-configmap: {}
+# configmap for the deployment exposed as environment variables to the pod
+configmap:
+  ENV: null
+  ES_HOST: null
+  ES_PORT: 0
+  ETCD_HOST: null
+  ETCD_PORT: 0
+  PLACE_LOADER_URI: null
+  REDIS_URL: null
+  RETHINKDB_DB: null
+  RETHINKDB_HOST: null
+  RETHINKDB_PORT: null
+  RETHINKDB_USER: null
+  RUBBER_SOUL_URI: null
+  SG_ENV: null
+  TZ: Australia/Sydney
 
-secrets: {}
+# secrets for the deployment exposed as environment variables to the pod
+secrets:
+  RETHINKDB_PASSWORD: null
 
+# ingress to expose the pod services
 ingress:
   enabled: true
   annotations:

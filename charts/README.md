@@ -112,7 +112,7 @@ The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
 When destroying a stateful set PVCs and the underlying PVs are not deleted. Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and redeployed as in a development scenario, ( ie helm install > helm uninstall > helm install ).
 
-Because configurations such as the Etcd master password are randomly generated redeploying with deleteing the stored configuration will result in password mismatches for etcd and the deployment will fail.
+Because configurations such as the Etcd master password are randomly generated redeploying without deleteing the stored configuration before hand will result in password mismatches for etcd and the deployment will fail.
 
 Solution:
 

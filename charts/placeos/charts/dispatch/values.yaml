@@ -2,6 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
+# deployment configuration for the dispatch pod
 deployment:
   replicaCount: 1
 
@@ -14,16 +15,21 @@ deployment:
   imagePullSecrets: []
   nameOverride: ""
   fullnameOverride: ""
+
   podAnnotations: {}
 
+  # podSecurityContext for the pod
   podSecurityContext:
     fsGroup: 10001
+
+  # securityContext for the container
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
+    #runAsUser is defined at container build time and in most circumstances should not be changed
     runAsUser: 10001
   resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -37,24 +43,23 @@ deployment:
   #   cpu: 100m
   #   memory: 128Mi
 
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 100
-    targetCPUUtilizationPercentage: 80
-    # targetMemoryUtilizationPercentage: 80
-
-
   nodeSelector: {}
 
   tolerations: []
 
   affinity: {}
 
-configmap: {}
+# autoscaling configuration for pod
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
 
+# secrets for the deployment exposed as environment variables to the pod
 secrets:
-  SERVER_SECRET: development
+  SERVER_SECRET: null
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -65,6 +70,7 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+# service exposed by deployment
 service:
   type: ClusterIP
   port: 3000

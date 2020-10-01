@@ -5,15 +5,17 @@ metadata:
   name: {{ include "init.fullname" . }}
   labels:
     {{- include "init.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: "post-install"
+    helm.sh/hook-delete-policy: "hook-succeeded,before-hook-creation"
 spec:
   {{- if .Values.deployment.ttlSecondsAfterFinished }}
   ttlSecondsAfterFinished: {{ .Values.deployment.ttlSecondsAfterFinished }}
   {{ end }}
   template:
     metadata:
-      annotations:
-        "helm.sh/hook": "post-install"
       {{- with .Values.deployment.podAnnotations }}
+      annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:

@@ -1,0 +1,164 @@
+api:
+  autoscaling:
+    enabled: true
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+auth:
+  autoscaling:
+    enabled: true
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+core:
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+dispatch:
+  autoscaling:
+    enabled: true
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+frontends:
+  httpSidecar: false
+  autoscaling:
+    enabled: true
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+  httpDeployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+init:
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+rubbersoul:
+  autoscaling:
+    enabled: true
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"
+
+triggers:
+  autoscaling:
+    enabled: true
+  serviceAccount:
+    create: true
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1280Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  deployment:
+    podAnnotations:
+      annotation-0: value-0
+      annotation-1: value-1
+    tolerations:
+      - key: "key"
+        operator: "Exists"
+        effect: "NoSchedule"

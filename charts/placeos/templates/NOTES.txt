@@ -44,10 +44,12 @@ Third Party Services Configured:
 - mosquitto
 {{- end }}
 
+{{- if .Values.global.placeDomain -}}
 {{- if .Values.global.customRedirectPort -}}
 The access URL:  https://{{ .Values.global.placeDomain -}}:{{- .Values.global.customRedirectPort }}/backoffice/
 {{- else -}}
 The access URL:  https://{{- .Values.global.placeDomain }}/backoffice/
+{{- end }}
 {{- end }}
 
 Note: It may take 10-15 mins for all services to become available

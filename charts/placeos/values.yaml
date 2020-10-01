@@ -6,7 +6,7 @@
 ###############################
 
 # xrethinkdbPassword the admin password for RethinkDb.
-#  Used to set the admin password in RethinkDB if enabled is used by multiple containers in a k8s secret
+#  Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret
 xrethinkdbPassword: &rethinkdbPassword "password"
 
 # xsmtpPassword. the smtp password used by triggers
@@ -67,12 +67,13 @@ xsmtpClientEnv: &smtpClientEnv
   SMTP_USER: ""
   SMTP_SECURE: ""
 
+# initConfigEnv configmap values for the initialisation job exposed as environment variables for the init subchart
 xinitConfigEnv: &initConfigEnv
-    PLACE_APPLICATION: backoffice
-    PLACE_AUTH_HOST: auth:3000
-    PLACE_USERNAME: "Place Support"
-    PLACE_EMAIL: support@place.tech
-    PLACE_TLS: true
+  PLACE_APPLICATION: backoffice
+  PLACE_AUTH_HOST: auth:3000
+  PLACE_USERNAME: "Place Support"
+  PLACE_EMAIL: support@place.tech
+  PLACE_TLS: true
 
 # xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
 xsmtpClientSecrets: &smtpClientSecrets
@@ -173,6 +174,7 @@ triggers:
 # init is the overide configuration for the embedded init subchart
 init:
   enabled: true
+  fullnameOverride: init
   config:
     # User/Application Configuration
     << : *initConfigEnv
@@ -210,7 +212,7 @@ elasticsearch:
     replicas: 0
 rethinkdb:
   enabled: false
-  # templateOverrides. A work around to override the full name of the RethinkDb full name. See templates/_helpers.tpl
+  # templateOverrides. A work around to override the full name of the RethinkDb deployment. See templates/_helpers.tpl
   templateOverrides:
     rethinkdbFullName: rethinkdb
   cluster:

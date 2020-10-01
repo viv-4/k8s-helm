@@ -21,7 +21,7 @@
 - ~~timings for all health probes ( core can take a while and gets killed sometimes )~~
 - ~~Pod Priorities~~
 - ~~Review existing env vars. k8s auto injection of env vars can break pods. eg rubber-soul~~
-- HPAs
+- ~~HPAs~~
 - Quote values and default . eg `{{ default "none" .Values.server.name }}`
 - parent labels
 - ~~extract `domain` from init chart and put in umbrella values file/link to deployment domain~~
@@ -32,4 +32,4 @@
   - rubber-soul
   - triggers
 - seperate namespace deployments
-- set lifecycle hooks so init only runs once / also possibly passwords/configmaps ?
+- ~~set lifecycle hooks so init only runs once / also possibly passwords/configmaps~~
