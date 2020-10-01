@@ -12,7 +12,7 @@
 - ~~make global : placeDomain~~
 - ~~fillout the readme~~
 - ~~fillout the umbrella chart NOTES.txt~~
-- versioning of containers in charts
+- ~~versioning of containers in charts~~
 - ~~review fullName options~~
 - ~~conditional svc account attachment~~
 - tagging and app release versions
