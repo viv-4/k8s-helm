@@ -137,8 +137,7 @@ persistentVolume:
 # ingress to expose the http server pod services
 ingress:
   enabled: true
-  annotations:
-    ingress.kubernetes.io/ssl-redirect: "false"
+  annotations: {}
   hosts:
      - host: "_"
        paths:

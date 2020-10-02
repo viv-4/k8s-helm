@@ -93,8 +93,7 @@ secrets:
 # ingress to expose the pod services
 ingress:
   enabled: true
-  annotations:
-    ingress.kubernetes.io/ssl-redirect: "false"
+  annotations: {}
   hosts:
     - host: "_"
       paths:

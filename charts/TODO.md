@@ -15,7 +15,7 @@
 - ~~versioning of containers in charts~~
 - ~~review fullName options~~
 - ~~conditional svc account attachment~~
-- tagging and app release versions
+- ~~tagging and app release versions~~
 - ~~tcp / udp ingress~~
 - ~~look at cloud provider options logic~~
 - ~~timings for all health probes ( core can take a while and gets killed sometimes )~~
@@ -25,7 +25,7 @@
 - Quote values and default . eg `{{ default "none" .Values.server.name }}`
 - parent labels
 - ~~extract `domain` from init chart and put in umbrella values file/link to deployment domain~~
-- Chart.yaml descriptions:
+- ~~Chart.yaml descriptions~~
 - health probes for:
   - auth
   - dispatch

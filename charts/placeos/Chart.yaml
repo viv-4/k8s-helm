@@ -2,60 +2,45 @@ apiVersion: v2
 name: placeos
 description: An Umbrella Chart for PlaceOS and its dependencies
 
-# A chart can be either an 'application' or a 'library' chart.
-#
-# Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployed.
-#
-# Library charts provide useful utilities or functions for the chart developer. They're included as
-# a dependency of application charts to inject those utilities and functions into the rendering
-# pipeline. Library charts do not define any templates and therefore cannot be deployed.
 type: application
-
-# This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
-# Versions are expected to follow Semantic Versioning (https://semver.org/)
 version: 0.1.0
+appVersion: 1.0.0
 
-# This is the version number of the application being deployed. This version number should be
-# incremented each time you make changes to the application. Versions are not expected to
-# follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: 1.16.0
-
-dependencies: # A list of the chart requirements (optional)
+dependencies:
 # PlaceOS components
   - name: api
     version: 0.1.0
-#    repository:
     condition: api.enabled
+
   - name: auth
     version: 0.1.0
-#    repository:
     condition: auth.enabled
+
   - name: core
     version: 0.1.0
-#    repository:
     condition: core.enabled
+
   - name: dispatch
     version: 0.1.0
     condition: dispatch.enabled
+
   - name: frontends
     version: 0.1.0
     condition: frontends.enabled
+
   - name: rubbersoul
     version: 0.1.0
-#    repository:
     condition: rubber-soul.enabled
+
   - name: triggers
     version: 0.1.0
-#    repository:
     condition: triggers.enabled
+
   - name: init
     version: 0.1.0
-#    repository:
     condition: init.enabled
 
-# Supporting Services
+# Third party helm charts
   - name: etcd
     version: ~4.10.1
     repository: https://charts.bitnami.com/bitnami
@@ -63,6 +48,7 @@ dependencies: # A list of the chart requirements (optional)
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
   - name: rethinkdb
     version: ~1.1.2
     repository: https://kubernetes-charts.storage.googleapis.com/
@@ -70,6 +56,7 @@ dependencies: # A list of the chart requirements (optional)
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
   - name: elasticsearch
     version: ~12.6.3
     repository: https://charts.bitnami.com/bitnami
@@ -77,6 +64,7 @@ dependencies: # A list of the chart requirements (optional)
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
   - name: redis
     version: ~10.8.2
     repository: https://charts.bitnami.com/bitnami
@@ -84,6 +72,7 @@ dependencies: # A list of the chart requirements (optional)
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
   - name: influxdb
     version: ~0.6.6
     repository: https://charts.bitnami.com/bitnami
@@ -91,6 +80,7 @@ dependencies: # A list of the chart requirements (optional)
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
   - name: mosquitto
     version: ~0.2.0
     repository: https://halkeye.github.io/helm-charts/
