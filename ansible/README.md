@@ -1,6 +1,6 @@
 # Example PlaceOS Complex Deployment
 
-Example provisioning PlaceOS and third party helm charts in a more "production like" deployment.
+Example provisioning PlaceOS and third party helm charts in a more "production like" deployment using Ansible.
 
 ## Prerequisites
 

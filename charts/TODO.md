@@ -31,5 +31,5 @@
   - dispatch
   - rubber-soul
   - triggers
-- seperate namespace deployments
+- ~~seperate namespace deployments~~
 - ~~set lifecycle hooks so init only runs once / also possibly passwords/configmaps~~

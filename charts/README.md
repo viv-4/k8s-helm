@@ -108,6 +108,16 @@ helm install dev placeos/ -f placeos/values-azure.yaml --set global.placeDomain=
 
 The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
+## Design Notes
+
+- Configmaps and Secrets are protected from being overwriting after initial deployment using the following helm lifecycle hook annotations
+
+```yaml
+  annotations:
+    "helm.sh/hook": "pre-install"
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+```
+
 ## Known Issues
 
 When destroying a stateful set PVCs and the underlying PVs are not deleted. Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and redeployed as in a development scenario, ( ie helm install > helm uninstall > helm install ).
