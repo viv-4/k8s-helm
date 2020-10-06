@@ -1,0 +1,24 @@
+---
+# defaults file for placeos.helm
+etcd_namespace: "etcd"
+etcd_chart_version: "~4.10.1"
+
+rethinkdb_namespace: "rethinkdb"
+rethinkdb_chart_version: "~1.1.2"
+
+elasticsearch_namespace: "elasticsearch"
+elasticsearch_chart_version: "~12.6.3"
+
+redis_namespace: "redis"
+redis_chart_version: "~10.8.2"
+
+influxdb_namespace: "influxdb"
+influxdb_chart_version: "~0.6.6"
+
+mosquitto_namespace: "mosquitto"
+mosquitto_chart_version: "~0.2.0"
+
+chart_state: "present"
+
+placeDomain: "localhost"
+customRedirectPort: 8443

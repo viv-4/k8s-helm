@@ -41,6 +41,9 @@ spec:
           {{- end }}
             - name: PLACE_DOMAIN
               value: {{ include "init.redirectURI" . }}
+          envFrom:
+          - secretRef:
+              name:  {{ include "init.fullname" . }}
           resources:
             {{- toYaml .Values.deployment.resources | nindent 12 }}
       restartPolicy: OnFailure

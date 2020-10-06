@@ -184,6 +184,7 @@ init:
     # Environment
     << : *deploymentEnv
     << : *rethinkdbClientSecrets
+  secrets:
     PLACE_PASSWORD: *placePassword
 
 ###########################################

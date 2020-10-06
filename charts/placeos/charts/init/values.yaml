@@ -69,6 +69,12 @@ config:
   SG_ENV: null
   TZ: Australia/Sydney
 
+
+secrets:
+  # The default user password for the domain at initialisation time.
+  # Not used internally. This can be deleted after the password is retreived
+  PLACE_PASSWORD: null
+
 domain:
   altNames:
     - 127.0.0.1
