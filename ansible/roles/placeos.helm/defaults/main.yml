@@ -1,3 +1,6 @@
 ---
 # defaults file for placeos.helm
 chart_state: "present"
+#chart_version: "{{ chart_version }}"
+release_namespace: "placeos"
+create_namespace: True

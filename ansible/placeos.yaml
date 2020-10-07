@@ -1,5 +1,5 @@
 ---
-- hosts: k3d
+- hosts: k8s
   connection: local
   gather_facts: yes
   become: false
@@ -14,6 +14,14 @@
       placePassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
 
   roles:
+  ## Deploy Nginx Ingress Controller
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://kubernetes.github.io/ingress-nginx"
+      chart_ref: "ingress-nginx"
+      chart_release_namespace: "{{ ingress_nginx_namespace }}"
+      chart_version: "{{ ingress_nginx_chart_version }}"
+  - role: placeos.helm.thirdparty
   ## Deploy Ectd
   - role: placeos.helm.thirdparty
     vars:
@@ -56,24 +64,9 @@
       chart_ref: "mosquitto"
       chart_release_namespace: "{{ mosquitto_namespace }}"
       chart_version: "{{ mosquitto_chart_version }}"
-
   ## Deploy PlaceOS resources
-  post_tasks:
-  - name: load the PlaceOS Profile vars
-    set_fact:
-      placeos_profile: "{{ placeos | from_yaml }}"
-
-  - name: dump placeos vars
-    debug:
-      var: placeos_profile
-      verbosity: 1
-
-  - name: install placeos charts from local filesystem
-    community.kubernetes.helm:
-      release_name: "{{ chart_release_name }}"
-      chart_ref: "{{ playbook_dir }}/../charts/placeos/"
-      #chart_version: "{{ chart_version }}"
-      release_namespace: "placeos"
-      create_namespace: True
-      release_values: "{{ placeos_profile }}"
-      state: "{{ chart_state | default( 'present', true ) }}"
+  - role: placeos.helm
+    vars:
+      placeos_chart_ref: "{{ playbook_dir }}/../charts/placeos/"
+      ingress_service_name: "ingress-nginx-controller"
+      ingress_namespace: "{{ ingress_nginx_namespace | default( omit ) }}"

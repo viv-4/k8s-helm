@@ -6,9 +6,9 @@ Example provisioning PlaceOS and third party helm charts in a more "production l
 
 - Ansible >= 2.9 on Python 3
 
-- Review the requirements for the [Ansible helm wrapper](https://docs.ansible.com/ansible/2.10/collections/community/kubernetes/helm_module.html)
+- Openshift python library. To install `pip install openshift`
 
-- openshift python library. To install `pip install openshift`
+- Review the requirements for the [Ansible helm wrapper](https://docs.ansible.com/ansible/2.10/collections/community/kubernetes/helm_module.html)
 
 - Install the community.kubernetes Ansible collection: `ansible-galaxy collection install community.kubernetes`
 
@@ -21,22 +21,24 @@ To deploy:
 ```sh
 # Local deployment to k3d
 # Check first be for deploying
-ansible-playbook placeos-k3d.yaml -i inventories/k8s/ --check
-ansible-playbook placeos-k3d.yaml -i inventories/k8s/
+ansible-playbook placeos.yaml -i inventories/k3d/ --check
+ansible-playbook placeos.yaml -i inventories/k3d/
 
 # GKE deployment
-ansible-playbook placeos-gke.yaml -i inventories/k8s/  --check
-ansible-playbook placeos-gke.yaml -i inventories/k8s/
+ansible-playbook placeos.yaml -i inventories/gke/  --check
+ansible-playbook placeos.yaml -i inventories/gke/
 
 # AKS deployment
-ansible-playbook placeos-aks.yaml -i inventories/k8s/  --check
-ansible-playbook placeos-aks.yaml -i inventories/k8s/
+ansible-playbook placeos.yaml -i inventories/aks/  --check
+ansible-playbook placeos.yaml -i inventories/aks/
 
 ```
 
 To cleanup:
 
 ```sh
-ansible-playbook placeos-k3d.yaml -i inventories/k8s/ -e "chart_state=absent"
+ansible-playbook placeos.yaml -i inventories/k3d/ -e "chart_state=absent"
+ansible-playbook placeos.yaml -i inventories/aks/ -e "chart_state=absent"
+ansible-playbook placeos.yaml -i inventories/gke/ -e "chart_state=absent"
 
 ```

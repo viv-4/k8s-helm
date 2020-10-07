@@ -1,3 +1,0 @@
-k3d ansible_host=localhost
-gke ansible_host=localhost
-aks ansible_host=localhost
