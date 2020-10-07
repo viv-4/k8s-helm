@@ -11,7 +11,7 @@ Currently supported deployment scenarios are:
 ## Prerequisites
 
 - helm v3 installed ( Tested with v3.3.1 )
-- kubectl command line tool
+- kubectl installed
 
 For local deployments only
 
@@ -60,6 +60,7 @@ Delete the chart and resource
 
 ```sh
 helm uninstall dev
+
 ```
 
 ### GCP / Azure Deployment
@@ -104,13 +105,13 @@ helm install dev placeos/ -f placeos/values-azure.yaml --set global.placeDomain=
 
 ```
 
-**Note**: we use xip.io for a ready made domain for development and demonstration purposes.
+**Note**: we use xip.io for a ready made domain for development and demonstration purposes only.
 
 The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
 ## Design Notes
 
-- Configmaps and Secrets are protected from being overwriting after initial deployment using the following helm lifecycle hook annotations
+- Configmaps and Secrets are protected from being overwriting during upgrades using the following helm lifecycle hook annotations:
 
 ```yaml
   annotations:
@@ -118,8 +119,11 @@ The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
     "helm.sh/hook-delete-policy": "before-hook-creation"
 ```
 
+- YAML anchors are used to create a single reference for shared variables. All YAML anchors and references to those anchors must be resolvable within the same YAML file. The implications of this is that when overriding default values that are anchors or references all references to that anchor must be overriden. The helm YAML parser will not resolve references across multiple files.
+
 ## Known Issues
 
+============================
 When destroying a stateful set PVCs and the underlying PVs are not deleted. Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and redeployed as in a development scenario, ( ie helm install > helm uninstall > helm install ).
 
 Because configurations such as the Etcd master password are randomly generated redeploying without deleteing the stored configuration before hand will result in password mismatches for etcd and the deployment will fail.
@@ -128,6 +132,7 @@ Solution:
 
 1. Delete all the PVCs as part of the cleanup to ensure a fresh deployment
 
+============================
 ElasticSearch returns an error:
 > max file descriptors [###] for elasticsearch process is too low, increase to at least [65535]
 
@@ -138,5 +143,21 @@ Possible Solutions:
 
 ```sh
 --default-ulimit nofile=65535:65535
+
+```
+
+============================
+
+k3d fails to launch when OS is running firewalld instead of iptables
+
+1. Configure firewalld to work so containers can connect to each other
+
+```sh
+# get the default active for your workstation
+firewall-cmd --get-active-zones
+# eg: in Fedora enable masqueradeing for workstation running k3d
+firewall-cmd --zone=FedoraWorkstation --add-masquerade
+# make it permenant
+firewall-cmd --zone=FedoraWorkstation --add-masquerade --permanent
 
 ```

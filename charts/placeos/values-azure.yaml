@@ -8,22 +8,21 @@ api:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
+
 auth:
   ingress:
     annotations:
       kubernetes.io/ingress.class: nginx
       ingress.kubernetes.io/ssl-redirect: "true"
+
 dispatch:
-  ingress:
-    annotations:
-      kubernetes.io/ingress.class: nginx
-      ingress.kubernetes.io/ssl-redirect: "true"
   udpLoadbalancer:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
   tcpLoadbalancer:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+
 frontends:
   httpSidecar: true
   ingress:

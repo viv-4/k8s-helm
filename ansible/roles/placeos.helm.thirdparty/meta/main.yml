@@ -1,7 +1,7 @@
 ---
 galaxy_info:
-  author: ACA
-  description: Role to deploy PlaceOS helm resources
+  author: PlaceOS
+  description: Ansible Role description
   company: ACA
 
   # issue_tracker_url: http://example.com/issue/tracker

@@ -1,0 +1,40 @@
+---
+# tasks file for placeos.helm
+- name: run block tasks
+  block:
+  - name: Get the ingress service endpoint IP for the place domain
+    set_fact:
+      ingress: "{{ lookup('community.kubernetes.k8s',
+        kind='Service',
+        namespace=ingress_namespace,
+        resource_name=ingress_service_name ) }}"
+    until:
+        - ingress.status is defined
+        - ingress.status.loadBalancer.ingress[0].ip is defined
+    # 5 minutes
+    retries: 30
+    delay: 10
+  when: chart_state == 'present'
+
+- name: load the PlaceOS Profile vars
+  set_fact:
+    placeos_profile: "{{ placeos | from_yaml }}"
+  vars:
+    placeDomain: "{{ ingress.status.loadBalancer.ingress[0].ip | default( '127.0.0.1', true )}}.xip.io"
+
+- name: dump placeos vars
+  debug:
+    var: placeos_profile
+    verbosity: 1
+
+- name: install placeos charts from local filesystem
+  community.kubernetes.helm:
+    release_name: "{{ chart_release_name }}"
+    chart_ref: "{{ playbook_dir }}/../charts/placeos/"
+    #chart_version: "{{ chart_version }}"
+    release_namespace: "placeos"
+    create_namespace: True
+    release_values:
+      "{{ placeos_profile | default( omit ) }}"
+    state: "{{ chart_state | default( 'present', true ) }}"
+  when: placeos_profile.enabled | bool

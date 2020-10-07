@@ -1,0 +1,71 @@
+---
+- hosts: gke
+  connection: local
+  gather_facts: yes
+  become: false
+  vars:
+    chart_release_name: "dev"
+
+  pre_tasks:
+  - name: set passwords for services
+    set_fact:
+      rethinkdbPassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
+      serverSecret: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
+      placePassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
+
+  roles:
+  ## Deploy Nginx Ingress Controller
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://kubernetes.github.io/ingress-nginx"
+      chart_ref: "ingress-nginx"
+      chart_release_namespace: "{{ ingress_nginx_namespace }}"
+      chart_version: "{{ ingress_nginx_chart_version }}"
+  - role: placeos.helm.thirdparty
+  ## Deploy Ectd
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://charts.bitnami.com/bitnami"
+      chart_ref: "etcd"
+      chart_release_namespace: "{{ etcd_namespace }}"
+      chart_version: "{{ etcd_chart_version }}"
+  ## Deploy Rethinkdb
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://kubernetes-charts.storage.googleapis.com/"
+      chart_ref: "rethinkdb"
+      chart_release_namespace: "{{ rethinkdb_namespace }}"
+      chart_version: "{{ rethinkdb_chart_version }}"
+  ## Deploy ElasticSearch
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://charts.bitnami.com/bitnami"
+      chart_ref: "elasticsearch"
+      chart_release_namespace: "{{ elasticsearch_namespace }}"
+      chart_version: "{{ elasticsearch_chart_version }}"
+  ## Deploy Redis Db
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://charts.bitnami.com/bitnami"
+      chart_ref: "redis"
+      chart_release_namespace: "{{ redis_namespace }}"
+      chart_version: "{{ redis_chart_version }}"
+  ## Deploy Influx Db
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://charts.bitnami.com/bitnami"
+      chart_ref: "influxdb"
+      chart_release_namespace: "{{ influxdb_namespace }}"
+      chart_version: "{{ influxdb_chart_version }}"
+  ## Deploy Mosquitto MQTT server
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://halkeye.github.io/helm-charts/"
+      chart_ref: "mosquitto"
+      chart_release_namespace: "{{ mosquitto_namespace }}"
+      chart_version: "{{ mosquitto_chart_version }}"
+  ## Deploy PlaceOS resources
+  - role: placeos.helm
+    vars:
+      ingress_service_name: "ingress-nginx-controller"
+      ingress_namespace: "{{ ingress_nginx_namespace }}"

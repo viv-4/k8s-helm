@@ -1,34 +1,29 @@
 ---
-# tasks file for placeos.helm
-
-- name: load the custom vars file
-  set_fact:
-    _helm_file: "{{ lookup('template', helm_file ) | from_yaml }}"
-  when: helm_file is defined
+# tasks file for placeos.helm.thirdparty
 
 - name: "set the release vars for {{ chart_ref }}"
   set_fact:
-    release_values: "{{ _helm_file[ chart_ref ] | from_yaml }}"
+    release_values: "{{ lookup( 'vars', chart_ref | from_yaml ) }}"
   when:
-  - _helm_file is defined
-  - _helm_file[ chart_ref ] is defined
+  - chart_ref is defined
 
 - name: "loaded release values for {{ chart_ref }}"
   debug:
     var: release_values
     verbosity: 1
+  when:
+  - chart_ref is defined
 
 - name: "install chart {{ chart_ref }}"
   community.kubernetes.helm:
     release_name: "{{ chart_release_name }}"
     chart_repo_url: "{{ chart_repo_url }}"
     chart_ref: "{{ chart_ref }}"
-    chart_version: "{{ chart_version }}"
+    chart_version: "{{ chart_version | default( omit ) }}"
     release_namespace: "{{ chart_release_namespace }}"
     create_namespace: "{{ create_namespace | default( true, true ) }}"
     release_values: "{{ release_values }}"
-    state: "{{ chart_state | default( true, 'present' )}}"
+    state: "{{ chart_state | default( 'present', true )}}"
   when:
   - release_values is defined
-  - release_values.enabled
-
+  - release_values.enabled | bool

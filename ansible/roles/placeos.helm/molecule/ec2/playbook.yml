@@ -1,8 +1,0 @@
----
-- name: Converge
-  hosts: all
-  become: false
-  vars:
-    kubeconfig: "~/.kube/config"
-  roles:
-    - role: placeos.helm

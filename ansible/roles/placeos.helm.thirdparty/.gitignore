@@ -1,0 +1,7 @@
+# ignore molecule artifacts
+*.hwm
+*.pwd
+*.pwi
+Pipfile
+Pipfile.lock
+.vscode

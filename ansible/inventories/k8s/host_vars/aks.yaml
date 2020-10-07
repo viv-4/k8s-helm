@@ -1,0 +1,170 @@
+# xrethinkdbPassword the admin password for RethinkDb.
+#  Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret
+xrethinkdbPassword: &rethinkdbPassword "{{ rethinkdbPassword }}"
+
+# xsmtpPassword. the smtp password used by triggers
+xsmtpPassword: &smtpPassword "{{ smtpPassword | default( '', true ) }}"
+
+# xplacePassword. The value used by the init subchart to set the default domain users password
+xplacePassword: &placePassword "{{ placePassword | default( '', true ) }}"
+
+# xserverSecret for the dispatch service
+xserverSecret: &serverSecret "{{ serverSecret | default( '', true ) }}"
+
+# xelasticClientEnv configmap values for ElasticSearch Service exposed as environment variables to PlaceOS containers
+xelasticClientEnv: &elasticClientEnv
+  ES_HOST: "{{ chart_release_name }}-elasticsearch-master.{{ elasticsearch_namespace }}"
+  ES_PORT: 9200
+
+# xetcdClientEnv configmap values for Etcd end point Service as environment variables to PlaceOS containers
+xetcdClientEnv: &etcdClientEnv
+  ETCD_HOST: "etcd-headless.{{ etcd_namespace }}"
+  ETCD_PORT: 2379
+
+# xredisClientEnv configmap values for the redis Service exposed as environment variables to PlaceOS containers
+xredisClientEnv: &redisClientEnv
+  REDIS_URL: "redis://redis-headless.{{ redis_namespace }}:6379"
+
+# xrethinkdbClientEnv configmap values for RethinkDB Service exposed as environment variables to PlaceOS containers
+xrethinkdbClientEnv: &rethinkdbClientEnv
+  RETHINKDB_HOST: "{{ chart_release_name }}-rethinkdb-proxy.{{ rethinkdb_namespace }}"
+  RETHINKDB_PORT: 28015
+  RETHINKDB_DB: place_development
+  RETHINKDB_USER: admin
+
+xrethinkdbClientSecrets: &rethinkdbClientSecrets
+  RETHINKDB_PASSWORD: *rethinkdbPassword
+
+# xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
+xsmtpClientSecrets: &smtpClientSecrets
+  SMTP_PASS: *smtpPassword
+
+# dispatchSecrets secret values exposed as environment variables for the dispatch service
+xdispatchSecrets: &dispatchSecrets
+  SERVER_SECRET: *serverSecret
+
+placeos:
+  enabled: true
+  # api is the overide configuration for the embedded api subchart
+  api:
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        ingress.kubernetes.io/ssl-redirect: "true"
+    configmap:
+      # Service Hosts
+      << : *elasticClientEnv
+      << : *etcdClientEnv
+      << : *redisClientEnv
+      << : *rethinkdbClientEnv
+    secrets:
+      << : *rethinkdbClientSecrets
+  # auth is the overide configuration for the embedded auth subchart
+  auth:
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        ingress.kubernetes.io/ssl-redirect: "true"
+    configmap:
+      << : *rethinkdbClientEnv
+    secrets:
+      << : *rethinkdbClientSecrets
+  # core is the overide configuration for the embedded core subchart
+  core:
+    configmap:
+      # Service Hosts
+      << : *etcdClientEnv
+      << : *redisClientEnv
+      << : *rethinkdbClientEnv
+    secrets:
+      << : *rethinkdbClientSecrets
+  # dispatch is the overide configuration for the embedded dispatch subchart
+  dispatch:
+    udpLoadbalancer:
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    tcpLoadbalancer:
+      annotations:
+        service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    secrets:
+      << : *dispatchSecrets
+  # frontends is the overide configuration for the embedded frontends subchart
+  frontends:
+    ingress:
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/app-root: "/backoffice/"
+    configmap:
+      << : *rethinkdbClientEnv
+    secrets:
+      << : *rethinkdbClientSecrets
+  # rubbersoul is the overide configuration for the embedded rubber-soul subchart
+  rubbersoul:
+    configmap:
+      # Service Hosts
+      << : *rethinkdbClientEnv
+      << : *elasticClientEnv
+    secrets:
+      << : *rethinkdbClientSecrets
+  # triggers is the overide configuration for the embedded triggers subchart
+  triggers:
+    configmap:
+      # Service Hosts
+      << : *etcdClientEnv
+      << : *redisClientEnv
+      << : *rethinkdbClientEnv
+    secrets:
+      << : *rethinkdbClientSecrets
+      << : *smtpClientSecrets
+  # init is the overide configuration for the embedded init subchart
+  init:
+    config:
+      # Service Hosts
+      << : *rethinkdbClientEnv
+      << : *elasticClientEnv
+      << : *rethinkdbClientSecrets
+    secrets:
+      PLACE_PASSWORD: *placePassword
+  global:
+    placeDomain: "{{ placeDomain }}"
+    customRedirectPort: "{{ customRedirectPort | default( omit ) }}"
+
+###########################################
+##### Third Party Supporting Services #####
+###########################################
+
+ingress-nginx:
+  enabled: true
+  fullnameOverride: "ingress-nginx"
+etcd:
+  fullnameOverride: etcd
+  enabled: true
+  auth:
+    rbac:
+      enabled: false
+elasticsearch:
+  enabled: true
+  master:
+    replicas: 1
+  data:
+    replicas: 1
+  coordinating:
+    replicas: 0
+rethinkdb:
+  enabled: true
+  cluster:
+    replicas: 1
+  rethinkdbPassword: "{{ rethinkdbPassword }}"
+redis:
+  fullnameOverride: redis
+  enabled: true
+  usePassword: false
+  cluster:
+    enabled: false
+influxdb:
+  fullnameOverride: influxdb
+  enabled: false
+mosquitto:
+  enabled: false
+  fullnameOverride: mosquitto
