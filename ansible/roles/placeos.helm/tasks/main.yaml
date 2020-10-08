@@ -21,6 +21,18 @@
   when:
     - chart_state == 'present'
     - placeDomain is undefined
+    - not ansible_check_mode
+
+- name: check release current state
+  community.kubernetes.helm_info:
+    name: "{{ chart_release_name }}"
+    release_namespace: "{{ placeos_release_namespace }}"
+  register: release_state
+
+- name: "release current state for {{ chart_ref }}"
+  debug:
+    var: release_state
+    verbosity: 1
 
 - name: load the PlaceOS Profile vars
   set_fact:
@@ -35,9 +47,9 @@
   community.kubernetes.helm:
     release_name: "{{ chart_release_name }}"
     chart_ref: "{{ placeos_chart_ref }}"
-    release_namespace: "{{ release_namespace }}"
-    create_namespace: "{{ create_namespace | default( true, true) }}"
-    release_values:
-      "{{ placeos_profile | default( omit ) }}"
+    chart_version: "0.1.0"
+    release_namespace: "{{ placeos_release_namespace }}"
+    create_namespace: "{{ placeos_create_namespace | default( true, true) }}"
+    release_values: "{{ placeos_profile | default( omit ) }}"
     state: "{{ chart_state | default( 'present', true ) }}"
   when: placeos_profile.enabled | bool

@@ -1,0 +1,19 @@
+# per app that needs it : API, AUTH and FRONTENDS
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-to-upstream
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/network: "{{ ingress_upstream }}"
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    -  namespaceSelector:
+         matchLabels:
+           networking/namespace: "{{ ingress_namespace }}"
+       podSelector:
+         matchLabels:
+           app.kubernetes.io/name: "{{ ingress_application_name }}"

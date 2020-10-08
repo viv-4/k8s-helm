@@ -1,0 +1,8 @@
+---
+- name: include value check
+  include_tasks:
+    file: lookup.yaml
+  loop:
+    "{{ lookup_release_vars }}"
+  loop_control:
+    loop_var: "checkvars"

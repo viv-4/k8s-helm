@@ -128,7 +128,7 @@ placeos:
     secrets:
       PLACE_PASSWORD: *placePassword
   global:
-    placeDomain: "{{ placeDomain }}"
+    placeDomain: "{{ placeDomain | default('localhost', true ) }}"
     customRedirectPort: "{{ customRedirectPort | default( omit ) }}"
 
 ###########################################

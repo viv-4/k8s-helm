@@ -8,6 +8,8 @@ Currently supported deployment scenarios are:
 - GCP deployment to GKE
 - Azure deployment to AKS
 
+Tested on k8s 1.17 and 1.18
+
 ## Prerequisites
 
 - helm v3 installed ( Tested with v3.3.1 )

@@ -48,6 +48,7 @@ Selector labels
 {{- define "frontends.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "frontends.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/network: "ingress-upstream"
 {{- end }}
 
 {{/*

@@ -1,0 +1,6 @@
+---
+# defaults file for placeos.helm.releasevars
+lookup_release_vars:
+    - chart_release_namespace: "rethinkdb"
+      chart_release_vars:
+        - "rethinkdbPassword"

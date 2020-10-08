@@ -1,0 +1,30 @@
+---
+# defaults file for placeos.networkpolicies
+
+
+## Add labels
+## networking/namespace: ingress-nginx
+## kubectl label ns ingress-nginx networking/namespace=ingress-nginx
+## the-ingress: ingress-nginx
+## kubectl label ns placeos networking/namespace=placeos
+placeos_namespace: placeos
+placeos_to_ns:
+    - etcd
+    - rethinkdb
+    - elasticsearch
+    - redis
+    # - influxdb
+    # - mosquitto
+internal_ns:
+    - etcd
+    - rethinkdb
+    - elasticsearch
+    - redis
+    # - influxdb
+    # - mosquitto
+    - "{{ placeos_namespace }}"
+policy_state: "present"
+
+ingress_upstream: "ingress-upstream"
+ingress_namespace: "ingress-nginx"
+ingress_application_name: "ingress-nginx"

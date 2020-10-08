@@ -9,11 +9,13 @@
   pre_tasks:
   - name: set passwords for services
     set_fact:
-      rethinkdbPassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
       serverSecret: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
       placePassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
+      rethinkdbPassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
 
   roles:
+  ## Override random rethinkdbPassword if it already exists
+  - role: placeos.helm.releasevars
   ## Deploy Nginx Ingress Controller
   - role: placeos.helm.thirdparty
     vars:
@@ -21,7 +23,6 @@
       chart_ref: "ingress-nginx"
       chart_release_namespace: "{{ ingress_nginx_namespace }}"
       chart_version: "{{ ingress_nginx_chart_version }}"
-  - role: placeos.helm.thirdparty
   ## Deploy Ectd
   - role: placeos.helm.thirdparty
     vars:
@@ -29,13 +30,6 @@
       chart_ref: "etcd"
       chart_release_namespace: "{{ etcd_namespace }}"
       chart_version: "{{ etcd_chart_version }}"
-  ## Deploy Rethinkdb
-  - role: placeos.helm.thirdparty
-    vars:
-      chart_repo_url: "https://kubernetes-charts.storage.googleapis.com/"
-      chart_ref: "rethinkdb"
-      chart_release_namespace: "{{ rethinkdb_namespace }}"
-      chart_version: "{{ rethinkdb_chart_version }}"
   ## Deploy ElasticSearch
   - role: placeos.helm.thirdparty
     vars:
@@ -64,6 +58,13 @@
       chart_ref: "mosquitto"
       chart_release_namespace: "{{ mosquitto_namespace }}"
       chart_version: "{{ mosquitto_chart_version }}"
+  ## Deploy Rethinkdb
+  - role: placeos.helm.thirdparty
+    vars:
+      chart_repo_url: "https://kubernetes-charts.storage.googleapis.com/"
+      chart_ref: "rethinkdb"
+      chart_release_namespace: "{{ rethinkdb_namespace }}"
+      chart_version: "{{ rethinkdb_chart_version }}"
   ## Deploy PlaceOS resources
   - role: placeos.helm
     vars:

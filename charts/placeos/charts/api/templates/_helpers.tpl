@@ -48,6 +48,7 @@ Selector labels
 {{- define "api.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "api.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/network: "ingress-upstream"
 {{- end }}
 
 {{/*
