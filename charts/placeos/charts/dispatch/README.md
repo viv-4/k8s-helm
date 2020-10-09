@@ -8,7 +8,7 @@ A PlaceOS helm chart for the Dispatch component
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| autoscaling.enabled | bool | `false` |  |
+| autoscaling.enabled | bool | `false` | enable horizontal pod autoscaling |
 | autoscaling.maxReplicas | int | `10` |  |
 | autoscaling.minReplicas | int | `1` |  |
 | autoscaling.targetCPUUtilizationPercentage | int | `80` |  |
@@ -16,31 +16,29 @@ A PlaceOS helm chart for the Dispatch component
 | deployment.fullnameOverride | string | `""` |  |
 | deployment.image.pullPolicy | string | `"IfNotPresent"` |  |
 | deployment.image.repository | string | `"placeos/dispatch"` |  |
+| deployment.image.tag | string | `nil` | tag Overrides the image tag whose default is the chart appVersion. |
 | deployment.imagePullSecrets | list | `[]` |  |
 | deployment.nameOverride | string | `""` |  |
 | deployment.nodeSelector | object | `{}` |  |
 | deployment.podAnnotations | object | `{}` |  |
-| deployment.podSecurityContext.fsGroup | int | `10001` |  |
-| deployment.replicaCount | int | `1` |  |
-| deployment.resources | object | `{}` |  |
-| deployment.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| deployment.podSecurityContext.fsGroup | int | `10001` | fsGroup is defined at container build time and in most circumstances should not be changed |
+| deployment.replicaCount | int | `1` | number of replicas to deploy |
+| deployment.resources | object | `{}` | Pod resources request and limits |
+| deployment.securityContext.capabilities | object | `{"drop":["ALL"]}` | Linux Capabilities for the container |
 | deployment.securityContext.readOnlyRootFilesystem | bool | `true` |  |
 | deployment.securityContext.runAsNonRoot | bool | `true` |  |
-| deployment.securityContext.runAsUser | int | `10001` |  |
+| deployment.securityContext.runAsUser | int | `10001` | runAsUser is defined at container build time and in most circumstances should not be changed |
 | deployment.tolerations | list | `[]` |  |
-| secrets.SERVER_SECRET | string | `nil` |  |
-| service.port | int | `3000` |  |
-| service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `false` |  |
-| serviceAccount.name | string | `""` |  |
+| secrets | object | `{"SERVER_SECRET":null}` | secrets for the deployment exposed as environment variables to the pod |
+| service | object | `{"port":3000,"type":"ClusterIP"}` | service exposed by deployment |
+| serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
+| serviceAccount.create | bool | `false` | Specifies whether a service account should be created |
+| serviceAccount.name | string | `""` | The name of the service account to use. If not set and create is true, a name is generated using the fullname template |
 | tcpLoadbalancer.annotations | object | `{}` |  |
-| tcpLoadbalancer.portMappings[0].23 | int | `10023` |  |
+| tcpLoadbalancer.portMappings | list | `[{"23":10023}]` | default port mappings for the TCP loadbalancer. Set portMappings to [] to disable |
 | tcpLoadbalancer.type | string | `"LoadBalancer"` |  |
-| tcpLoadbalancer.udpLoadbalancer | string | `nil` |  |
 | udpLoadbalancer.annotations | object | `{}` |  |
-| udpLoadbalancer.portMappings[0].161 | int | `10161` |  |
-| udpLoadbalancer.portMappings[1].162 | int | `10162` |  |
+| udpLoadbalancer.portMappings | list | `[{"161":10161},{"162":10162}]` | default port mappings for the UDP loadbalancer. Set portMappings to [] to disable |
 | udpLoadbalancer.type | string | `"LoadBalancer"` |  |
 
 ----------------------------------------------
