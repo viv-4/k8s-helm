@@ -1,8 +1,8 @@
-# -- vDefault values for frontends.
+# Default values for frontends.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# -- deployment configuration for the triggers pod
+# deployment configuration for the triggers pod
 deployment:
   replicaCount: 1
 
