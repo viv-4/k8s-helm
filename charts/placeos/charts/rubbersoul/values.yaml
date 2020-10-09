@@ -2,8 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# -- deployment configuration for the rubbersoul pod
+# deployment configuration for the rubbersoul pod
 deployment:
+  # -- number of replicas to deploy
   replicaCount: 1
 
   image:
@@ -17,13 +18,13 @@ deployment:
   fullnameOverride: ""
   podAnnotations: {}
 
-  # -- podSecurityContext for the pod
+  # podSecurityContext for the pod
   podSecurityContext:
     # -- fsGroup is defined at container build time and in most circumstances should not be changed
     fsGroup: 10001
 
-  # -- securityContext for the container
   securityContext:
+    # -- Linux Capabilities for the container
     capabilities:
       drop:
       - ALL
@@ -31,7 +32,7 @@ deployment:
     runAsNonRoot: true
     # -- runAsUser is defined at container build time and in most circumstances should not be changed
     runAsUser: 10001
-
+  # -- Pod resources request and limits
   resources: {}
   # limits:
   #   cpu: 100m
@@ -46,8 +47,9 @@ deployment:
 
   affinity: {}
 
-# -- autoscaling configuration for pod
+# autoscaling configuration for pod
 autoscaling:
+  # -- enable horizontal pod autoscaling
   enabled: false
   minReplicas: 1
   maxReplicas: 10
@@ -68,18 +70,28 @@ service:
   type: ClusterIP
   port: 3000
 
-# -- configmap for the deployment exposed as environment variables to the pod
+# configmap for the deployment exposed as environment variables to the pod
 configmap:
+  # -- value exposed as environment variable to the pod
   ENV: null
+  # -- value exposed as environment variable to the pod
   ES_HOST: null
+  # -- value exposed as environment variable to the pod
   ES_PORT: 0
+  # -- value exposed as environment variable to the pod
   RETHINKDB_DB: null
+  # -- value exposed as environment variable to the pod
   RETHINKDB_HOST: null
+  # -- value exposed as environment variable to the pod
   RETHINKDB_PORT: 0
+  # -- value exposed as environment variable to the pod
   RETHINKDB_USER: null
+  # -- value exposed as environment variable to the pod
   SG_ENV: null
+  # -- value exposed as environment variable to the pod
   TZ: Australia/Sydney
 
-# -- secrets for the deployment exposed as environment variables to the pod
+# secrets for the deployment exposed as environment variables to the pod
 secrets:
+  # -- value exposed as environment variable to the pod
   RETHINKDB_PASSWORD: null
