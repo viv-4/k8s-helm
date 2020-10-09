@@ -5,20 +5,20 @@
 ##### Configmap Variable ######
 ###############################
 
-# -- xrethinkdbPassword the admin password for RethinkDb.
+# -- yaml anchor for the admin password for RethinkDb.
 # Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret
 xrethinkdbPassword: &rethinkdbPassword "password"
 
-# -- xsmtpPassword. the smtp password used by triggers
+# -- yaml anchor for the smtp password used by triggers
 xsmtpPassword: &smtpPassword ""
 
-# -- xplacePassword. The value used by the init subchart to set the default domain users password
+# -- yaml anchor . The value used by the init subchart to set the default domain users password
 xplacePassword: &placePassword "development"
 
-# -- xserverSecret for the dispatch service
+# -- yaml anchor for the dispatch service
 xserverSecret: &serverSecret "development"
 
-# -- xtz the local time zone for the deployment
+# -- yaml anchor the local time zone for the deployment
 xtz: &TZ Australia/Sydney
 
 xdeploymentEnv: &deploymentEnv
