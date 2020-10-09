@@ -8,14 +8,41 @@ A PlaceOS helm chart for the Init component
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| config | object | `{"ENV":null,"ES_HOST":null,"ES_PORT":0,"PLACE_APPLICATION":null,"PLACE_AUTH_HOST":null,"PLACE_EMAIL":null,"PLACE_PASSWORD":null,"PLACE_TLS":true,"PLACE_USERNAME":null,"RETHINKDB_DB":null,"RETHINKDB_HOST":null,"RETHINKDB_PASSWORD":null,"RETHINKDB_PORT":0,"RETHINKDB_USER":null,"SG_ENV":null,"TZ":"Australia/Sydney"}` | config variables injected into the pod containers as environment vars |
-| deployment | object | `{"fullnameOverride":"","image":{"pullPolicy":"IfNotPresent","repository":"placeos/init"},"imagePullSecrets":[],"nameOverride":"","podAnnotations":{},"podSecurityContext":{"fsGroup":10001},"replicaCount":1,"resources":{},"securityContext":{"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":10001},"ttlSecondsAfterFinished":60}` | deployment configuration for the init job |
-| deployment.podSecurityContext | object | `{"fsGroup":10001}` | podSecurityContext for the pod |
-| deployment.securityContext | object | `{"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsNonRoot":true,"runAsUser":10001}` | securityContext for the container |
-| domain.altNames[0] | string | `"127.0.0.1"` |  |
+| config.ENV | string | `nil` | value exposed as environment variable to the pod |
+| config.ES_HOST | string | `nil` | value exposed as environment variable to the pod |
+| config.ES_PORT | int | `0` | value exposed as environment variable to the pod |
+| config.PLACE_APPLICATION | string | `nil` | value exposed as environment variable to the pod |
+| config.PLACE_AUTH_HOST | string | `nil` | value exposed as environment variable to the pod |
+| config.PLACE_EMAIL | string | `nil` | value exposed as environment variable to the pod |
+| config.PLACE_PASSWORD | string | `nil` | value exposed as environment variable to the pod |
+| config.PLACE_TLS | bool | `true` | value exposed as environment variable to the pod |
+| config.PLACE_USERNAME | string | `nil` | value exposed as environment variable to the pod |
+| config.RETHINKDB_DB | string | `nil` | value exposed as environment variable to the pod |
+| config.RETHINKDB_HOST | string | `nil` | value exposed as environment variable to the pod |
+| config.RETHINKDB_PASSWORD | string | `nil` | value exposed as environment variable to the pod |
+| config.RETHINKDB_PORT | int | `0` | value exposed as environment variable to the pod |
+| config.RETHINKDB_USER | string | `nil` | value exposed as environment variable to the pod |
+| config.SG_ENV | string | `nil` | value exposed as environment variable to the pod |
+| config.TZ | string | `"Australia/Sydney"` | value exposed as environment variable to the pod |
+| deployment.fullnameOverride | string | `""` |  |
+| deployment.image.pullPolicy | string | `"IfNotPresent"` |  |
+| deployment.image.repository | string | `"placeos/init"` |  |
+| deployment.imagePullSecrets | list | `[]` |  |
+| deployment.nameOverride | string | `""` |  |
+| deployment.podAnnotations | object | `{}` |  |
+| deployment.podSecurityContext.fsGroup | int | `10001` | fsGroup is defined at container build time and in most circumstances should not be changed |
+| deployment.replicaCount | int | `1` | number of replicas to deploy |
+| deployment.resources | object | `{}` | Pod resources request and limits |
+| deployment.securityContext.capabilities | object | `{"drop":["ALL"]}` | Linux Capabilities for the container |
+| deployment.securityContext.readOnlyRootFilesystem | bool | `true` |  |
+| deployment.securityContext.runAsNonRoot | bool | `true` |  |
+| deployment.securityContext.runAsUser | int | `10001` | runAsUser is defined at container build time and in most circumstances should not be changed |
+| deployment.ttlSecondsAfterFinished | int | `60` | length of time to retain job |
+| domain.altNames | list | `["127.0.0.1"]` | alt names to add to the generated x509 cert |
 | global.customRedirectPort | string | `nil` | customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443. |
 | global.placeDomain | string | `nil` | placeDomain the initial PlaceOS domain. No default value, Must be set |
-| podPriorities | object | `{"highClassName":"high","mediumClassName":"medium"}` | podPriorities, names for the the podPriority classes used by PalceOS containers |
+| podPriorities.highClassName | string | `"high"` | name for the the podPriority class used by 1st priority PalceOS containers |
+| podPriorities.mediumClassName | string | `"medium"` | name for the the podPriority class used by 2nd priority PalceOS containers |
 | runJob | bool | `true` | runJob deploys the default init job if set to true |
 | secrets.PLACE_PASSWORD | string | `nil` |  |
 | serviceAccount.annotations | object | `{}` | Annotations to add to the service account |
