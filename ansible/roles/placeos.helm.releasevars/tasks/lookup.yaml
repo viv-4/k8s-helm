@@ -12,7 +12,7 @@
   when:
     - release_state.status is defined
 
-- name: "get the existing release var for {{ item }}"
+- name: "get the existing release var"
   set_fact:
     "{{ item }}": "{{ parsed[ item ] }}"
   when:

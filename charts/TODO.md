@@ -23,7 +23,6 @@
 - ~~Review existing env vars. k8s auto injection of env vars can break pods. eg rubber-soul~~
 - ~~HPAs~~
 - Quote values and default . eg `{{ default "none" .Values.server.name }}`
-- parent labels
 - ~~extract `domain` from init chart and put in umbrella values file/link to deployment domain~~
 - ~~Chart.yaml descriptions~~
 - health probes for:

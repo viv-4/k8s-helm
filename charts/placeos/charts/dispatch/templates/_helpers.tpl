@@ -48,6 +48,7 @@ Selector labels
 {{- define "dispatch.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "dispatch.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+networking/allow-external-access: "true"
 {{- end }}
 
 {{/*

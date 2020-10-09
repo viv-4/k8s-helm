@@ -10,6 +10,23 @@
         labels:
           networking/namespace: "{{ placeos_namespace }}"
 
+- name: patch the placeos ns with a label
+  community.kubernetes.k8s:
+    state: present
+    name: "{{ ingress_namespace }}"
+    api_version: v1
+    kind: Namespace
+    definition:
+      metadata:
+        labels:
+          networking/namespace: "{{ ingress_namespace }}"
+
+- name: service for dispatch
+  community.kubernetes.k8s:
+    state: "{{ policy_state }}"
+    namespace: "{{ placeos_namespace }}"
+    definition: "{{ lookup('template', 'external.yaml') | from_yaml }}"
+
 # tasks file for placeos.networkpolicies
 - name: placeos ns to service ns
   community.kubernetes.k8s:
