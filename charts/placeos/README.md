@@ -28,78 +28,80 @@ An Umbrella Chart for PlaceOS and its dependencies
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | api.configmap | object | `{"<<":{"RUBBER_SOUL_URI":"http://rubbersoul:3000"}}` | environment variable exposed to containers as a configmap |
+| api.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
+| api.configmap.<< | object | `{"REDIS_URL":"redis://redis-headless:6379"}` | Redis DB client variables |
 | api.configmap.<< | object | `{"PLACE_LOADER_URI":"http://frontends:3000"}` | Place Loader client variables |
 | api.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | api.configmap.<< | object | `{"ES_HOST":"elasticsearch-master","ES_PORT":9200}` | elasticache client variables |
 | api.configmap.<< | object | `{"ETCD_HOST":"etcd-headless","ETCD_PORT":2379}` | etcd client variables |
-| api.configmap.<< | object | `{"REDIS_URL":"redis://redis-headless:6379"}` | Redis DB client variables |
-| api.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
 | api.configmap.<<.RETHINKDB_DB | string | `"place_development"` | environment variable exposed to containers |
 | api.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | environment variable exposed to containers |
 | api.configmap.<<.RETHINKDB_PORT | int | `28015` | environment variable exposed to containers |
 | api.configmap.<<.RETHINKDB_USER | string | `"admin"` | environment variable exposed to containers |
 | api.configmap.<<.RUBBER_SOUL_URI | string | `"http://rubbersoul:3000"` | environment variable exposed to containers |
-| api.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| api.enabled | bool | `true` | api is a core PlaoceOS chart enabled by default. |
 | api.fullnameOverride | string | `"api"` |  |
 | api.secrets | object | `{"<<":{"RETHINKDB_PASSWORD":"password"}}` | environment variable exposed to the container as secrets |
 | api.secrets.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |
 | api.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | environment variable exposed to containers |
-| auth | object | `{"configmap":{"<<":{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"},"COAUTH_NO_SSL":"true","TZ":"Australia/Sydney"},"enabled":true,"fullnameOverride":"auth","secrets":{"<<":{"RETHINKDB_PASSWORD":"password"}}}` | auth is the overide configuration for the embedded auth subchart |
 | auth.configmap | object | `{"<<":{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"},"COAUTH_NO_SSL":"true","TZ":"Australia/Sydney"}` | environment variable exposed to containers |
 | auth.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
 | auth.configmap.<<.RETHINKDB_DB | string | `"place_development"` | environment variable exposed to containers |
 | auth.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | environment variable exposed to containers |
 | auth.configmap.<<.RETHINKDB_PORT | int | `28015` | environment variable exposed to containers |
 | auth.configmap.<<.RETHINKDB_USER | string | `"admin"` | environment variable exposed to containers |
-| auth.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| auth.enabled | bool | `true` | auth is a core PlaoceOS chart enabled by default. |
+| auth.fullnameOverride | string | `"auth"` |  |
 | auth.secrets.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |
 | auth.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | environment variable exposed to containers |
-| core | object | `{"configmap":{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}},"enabled":true,"fullnameOverride":"core","secrets":{"<<":{"RETHINKDB_PASSWORD":"password"}}}` | core is the overide configuration for the embedded core subchart |
 | core.configmap | object | `{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}}` | environment variable exposed to containers |
-| core.configmap.<< | object | `{"REDIS_URL":"redis://redis-headless:6379"}` | Redis DB client variables |
 | core.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
-| core.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | core.configmap.<< | object | `{"ETCD_HOST":"etcd-headless","ETCD_PORT":2379}` | etcd client variables |
+| core.configmap.<< | object | `{"REDIS_URL":"redis://redis-headless:6379"}` | Redis DB client variables |
+| core.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | core.configmap.<<.RETHINKDB_DB | string | `"place_development"` | environment variable exposed to containers |
 | core.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | environment variable exposed to containers |
 | core.configmap.<<.RETHINKDB_PORT | int | `28015` | environment variable exposed to containers |
 | core.configmap.<<.RETHINKDB_USER | string | `"admin"` | environment variable exposed to containers |
-| core.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| core.enabled | bool | `true` | core is a core PlaoceOS chart enabled by default. |
+| core.fullnameOverride | string | `"core"` |  |
 | core.secrets | object | `{"<<":{"RETHINKDB_PASSWORD":"password"}}` | environment variable exposed to the container as secrets |
 | core.secrets.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |
 | core.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | environment variable exposed to containers |
-| dispatch | object | `{"enabled":true,"fullnameOverride":"dispatch","secrets":{"<<":{"SERVER_SECRET":"development"}}}` | dispatch is the overide configuration for the embedded dispatch subchart |
-| dispatch.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| dispatch.enabled | bool | `true` | dispatch is a core PlaoceOS chart enabled by default. |
+| dispatch.fullnameOverride | string | `"dispatch"` |  |
 | dispatch.secrets | object | `{"<<":{"SERVER_SECRET":"development"}}` | environment variable exposed to the container as secrets |
 | dispatch.secrets.<<.SERVER_SECRET | string | `"development"` | environment variable exposed to containers |
-| elasticsearch | object | `{"coordinating":{"replicas":0},"data":{"replicas":1},"enabled":false,"master":{"replicas":1},"templateOverrides":{"elasticsearchMasterfullName":"elasticsearch-master"}}` | elasticsearch third party chart overrides |
-| elasticsearch.enabled | bool | `false` | chart disabled by default. included for testing purposes only |
+| elasticsearch.coordinating.replicas | int | `0` |  |
+| elasticsearch.data.replicas | int | `1` |  |
+| elasticsearch.enabled | bool | `false` | elasticsearch chart disabled by default. included for testing purposes only |
+| elasticsearch.master.replicas | int | `1` |  |
 | elasticsearch.templateOverrides | object | `{"elasticsearchMasterfullName":"elasticsearch-master"}` | templateOverrides. A work around to override the full name of the ElasticSearch master. See templates/_helpers.tpl |
 | etcd.auth.rbac.enabled | bool | `false` |  |
-| etcd.enabled | bool | `false` | chart disabled by default. included for testing purposes only |
+| etcd.enabled | bool | `false` | etcd chart disabled by default. included for testing purposes only |
 | etcd.fullnameOverride | string | `"etcd"` |  |
-| frontends | object | `{"configmap":{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"},"PLACE_LOADER_WWW":"www"},"enabled":true,"fullnameOverride":"frontends","httpSidecar":true,"secrets":{"<<":{"RETHINKDB_PASSWORD":"password"}}}` | frontends is the overide configuration for the embedded frontends subchart |
 | frontends.configmap | object | `{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"},"PLACE_LOADER_WWW":"www"}` | environment variable exposed to containers |
-| frontends.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | frontends.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
+| frontends.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | frontends.configmap.<<.RETHINKDB_DB | string | `"place_development"` | environment variable exposed to containers |
 | frontends.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | environment variable exposed to containers |
 | frontends.configmap.<<.RETHINKDB_PORT | int | `28015` | environment variable exposed to containers |
 | frontends.configmap.<<.RETHINKDB_USER | string | `"admin"` | environment variable exposed to containers |
 | frontends.configmap.PLACE_LOADER_WWW | string | `"www"` | path to static html resources |
-| frontends.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| frontends.enabled | bool | `true` | frontends is a core PlaoceOS chart enabled by default. |
+| frontends.fullnameOverride | string | `"frontends"` |  |
+| frontends.httpSidecar | bool | `true` |  |
 | frontends.secrets | object | `{"<<":{"RETHINKDB_PASSWORD":"password"}}` | environment variable exposed to the container as secrets |
 | frontends.secrets.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |
 | frontends.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | environment variable exposed to containers |
 | global.customRedirectPort | string | `nil` | customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443. Used by the init service to configure the appropriate services |
 | global.placeDomain | string | `nil` |  |
-| influxdb | object | `{"enabled":false,"fullnameOverride":"influxdb"}` | influxdb third party chart overrides |
-| influxdb.enabled | bool | `false` | chart disabled by default. included for testing purposes only |
-| init | object | `{"config":{"<<":{"RETHINKDB_PASSWORD":"password"}},"enabled":true,"fullnameOverride":"init","secrets":{"PLACE_PASSWORD":"development"}}` | init is the overide configuration for the embedded init subchart |
+| influxdb.enabled | bool | `false` |  |
+| influxdb.fullnameOverride | string | `"influxdb"` |  |
 | init.config | object | `{"<<":{"RETHINKDB_PASSWORD":"password"}}` | environment variable exposed to containers |
-| init.config.<< | object | `{"PLACE_APPLICATION":"backoffice","PLACE_AUTH_HOST":"auth:3000","PLACE_EMAIL":"support@place.tech","PLACE_TLS":true,"PLACE_USERNAME":"Place Support"}` | Place Domain initialisation variables |
 | init.config.<< | object | `{"ES_HOST":"elasticsearch-master","ES_PORT":9200}` | elasticache client variables |
 | init.config.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
+| init.config.<< | object | `{"PLACE_APPLICATION":"backoffice","PLACE_AUTH_HOST":"auth:3000","PLACE_EMAIL":"support@place.tech","PLACE_TLS":true,"PLACE_USERNAME":"Place Support"}` | Place Domain initialisation variables |
 | init.config.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | init.config.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |
 | init.config.<<.PLACE_APPLICATION | string | `"backoffice"` | environment variable exposed to containers |
@@ -112,34 +114,38 @@ An Umbrella Chart for PlaceOS and its dependencies
 | init.config.<<.RETHINKDB_PASSWORD | string | `"password"` | environment variable exposed to containers |
 | init.config.<<.RETHINKDB_PORT | int | `28015` | environment variable exposed to containers |
 | init.config.<<.RETHINKDB_USER | string | `"admin"` | environment variable exposed to containers |
-| init.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| init.enabled | bool | `true` | init is a core PlaoceOS chart enabled by default. |
+| init.fullnameOverride | string | `"init"` |  |
 | init.secrets | object | `{"PLACE_PASSWORD":"development"}` | environment variable exposed to the container as secrets |
 | init.secrets.PLACE_PASSWORD | string | `"development"` | Default password for initial users in domain |
-| mosquitto | object | `{"enabled":false,"fullnameOverride":"mosquitto"}` | mosquitto third party chart overrides |
-| mosquitto.enabled | bool | `false` | chart disabled by default. included for testing purposes only |
-| redis | object | `{"cluster":{"enabled":false},"configmap":"notify-keyspace-events Kg$","enabled":false,"fullnameOverride":"redis","usePassword":false}` | redis third party chart overrides |
-| redis.enabled | bool | `false` | chart disabled by default. included for testing purposes only |
-| rethinkdb | object | `{"cluster":{"replicas":1},"enabled":false,"rethinkdbPassword":"password","templateOverrides":{"rethinkdbFullName":"rethinkdb"}}` | rethinkdb third party chart overrides |
-| rethinkdb.enabled | bool | `false` | chart disabled by default. included for testing purposes only |
+| mosquitto.enabled | bool | `false` | mosquitto chart disabled by default. included for testing purposes only |
+| mosquitto.fullnameOverride | string | `"mosquitto"` |  |
+| redis.cluster.enabled | bool | `false` |  |
+| redis.configmap | string | `"notify-keyspace-events Kg$"` |  |
+| redis.enabled | bool | `false` | redis chart disabled by default. included for testing purposes only |
+| redis.fullnameOverride | string | `"redis"` |  |
+| redis.usePassword | bool | `false` |  |
+| rethinkdb.cluster.replicas | int | `1` |  |
+| rethinkdb.enabled | bool | `false` | rethinkdb chart disabled by default. included for testing purposes only |
+| rethinkdb.rethinkdbPassword | string | `"password"` |  |
 | rethinkdb.templateOverrides | object | `{"rethinkdbFullName":"rethinkdb"}` | templateOverrides. A work around to override the full name of the RethinkDb deployment. See templates/_helpers.tpl |
-| rubbersoul | object | `{"configmap":{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}},"enabled":true,"fullnameOverride":"rubbersoul","secrets":{"<<":{"RETHINKDB_PASSWORD":"password"}}}` | rubbersoul is the overide configuration for the embedded rubber-soul subchart |
 | rubbersoul.configmap | object | `{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}}` | environment variable exposed to containers |
+| rubbersoul.configmap.<< | object | `{"ES_HOST":"elasticsearch-master","ES_PORT":9200}` | elasticache client variables |
 | rubbersoul.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
 | rubbersoul.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
-| rubbersoul.configmap.<< | object | `{"ES_HOST":"elasticsearch-master","ES_PORT":9200}` | elasticache client variables |
 | rubbersoul.configmap.<<.RETHINKDB_DB | string | `"place_development"` | environment variable exposed to containers |
 | rubbersoul.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | environment variable exposed to containers |
 | rubbersoul.configmap.<<.RETHINKDB_PORT | int | `28015` | environment variable exposed to containers |
 | rubbersoul.configmap.<<.RETHINKDB_USER | string | `"admin"` | environment variable exposed to containers |
-| rubbersoul.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| rubbersoul.enabled | bool | `true` | rubbersoul is a core PlaoceOS chart enabled by default. |
+| rubbersoul.fullnameOverride | string | `"rubbersoul"` |  |
 | rubbersoul.secrets | object | `{"<<":{"RETHINKDB_PASSWORD":"password"}}` | environment variable exposed to the container as secrets |
 | rubbersoul.secrets.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |
 | rubbersoul.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | environment variable exposed to containers |
-| triggers | object | `{"configmap":{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}},"enabled":true,"fullnameOverride":"triggers","secrets":{"<<":{"SMTP_PASS":""}}}` | triggers is the overide configuration for the embedded triggers subchart |
 | triggers.configmap | object | `{"<<":{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}}` | environment variable exposed to containers |
-| triggers.configmap.<< | object | `{"REDIS_URL":"redis://redis-headless:6379"}` | Redis DB client variables |
-| triggers.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
 | triggers.configmap.<< | object | `{"ENV":"development","SG_ENV":"development","TZ":"Australia/Sydney"}` | PlaceOS deployment client variables |
+| triggers.configmap.<< | object | `{"RETHINKDB_DB":"place_development","RETHINKDB_HOST":"rethinkdb-proxy","RETHINKDB_PORT":28015,"RETHINKDB_USER":"admin"}` | RethinkDB client variables |
+| triggers.configmap.<< | object | `{"REDIS_URL":"redis://redis-headless:6379"}` | Redis DB client variables |
 | triggers.configmap.<< | object | `{"ETCD_HOST":"etcd-headless","ETCD_PORT":2379}` | etcd client variables |
 | triggers.configmap.<< | object | `{"SMTP_PORT":587,"SMTP_SECURE":"","SMTP_SERVER":"","SMTP_USER":""}` | SMTP client variables |
 | triggers.configmap.<<.RETHINKDB_DB | string | `"place_development"` | environment variable exposed to containers |
@@ -150,7 +156,8 @@ An Umbrella Chart for PlaceOS and its dependencies
 | triggers.configmap.<<.SMTP_SECURE | string | `""` | environment variable exposed to containers |
 | triggers.configmap.<<.SMTP_SERVER | string | `""` | environment variable exposed to containers |
 | triggers.configmap.<<.SMTP_USER | string | `""` | environment variable exposed to containers |
-| triggers.enabled | bool | `true` | a core PlaoceOS chart enabled by default. |
+| triggers.enabled | bool | `true` | triggers is a core PlaoceOS chart enabled by default. |
+| triggers.fullnameOverride | string | `"triggers"` |  |
 | triggers.secrets | object | `{"<<":{"SMTP_PASS":""}}` | environment variable exposed to the container as secrets |
 | triggers.secrets.<< | object | `{"SMTP_PASS":""}` | SMTP client variables |
 | triggers.secrets.<< | object | `{"RETHINKDB_PASSWORD":"password"}` | RethinkDB client variables |

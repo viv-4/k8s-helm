@@ -104,9 +104,9 @@ xdispatchSecrets: &dispatchSecrets
 ##### -- PlaceOS Service SubCharts #####
 #####################################
 
-# -- api is the overide configuration for the embedded api subchart
+# api is the overide configuration for the embedded api subchart
 api:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- api is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: api
   # -- environment variable exposed to containers as a configmap
@@ -128,9 +128,9 @@ api:
   secrets:
     # -- RethinkDB client variables
     << : *rethinkdbClientSecrets
-# -- auth is the overide configuration for the embedded auth subchart
+# auth is the overide configuration for the embedded auth subchart
 auth:
- # -- a core PlaoceOS chart enabled by default.
+ # -- auth is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: auth
   # -- environment variable exposed to containers
@@ -142,9 +142,9 @@ auth:
   secrets:
     # -- RethinkDB client variables
     << : *rethinkdbClientSecrets
-# -- core is the overide configuration for the embedded core subchart
+# core is the overide configuration for the embedded core subchart
 core:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- core is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: core
   # -- environment variable exposed to containers
@@ -161,17 +161,17 @@ core:
   secrets:
     # -- RethinkDB client variables
     << : *rethinkdbClientSecrets
-# -- dispatch is the overide configuration for the embedded dispatch subchart
+# dispatch is the overide configuration for the embedded dispatch subchart
 dispatch:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- dispatch is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: dispatch
   # -- environment variable exposed to the container as secrets
   secrets:
     << : *dispatchSecrets
-# -- frontends is the overide configuration for the embedded frontends subchart
+# frontends is the overide configuration for the embedded frontends subchart
 frontends:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- frontends is a core PlaoceOS chart enabled by default.
   enabled: true
   httpSidecar: true
   fullnameOverride: frontends
@@ -187,9 +187,9 @@ frontends:
   secrets:
     # -- RethinkDB client variables
     << : *rethinkdbClientSecrets
-# -- rubbersoul is the overide configuration for the embedded rubber-soul subchart
+# rubbersoul is the overide configuration for the embedded rubber-soul subchart
 rubbersoul:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- rubbersoul is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: rubbersoul
   # -- environment variable exposed to containers
@@ -204,9 +204,9 @@ rubbersoul:
   secrets:
     # -- RethinkDB client variables
     << : *rethinkdbClientSecrets
-# -- triggers is the overide configuration for the embedded triggers subchart
+# triggers is the overide configuration for the embedded triggers subchart
 triggers:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- triggers is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: triggers
   # -- environment variable exposed to containers
@@ -227,9 +227,9 @@ triggers:
     << : *rethinkdbClientSecrets
     # -- SMTP client variables
     << : *smtpClientSecrets
-# -- init is the overide configuration for the embedded init subchart
+# init is the overide configuration for the embedded init subchart
 init:
-  # -- a core PlaoceOS chart enabled by default.
+  # -- init is a core PlaoceOS chart enabled by default.
   enabled: true
   fullnameOverride: init
   # -- environment variable exposed to containers
@@ -256,17 +256,17 @@ init:
 # These charts are not part of the PlaceOS core platform and are provided for development and PoC purposes.
 # They are configured to run with minimal resource usage. Review the individual chart documentation and
 # deploy seperately for a more robust solution.
-# -- etcd third party chart overrides
+# etcd third party chart overrides
 etcd:
-  # -- chart disabled by default. included for testing purposes only
+  # -- etcd chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: etcd
   auth:
     rbac:
       enabled: false
-# -- elasticsearch third party chart overrides
+# elasticsearch third party chart overrides
 elasticsearch:
-  # -- chart disabled by default. included for testing purposes only
+  # -- elasticsearch chart disabled by default. included for testing purposes only
   enabled: false
   # -- templateOverrides. A work around to override the full name of the ElasticSearch master. See templates/_helpers.tpl
   templateOverrides:
@@ -277,9 +277,9 @@ elasticsearch:
     replicas: 1
   coordinating:
     replicas: 0
-# -- rethinkdb third party chart overrides
+# rethinkdb third party chart overrides
 rethinkdb:
-  # -- chart disabled by default. included for testing purposes only
+  # -- rethinkdb chart disabled by default. included for testing purposes only
   enabled: false
   # -- templateOverrides. A work around to override the full name of the RethinkDb deployment. See templates/_helpers.tpl
   templateOverrides:
@@ -287,9 +287,9 @@ rethinkdb:
   cluster:
     replicas: 1
   rethinkdbPassword: *rethinkdbPassword
-# -- redis third party chart overrides
+# redis third party chart overrides
 redis:
-  # -- chart disabled by default. included for testing purposes only
+  # -- redis chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: redis
   usePassword: false
@@ -297,14 +297,14 @@ redis:
     enabled: false
   configmap: |-
     notify-keyspace-events Kg$
-# -- influxdb third party chart overrides
+# influxdb third party chart overrides
 influxdb:
-  # -- chart disabled by default. included for testing purposes only
+  # influxdb chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: influxdb
-# -- mosquitto third party chart overrides
+# mosquitto third party chart overrides
 mosquitto:
-  # -- chart disabled by default. included for testing purposes only
+  # -- mosquitto chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: mosquitto
 
