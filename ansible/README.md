@@ -20,7 +20,11 @@ Contains 4 roles:
 - Review the requirements for the [Ansible helm wrapper](https://docs.ansible.com/ansible/2.10/collections/community/kubernetes/helm_module.html)
 
 
-Note: tested with community.kubernetes:1.0.0 and k8s versions 1.17 and 1.18
+Note: Tested with:
+
+- Ansible collection `community.kubernetes:1.0.0`
+- k8s versions 1.17 and 1.18
+- Helm v3.3.1
 
 ## Executing
 
@@ -55,7 +59,7 @@ ansible-playbook placeos.yaml -i inventories/k3d/ -e "chart_state=absent"
 ansible-playbook placeos.yaml -i inventories/aks/ -e "chart_state=absent"
 ansible-playbook placeos.yaml -i inventories/gke/ -e "chart_state=absent"
 
-ansible-playbook laceos-network-policies.yaml  -e "policy_state=absent"
+ansible-playbook placeos-network-policies.yaml  -e "policy_state=absent"
 
 # Note: you will also need to clean up the PVs created by the StatefulSets manually
 # Secrets and Configmaps for PlaceOS are not deleted in the clean up
