@@ -1,6 +1,6 @@
-# Default values for frontends.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# -- Default values for frontends.
+# -- This is a YAML-formatted file.
+# -- Declare variables to be passed into your templates.
 
 deployment:
   replicaCount: 1
@@ -10,7 +10,7 @@ deployment:
   image:
     repository: placeos/auth
     pullPolicy: IfNotPresent
-    # tag Overrides the image tag whose default is the chart appVersion.
+    # -- tag Overrides the image tag whose default is the chart appVersion.
     # tag:
 
   imagePullSecrets: []
@@ -18,19 +18,19 @@ deployment:
   fullnameOverride: ""
   podAnnotations: {}
 
-  # podSecurityContext for the pod
+  # -- podSecurityContext for the pod
   podSecurityContext:
     #fsGroup is defined at container build time and in most circumstances should not be changed
     fsGroup: 10001
 
-  # securityContext for the container
+  # -- securityContext for the container
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
-    #runAsUser is defined at container build time and in most circumstances should not be changed
+    # -- runAsUser is defined at container build time and in most circumstances should not be changed
     runAsUser: 10001
 
   resources: {}
@@ -47,7 +47,7 @@ deployment:
 
   affinity: {}
 
-# autoscaling configuration for pod
+# -- autoscaling configuration for pod
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -56,11 +56,11 @@ autoscaling:
   # targetMemoryUtilizationPercentage: 80
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: false
-  # Annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
@@ -68,7 +68,7 @@ service:
   type: ClusterIP
   port: 3000
 
-# configmap for the deployment exposed as environment variables to the pod
+# -- configmap for the deployment exposed as environment variables to the pod
 configmap:
   COAUTH_NO_SSL: true
   RETHINKDB_DB: null
@@ -77,11 +77,11 @@ configmap:
   RETHINKDB_USER: null
   TZ: Australia/Sydney
 
-# secrets for the deployment exposed as environment variables to the pod
+# -- secrets for the deployment exposed as environment variables to the pod
 secrets:
   RETHINKDB_PASSWORD: null
 
-# ingress to expose the pod services
+# -- ingress to expose the pod services
 ingress:
   enabled: true
   annotations: {}

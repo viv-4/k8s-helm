@@ -1,73 +1,73 @@
-# Default values for the placeos umbrella chart.
+# -- Default values for the placeos umbrella chart.
 
 
 ###############################
 ##### Configmap Variable ######
 ###############################
 
-# xrethinkdbPassword the admin password for RethinkDb.
-#  Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret
+# -- xrethinkdbPassword the admin password for RethinkDb.
+# --  Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret
 xrethinkdbPassword: &rethinkdbPassword "password"
 
-# xsmtpPassword. the smtp password used by triggers
+# -- xsmtpPassword. the smtp password used by triggers
 xsmtpPassword: &smtpPassword ""
 
-# xplacePassword. The value used by the init subchart to set the default domain users password
+# -- xplacePassword. The value used by the init subchart to set the default domain users password
 xplacePassword: &placePassword "development"
 
-# xserverSecret for the dispatch service
+# -- xserverSecret for the dispatch service
 xserverSecret: &serverSecret "development"
 
-# xtz the local time zone for the deployment
+# -- xtz the local time zone for the deployment
 xtz: &TZ Australia/Sydney
 
-# xdeploymentEnv configmap values exposed as environment variables to PlaceOS containers
+# -- xdeploymentEnv configmap values exposed as environment variables to PlaceOS containers
 xdeploymentEnv: &deploymentEnv
   ENV: development
   SG_ENV: development
   TZ: *TZ
 
-# xelasticClientEnv configmap values for ElasticSearch Service exposed as environment variables to PlaceOS containers
+# -- xelasticClientEnv configmap values for ElasticSearch Service exposed as environment variables to PlaceOS containers
 xelasticClientEnv: &elasticClientEnv
   ES_HOST: elasticsearch-master
   ES_PORT: 9200
 
-# xetcdClientEnv configmap values for Etcd end point Service as environment variables to PlaceOS containers
+# -- xetcdClientEnv configmap values for Etcd end point Service as environment variables to PlaceOS containers
 xetcdClientEnv: &etcdClientEnv
   ETCD_HOST: etcd-headless
   ETCD_PORT: 2379
 
-# xplaceLoaderClientEnv configmap values for the frontend Service exposed as environment variables to PlaceOS containers
+# -- xplaceLoaderClientEnv configmap values for the frontend Service exposed as environment variables to PlaceOS containers
 xplaceLoaderClientEnv: &placeLoaderClientEnv
   PLACE_LOADER_URI: http://frontends:3000
 
-# xredisClientEnv configmap values for the redis Service exposed as environment variables to PlaceOS containers
+# -- xredisClientEnv configmap values for the redis Service exposed as environment variables to PlaceOS containers
 xredisClientEnv: &redisClientEnv
   REDIS_URL: redis://redis-headless:6379
 
-# xrethinkdbClientEnv configmap values for RethinkDB Service exposed as environment variables to PlaceOS containers
+# -- xrethinkdbClientEnv configmap values for RethinkDB Service exposed as environment variables to PlaceOS containers
 xrethinkdbClientEnv: &rethinkdbClientEnv
   RETHINKDB_HOST: rethinkdb-proxy
   RETHINKDB_PORT: 28015
   RETHINKDB_DB: place_development
   RETHINKDB_USER: admin
 
-# xrethinkdbClientSecrets secret values for the rethinkdb password exposed as environment variables to PlaceOS containers
+# -- xrethinkdbClientSecrets secret values for the rethinkdb password exposed as environment variables to PlaceOS containers
 xrethinkdbClientSecrets: &rethinkdbClientSecrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
 
-# xrubberSoulClientEnv configmap values for the Rubber Soul service exposed as environment variables to PlaceOS containers
+# -- xrubberSoulClientEnv configmap values for the Rubber Soul service exposed as environment variables to PlaceOS containers
 xrubberSoulClientEnv: &rubberSoulClientEnv
   RUBBER_SOUL_URI: http://rubbersoul:3000
 
-# xsmtpClientEnv configmap values for the SMTP server exposed as environment variables for the trigger service
+# -- xsmtpClientEnv configmap values for the SMTP server exposed as environment variables for the trigger service
 xsmtpClientEnv: &smtpClientEnv
   SMTP_SERVER: ""
   SMTP_PORT: 587
   SMTP_USER: ""
   SMTP_SECURE: ""
 
-# initConfigEnv configmap values for the initialisation job exposed as environment variables for the init subchart
+# -- initConfigEnv configmap values for the initialisation job exposed as environment variables for the init subchart
 xinitConfigEnv: &initConfigEnv
   PLACE_APPLICATION: backoffice
   PLACE_AUTH_HOST: auth:3000
@@ -75,26 +75,26 @@ xinitConfigEnv: &initConfigEnv
   PLACE_EMAIL: support@place.tech
   PLACE_TLS: true
 
-# xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
+# -- xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
 xsmtpClientSecrets: &smtpClientSecrets
   SMTP_PASS: *smtpPassword
 
-# dispatchSecrets secret values exposed as environment variables for the dispatch service
+# -- dispatchSecrets secret values exposed as environment variables for the dispatch service
 xdispatchSecrets: &dispatchSecrets
   SERVER_SECRET: *serverSecret
 
 #####################################
-##### PlaceOS Service SubCharts #####
+##### -- PlaceOS Service SubCharts #####
 #####################################
 
-# api is the overide configuration for the embedded api subchart
+# -- api is the overide configuration for the embedded api subchart
 api:
   enabled: true
   fullnameOverride: api
   configmap:
-    # Environment
+    # -- Environment
     << : *deploymentEnv
-    # Service Hosts
+    # -- Service Hosts
     << : *elasticClientEnv
     << : *etcdClientEnv
     << : *placeLoaderClientEnv
@@ -103,7 +103,7 @@ api:
     << : *rubberSoulClientEnv
   secrets:
     << : *rethinkdbClientSecrets
-# auth is the overide configuration for the embedded auth subchart
+# -- auth is the overide configuration for the embedded auth subchart
 auth:
   enabled: true
   fullnameOverride: auth
@@ -113,26 +113,26 @@ auth:
     TZ: *TZ
   secrets:
     << : *rethinkdbClientSecrets
-# core is the overide configuration for the embedded core subchart
+# -- core is the overide configuration for the embedded core subchart
 core:
   enabled: true
   fullnameOverride: core
   configmap:
-    # Service Hosts
+    # -- Service Hosts
     << : *etcdClientEnv
     << : *redisClientEnv
     << : *rethinkdbClientEnv
-    # Environment
+    # -- Environment
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
-# dispatch is the overide configuration for the embedded dispatch subchart
+# -- dispatch is the overide configuration for the embedded dispatch subchart
 dispatch:
   enabled: true
   fullnameOverride: dispatch
   secrets:
     << : *dispatchSecrets
-# frontends is the overide configuration for the embedded frontends subchart
+# -- frontends is the overide configuration for the embedded frontends subchart
 frontends:
   enabled: true
   httpSidecar: true
@@ -140,60 +140,60 @@ frontends:
   configmap:
     PLACE_LOADER_WWW: www
     << : *rethinkdbClientEnv
-    # Environment
+    # -- Environment
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
-# rubbersoul is the overide configuration for the embedded rubber-soul subchart
+# -- rubbersoul is the overide configuration for the embedded rubber-soul subchart
 rubbersoul:
   enabled: true
   fullnameOverride: rubbersoul
   configmap:
-    # Service Hosts
+    # -- Service Hosts
     << : *rethinkdbClientEnv
     << : *elasticClientEnv
-    # Environment
+    # -- Environment
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
-# triggers is the overide configuration for the embedded triggers subchart
+# -- triggers is the overide configuration for the embedded triggers subchart
 triggers:
   enabled: true
   fullnameOverride: triggers
   configmap:
-    # Service Hosts
+    # -- Service Hosts
     << : *etcdClientEnv
     << : *redisClientEnv
     << : *rethinkdbClientEnv
     << : *smtpClientEnv
-    # Environment
+    # -- Environment
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
     << : *smtpClientSecrets
-# init is the overide configuration for the embedded init subchart
+# -- init is the overide configuration for the embedded init subchart
 init:
   enabled: true
   fullnameOverride: init
   config:
-    # User/Application Configuration
+    # -- User/Application Configuration
     << : *initConfigEnv
-    # Service Hosts
+    # -- Service Hosts
     << : *rethinkdbClientEnv
     << : *elasticClientEnv
-    # Environment
+    # -- Environment
     << : *deploymentEnv
     << : *rethinkdbClientSecrets
   secrets:
     PLACE_PASSWORD: *placePassword
 
 ###########################################
-##### Third Party Supporting Services #####
+##### -- Third Party Supporting Services #####
 ###########################################
 
-# These charts are not part of the PlaceOS core platform and are provided for development and PoC purposes.
-# They are configured to run with minimal resource usage. Review the individual chart documentation and
-# deploy seperately for a more robust solution.
+# -- These charts are not part of the PlaceOS core platform and are provided for development and PoC purposes.
+# -- They are configured to run with minimal resource usage. Review the individual chart documentation and
+# -- deploy seperately for a more robust solution.
 etcd:
   enabled: false
   fullnameOverride: etcd
@@ -202,7 +202,7 @@ etcd:
       enabled: false
 elasticsearch:
   enabled: false
-  # templateOverrides. A work around to override the full name of the ElasticSearch master. See templates/_helpers.tpl
+  # -- templateOverrides. A work around to override the full name of the ElasticSearch master. See templates/_helpers.tpl
   templateOverrides:
     elasticsearchMasterfullName: elasticsearch-master
   master:
@@ -213,7 +213,7 @@ elasticsearch:
     replicas: 0
 rethinkdb:
   enabled: false
-  # templateOverrides. A work around to override the full name of the RethinkDb deployment. See templates/_helpers.tpl
+  # -- templateOverrides. A work around to override the full name of the RethinkDb deployment. See templates/_helpers.tpl
   templateOverrides:
     rethinkdbFullName: rethinkdb
   cluster:
@@ -237,6 +237,6 @@ mosquitto:
 global:
   #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
   placeDomain: null
-  #customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
-  # Used by the init service to configure the appropriate services
+  # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
+  # -- Used by the init service to configure the appropriate services
   customRedirectPort: null

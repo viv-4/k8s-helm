@@ -1,11 +1,11 @@
-# Default values for frontends.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# -- Default values for frontends.
+# -- This is a YAML-formatted file.
+# -- Declare variables to be passed into your templates.
 
-# httpSidecar if true include http server side car container to frontend pod to serve static UI resources.
+# -- httpSidecar if true include http server side car container to frontend pod to serve static UI resources.
 httpSidecar: false
 
-# httpDeployment if httpSidecar=false use a seperate Deployment to serve static html using the variables in httpDeployment. Also see persistentVolume.accessModes
+# -- httpDeployment if httpSidecar=false use a seperate Deployment to serve static html using the variables in httpDeployment. Also see persistentVolume.accessModes
 httpDeployment:
   replicaCount: 1
   podPriorityClassName: medium
@@ -13,7 +13,7 @@ httpDeployment:
     repository: nginx
     tag: "1.18"
     pullPolicy: IfNotPresent
-    # tag Overrides the image tag whose default is the chart appVersion.
+    # -- tag Overrides the image tag whose default is the chart appVersion.
     # tag:
 
   imagePullSecrets: []
@@ -21,12 +21,12 @@ httpDeployment:
   fullnameOverride: ""
   podAnnotations: {}
 
-  # podSecurityContext for the pod
+  # -- podSecurityContext for the pod
   podSecurityContext:
-    #fsGroup is defined at container build time for the frontend container and in most circumstances should not be changed
+    # -- fsGroup is defined at container build time for the frontend container and in most circumstances should not be changed
     fsGroup: 10001
 
-  # securityContext for the container
+  # -- securityContext for the container
   securityContext:
     allowPrivilegeEscalation: true
     capabilities:
@@ -35,7 +35,7 @@ httpDeployment:
       drop:
       - ALL
     readOnlyRootFilesystem: false
-    #runAsUser is defined at container build time for the frontend container and in most circumstances should not be changed
+    # -- runAsUser is defined at container build time for the frontend container and in most circumstances should not be changed
     runAsUser: 10001
 
   resources: {}
@@ -53,7 +53,7 @@ httpDeployment:
   affinity: {}
 
 
-# autoscaling configuration for http deployment if httpSidecar=false
+# -- autoscaling configuration for http deployment if httpSidecar=false
 autoscaling:
   enabled: false
   minReplicas: 1
@@ -61,14 +61,14 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# deployment configuration for the frontend container
+# -- deployment configuration for the frontend container
 deployment:
   replicaCount: 1
   podPriorityClassName: medium
   image:
     repository: placeos/frontends
     pullPolicy: IfNotPresent
-    # tag Overrides the image tag whose default is the chart appVersion.
+    # -- tag Overrides the image tag whose default is the chart appVersion.
     # tag:
 
   imagePullSecrets: []
@@ -76,19 +76,19 @@ deployment:
   fullnameOverride: ""
   podAnnotations: {}
 
-  # podSecurityContext for the pod
+  # -- podSecurityContext for the pod
   podSecurityContext:
-    #fsGroup is defined at container build time and in most circumstances should not be changed
+    # -- fsGroup is defined at container build time and in most circumstances should not be changed
     fsGroup: 10001
 
-  # securityContext for the container
+  # -- securityContext for the container
   securityContext:
     capabilities:
       drop:
       - ALL
     readOnlyRootFilesystem: true
     runAsNonRoot: true
-    #runAsUser is defined at container build time and in most circumstances should not be changed
+    # -- runAsUser is defined at container build time and in most circumstances should not be changed
     runAsUser: 10001
   resources: {}
   # limits:
@@ -112,20 +112,20 @@ deployment:
   affinity: {}
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: false
-  # Annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-# service exposed by frontend deployment
+# -- service exposed by frontend deployment
 service:
   type: ClusterIP
   port: 3000
 
-# persistentVolume configuration for the volume that conatains the static resources to serve backend
+# -- persistentVolume configuration for the volume that conatains the static resources to serve backend
 # persistentVolume.accssMode ReadWriteMany is required for distributed http serving which is set when httpSidecar: true
 # see https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes
 persistentVolume:
@@ -134,7 +134,7 @@ persistentVolume:
     - ReadWriteOnce
   storage: 100Mi
 
-# ingress to expose the http server pod services
+# -- ingress to expose the http server pod services
 ingress:
   enabled: true
   annotations: {}
@@ -145,12 +145,12 @@ ingress:
   tls:
     - hosts:
         - "_"
-# service exposed by http server
+# -- service exposed by http server
 httpservice:
   type: ClusterIP
   port: 8080
 
-# configmap for the deployment exposed as environment variables to the pod
+# -- configmap for the deployment exposed as environment variables to the pod
 configmap:
   ENV: null
   PLACE_LOADER_WWW: www
@@ -161,6 +161,6 @@ configmap:
   SG_ENV: null
   TZ: Australia/Sydney
 
-# secrets for the deployment exposed as environment variables to the pod
+# -- secrets for the deployment exposed as environment variables to the pod
 secrets:
   RETHINKDB_PASSWORD: null

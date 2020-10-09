@@ -1,14 +1,14 @@
-# runJob deploys the default init job if set to true
+# -- runJob deploys the default init job if set to true
 runJob: true
 
-# deployment configuration for the init job
+# -- deployment configuration for the init job
 deployment:
   replicaCount: 1
   ttlSecondsAfterFinished: 60
   image:
     repository: placeos/init
     pullPolicy: IfNotPresent
-    # tag Overrides the image tag whose default is the chart appVersion.
+    # -- tag Overrides the image tag whose default is the chart appVersion.
     # tag:
 
   imagePullSecrets: []
@@ -17,11 +17,11 @@ deployment:
 
   podAnnotations: {}
 
-  # podSecurityContext for the pod
+  # -- podSecurityContext for the pod
   podSecurityContext:
     fsGroup: 10001
 
-  # securityContext for the container
+  # -- securityContext for the container
   securityContext:
     capabilities:
       drop:
@@ -42,15 +42,15 @@ deployment:
   #   memory: 128Mi
 
 serviceAccount:
-  # Specifies whether a service account should be created
+  # -- Specifies whether a service account should be created
   create: false
-  # Annotations to add to the service account
+  # -- Annotations to add to the service account
   annotations: {}
-  # The name of the service account to use.
+  # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-# config variables injected into the pod containers as environment vars
+# -- config variables injected into the pod containers as environment vars
 config:
   ENV: null
   ES_HOST: null
@@ -71,7 +71,7 @@ config:
 
 
 secrets:
-  # The default user password for the domain at initialisation time.
+  #  --The default user password for the domain at initialisation time.
   # Not used internally. This can be deleted after the password is retreived
   PLACE_PASSWORD: null
 
@@ -79,13 +79,13 @@ domain:
   altNames:
     - 127.0.0.1
 
-# podPriorities, names for the the podPriority classes used by PalceOS containers
+# -- podPriorities, names for the the podPriority classes used by PalceOS containers
 podPriorities:
   mediumClassName: medium
   highClassName: high
 
 global:
-  # placeDomain the initial PlaceOS domain. No default value, Must be set
+  # -- placeDomain the initial PlaceOS domain. No default value, Must be set
   placeDomain: null
-  # customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
+  # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   customRedirectPort: null
