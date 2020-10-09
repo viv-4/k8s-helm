@@ -125,8 +125,9 @@ The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
 ## Known Issues
 
-============================
-When destroying a stateful set PVCs and the underlying PVs are not deleted. Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and redeployed as in a development scenario, ( ie helm install > helm uninstall > helm install ).
+### When destroying a stateful set PVCs and the underlying PVs are not deleted
+
+Consequently any configuration stored on file in a PV will be retained when the deployments are deleted and redeployed as in a development scenario, ( ie helm install > helm uninstall > helm install ).
 
 Because configurations such as the Etcd master password are randomly generated redeploying without deleteing the stored configuration before hand will result in password mismatches for etcd and the deployment will fail.
 
@@ -134,8 +135,8 @@ Solution:
 
 1. Delete all the PVCs as part of the cleanup to ensure a fresh deployment
 
-============================
-ElasticSearch returns an error:
+### ElasticSearch returns an error:
+
 > max file descriptors [###] for elasticsearch process is too low, increase to at least [65535]
 
 Possible Solutions:
@@ -148,9 +149,7 @@ Possible Solutions:
 
 ```
 
-============================
-
-k3d fails to launch when OS is running firewalld instead of iptables
+### k3d fails to launch when OS is running firewalld instead of iptables
 
 1. Configure firewalld to work so containers can connect to each other
 
