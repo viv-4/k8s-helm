@@ -7,16 +7,16 @@ placeos_to_ns:
     - rethinkdb
     - elasticsearch
     - redis
-    - influxdb
-    - mosquitto
+    # - influxdb
+    # - mosquitto
 internal_ns:
     - etcd
     - rethinkdb
     - elasticsearch
     - redis
-    - influxdb
-    - mosquitto
     - "{{ placeos_namespace }}"
+    # - influxdb
+    # - mosquitto
 policy_state: "present"
 
 ingress_upstream: "ingress-upstream"
