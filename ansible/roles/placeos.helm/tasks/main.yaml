@@ -1,0 +1,65 @@
+---
+# tasks file for placeos.helm
+- name: run block tasks conditionally
+  block:
+  - name: Get the ingress service endpoint for the place domain
+    set_fact:
+      ingress: "{{ lookup('community.kubernetes.k8s',
+        kind='Service',
+        namespace=ingress_namespace,
+        resource_name=ingress_service_name ) }}"
+    until:
+        - ingress.status is defined
+        - ingress.status.loadBalancer.ingress[0].ip is defined
+    # 5 minutes
+    retries: 30
+    delay: 10
+
+  - name: extract the ip
+    set_fact:
+      placeDomain: "{{ ingress.status.loadBalancer.ingress[0].ip }}.xip.io"
+  when:
+    - chart_state == 'present'
+    - placeDomain is undefined
+    - not ansible_check_mode
+
+- name: check release current state
+  community.kubernetes.helm_info:
+    name: "{{ chart_release_name }}"
+    release_namespace: "{{ placeos_release_namespace }}"
+  register: release_state
+
+- name: "show release current state for {{ chart_ref }}"
+  debug:
+    var: release_state
+    verbosity: 1
+
+- name: load the PlaceOS Profile vars
+  set_fact:
+    placeos_profile: "{{ placeos | from_yaml }}"
+
+- name: show placeos vars
+  debug:
+    var: placeos_profile
+    verbosity: 1
+
+- name: manage placeos charts from local filesystem
+  community.kubernetes.helm:
+    release_name: "{{ chart_release_name }}"
+    chart_ref: "{{ placeos_chart_ref }}"
+    chart_version: "0.1.0"
+    release_namespace: "{{ placeos_release_namespace }}"
+    create_namespace: "{{ placeos_create_namespace | default( true, true) }}"
+    release_values: "{{ placeos_profile | default( omit ) }}"
+    state: "{{ chart_state | default( 'present', true ) }}"
+  register: notes
+  when: placeos_profile.enabled | bool
+
+
+- name: "show release notes for placeos"
+  debug:
+    var: notes.stdout_lines
+    verbosity: 0
+  when:
+  - placeos_profile.enabled | bool
+  - notes is defined

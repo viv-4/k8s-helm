@@ -1,0 +1,92 @@
+apiVersion: v2
+name: placeos
+description: An Umbrella Chart for PlaceOS and its dependencies
+
+type: application
+version: 0.1.0
+appVersion: 1.0.0
+
+dependencies:
+# PlaceOS components
+  - name: api
+    version: 0.1.0
+    condition: api.enabled
+
+  - name: auth
+    version: 0.1.0
+    condition: auth.enabled
+
+  - name: core
+    version: 0.1.0
+    condition: core.enabled
+
+  - name: dispatch
+    version: 0.1.0
+    condition: dispatch.enabled
+
+  - name: frontends
+    version: 0.1.0
+    condition: frontends.enabled
+
+  - name: rubbersoul
+    version: 0.1.0
+    condition: rubber-soul.enabled
+
+  - name: triggers
+    version: 0.1.0
+    condition: triggers.enabled
+
+  - name: init
+    version: 0.1.0
+    condition: init.enabled
+
+# Third party helm charts
+  - name: etcd
+    version: ~4.10.1
+    repository: https://charts.bitnami.com/bitnami
+    condition: etcd.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: rethinkdb
+    version: ~1.1.2
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    condition: rethinkdb.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: elasticsearch
+    version: ~12.6.3
+    repository: https://charts.bitnami.com/bitnami
+    condition: elasticsearch.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: redis
+    version: ~10.8.2
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: influxdb
+    version: ~0.6.6
+    repository: https://charts.bitnami.com/bitnami
+    condition: influxdb.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: mosquitto
+    version: ~0.2.0
+    repository: https://halkeye.github.io/helm-charts/
+    condition: mosquitto.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
+    # import-values: # (optional)
+    #   - ImportValues holds the mapping of source values to parent key to be imported. Each item can be a string or pair of child/parent sublist items.
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times

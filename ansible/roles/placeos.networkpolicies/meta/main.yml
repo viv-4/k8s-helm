@@ -1,0 +1,19 @@
+---
+galaxy_info:
+  author: jahoward@deloitte.com.au
+  description: Role to deploy network policies for PlaceOS
+  company: ACA
+
+  license: Apache 2
+
+  min_ansible_version: 2.9.2
+
+  platforms:
+    - name: Linux
+      versions:
+        - all
+
+  galaxy_tags: []
+
+
+dependencies: []

@@ -1,0 +1,11 @@
+apiVersion: v2
+name: core
+description: A PlaceOS helm chart for the Core component
+
+type: application
+
+version: 0.1.0
+
+# This number is reflected in the container version deployed
+appVersion: latest
+

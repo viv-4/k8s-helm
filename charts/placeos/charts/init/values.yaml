@@ -1,0 +1,110 @@
+# -- runJob deploys the default init job if set to true
+runJob: true
+
+# deployment configuration for the init job
+deployment:
+  # -- number of replicas to deploy
+  replicaCount: 1
+  # -- length of time to retain job
+  ttlSecondsAfterFinished: 60
+  image:
+    repository: placeos/init
+    pullPolicy: IfNotPresent
+    # -- tag Overrides the image tag whose default is the chart appVersion.
+    # tag:
+
+  imagePullSecrets: []
+  nameOverride: ""
+  fullnameOverride: ""
+
+  podAnnotations: {}
+
+  # podSecurityContext for the pod
+  podSecurityContext:
+    # -- fsGroup is defined at container build time and in most circumstances should not be changed
+    fsGroup: 10001
+
+  securityContext:
+    # -- Linux Capabilities for the container
+    capabilities:
+      drop:
+      - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    # -- runAsUser is defined at container build time and in most circumstances should not be changed
+    runAsUser: 10001
+  # -- Pod resources request and limits
+  resources: {}
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# config variables injected into the pod containers as environment vars
+config:
+  # -- value exposed as environment variable to the pod
+  ENV: null
+  # -- value exposed as environment variable to the pod
+  ES_HOST: null
+  # -- value exposed as environment variable to the pod
+  ES_PORT: 0
+  # -- value exposed as environment variable to the pod
+  PLACE_APPLICATION: null
+  # -- value exposed as environment variable to the pod
+  PLACE_AUTH_HOST: null
+  # -- value exposed as environment variable to the pod
+  PLACE_EMAIL: null
+  # -- value exposed as environment variable to the pod
+  PLACE_PASSWORD: null
+  # -- value exposed as environment variable to the pod
+  PLACE_TLS: true
+  # -- value exposed as environment variable to the pod
+  PLACE_USERNAME: null
+  # -- value exposed as environment variable to the pod
+  RETHINKDB_DB: null
+  # -- value exposed as environment variable to the pod
+  RETHINKDB_HOST: null
+  # -- value exposed as environment variable to the pod
+  RETHINKDB_PASSWORD: null
+  # -- value exposed as environment variable to the pod
+  RETHINKDB_PORT: 0
+  # -- value exposed as environment variable to the pod
+  RETHINKDB_USER: null
+  # -- value exposed as environment variable to the pod
+  SG_ENV: null
+  # -- value exposed as environment variable to the pod
+  TZ: Australia/Sydney
+
+
+secrets:
+  #  --The default user password for the domain at initialisation time.
+  # Not used internally. This can be deleted after the password is retreived
+  PLACE_PASSWORD: null
+
+domain:
+  # -- alt names to add to the generated x509 cert
+  altNames:
+    - 127.0.0.1
+
+podPriorities:
+  # -- name for the the podPriority class used by 2nd priority PalceOS containers
+  mediumClassName: medium
+  # -- name for the the podPriority class used by 1st priority PalceOS containers
+  highClassName: high
+
+global:
+  # -- placeDomain the initial PlaceOS domain. No default value, Must be set
+  placeDomain: null
+  # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
+  customRedirectPort: null

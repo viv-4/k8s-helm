@@ -1,0 +1,23 @@
+# Example override values for a local deployment
+
+############################
+##### PlaceOS Services #####
+############################
+frontends:
+  httpSidecar: true
+
+###########################################
+##### Third Party Supporting Services #####
+###########################################
+etcd:
+  enabled: true
+elasticsearch:
+  enabled: true
+rethinkdb:
+  enabled: true
+redis:
+  enabled: true
+
+global:
+  placeDomain: localhost
+  customRedirectPort: 8443
