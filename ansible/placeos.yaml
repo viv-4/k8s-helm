@@ -61,7 +61,7 @@
   ## Deploy Rethinkdb
   - role: placeos.helm.thirdparty
     vars:
-      chart_repo_url: "https://kubernetes-charts.storage.googleapis.com/"
+      chart_repo_url: "https://charts.helm.sh/stable/"
       chart_ref: "rethinkdb"
       chart_release_namespace: "{{ rethinkdb_namespace }}"
       chart_version: "{{ rethinkdb_chart_version }}"
