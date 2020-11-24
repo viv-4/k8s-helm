@@ -199,6 +199,17 @@ init:
   secrets:
     # -- Default password for initial users in domain
     PLACE_PASSWORD: *placePassword
+# staff is the overide configuration for the embedded init subchart
+staff:
+  # -- staff is an optional PlaoceOS chart enabled by default.
+  enabled: true
+  fullnameOverride: staff
+  config:
+    << : *initConfigEnv
+    << : *deploymentEnv
+  secrets:
+    # -- Default password for initial users in domain
+    PLACE_PASSWORD: *placePassword
 
 ###########################################
 ##### -- Third Party Supporting Services #####
@@ -258,6 +269,11 @@ mosquitto:
   # -- mosquitto chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: mosquitto
+# postgres third party chart overrides
+postgres:
+  # -- mosquitto chart disabled by default. included for testing purposes only
+  enabled: true
+  fullnameOverride: postgres
 
 global:
   #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
