@@ -10,7 +10,7 @@ deployment:
   podPriorityClassName: high
   image:
     repository: placeos/rest-api
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # -- tag Overrides the image tag whose default is the chart appVersion.
     tag:
 

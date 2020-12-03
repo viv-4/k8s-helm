@@ -15,7 +15,7 @@ httpDeployment:
     repository: nginx
     # -- tag Overrides the image tag whose default is the chart appVersion.
     tag: "1.18"
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
   imagePullSecrets: []
   nameOverride: ""
