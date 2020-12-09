@@ -86,7 +86,8 @@ secrets:
   # -- value exposed as environment variable to the pod
   PLACE_PASSWORD: null
   PG_DATABASE_URL: postgresql://user:password@postgres-postgresql.postgres/postgres
-  SECRET_KEY_BASE: null
+  PLACE_AUTH_CLIENT_ID: manually_update_post_deployment
+  PLACE_AUTH_SECRET: manually_update_post_deployment
 
 
 global:
