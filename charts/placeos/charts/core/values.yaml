@@ -106,10 +106,10 @@ secrets:
 persistentVolumeClaim:
   accessModes:
     - ReadWriteOnce
-  storage: 1Gi
+  storage: 1Mi
 
 ## -- persistent volume claim for the stateful set repos
 persistentVolumeClaimRepos:
   accessModes:
     - ReadWriteOnce
-  storage: 1Gi
+  storage: 500Mi
