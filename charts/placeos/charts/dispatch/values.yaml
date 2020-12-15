@@ -87,5 +87,4 @@ tcpLoadbalancer:
   type: LoadBalancer
   annotations: {}
   # -- default port mappings for the TCP loadbalancer. Set portMappings to [] to disable
-  portMappings:
-    - 23: 10023
+  portMappings: []
