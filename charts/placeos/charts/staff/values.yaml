@@ -76,7 +76,6 @@ configmap:
   # -- values exposed as environment variable to the pod
   PLACE_URI: null
   PLACE_EMAIL: null
-  STAFF_DOMAINS: null
   STAFF_TIME_ZONE: null
   SG_ENV: null
 
