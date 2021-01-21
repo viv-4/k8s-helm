@@ -23,9 +23,9 @@ xtz: &TZ Australia/Sydney
 
 xdeploymentEnv: &deploymentEnv
   # -- configmap value exposed as environment variables to PlaceOS containers
-  ENV: development
+  ENV: production
   # -- configmap value exposed as environment variables to PlaceOS containers
-  SG_ENV: development
+  SG_ENV: production
   # -- configmap value exposed as environment variables to PlaceOS containers
   TZ: *TZ
 
