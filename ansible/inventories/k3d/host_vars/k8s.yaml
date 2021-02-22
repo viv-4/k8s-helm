@@ -128,7 +128,7 @@ etcd:
   auth:
     rbac:
       enabled: false
-  persistence.size: 100Mi
+  persistence.size: 100Mib
 elasticsearch:
   enabled: true
   master:
