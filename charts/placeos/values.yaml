@@ -265,3 +265,5 @@ global:
   # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   # Used by the init service to configure the appropriate services
   customRedirectPort: null
+  gcpbackendConfig:
+    enabled: false  

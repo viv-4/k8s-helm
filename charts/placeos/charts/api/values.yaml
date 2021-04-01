@@ -121,3 +121,6 @@ ingress:
   tls:
     - hosts:
         - "_"
+global:
+  gcpbackendConfig:
+    enabled: false

@@ -108,3 +108,19 @@ global:
   placeDomain: null
   # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   customRedirectPort: null
+  gcpbackendConfig:
+    enabled: false
+    loadbalancerAccessType: "External"
+    config: {}
+
+## examples for backend config
+#   healthCheck:
+#     checkIntervalSec: interval
+#     timeoutSec: timeout
+#     healthyThreshold: health-threshold
+#     unhealthyThreshold: unhealthy-threshold
+#     type: protocol
+#     requestPath: path
+#     port: port
+#   securityPolicy:
+#     name: AppArmor Policy Name
