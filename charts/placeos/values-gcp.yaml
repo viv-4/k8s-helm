@@ -51,6 +51,6 @@ global:
   gcpbackendConfig:
     enabled: false
     name: placeos-core
-    cloudArmourName: ""
-    global_static_ip_name: "l7-ip"
-## More to be added. Starting with simplest solution
+    config: {}
+    global_static_ip_name: ""
+    loadbalancerAccessType: ""
