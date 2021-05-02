@@ -20,6 +20,9 @@ dependencies:
 - name: triggers
   repository: ""
   version: 0.1.0
+- name: staff
+  repository: ""
+  version: 0.1.0
 - name: init
   repository: ""
   version: 0.1.0
@@ -41,5 +44,8 @@ dependencies:
 - name: mosquitto
   repository: https://halkeye.github.io/helm-charts/
   version: 0.2.0
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 13.2.0
 digest: sha256:908924663ed33cab6dce6478f338a6c331aba09e7d1bef87d13f3feffb75fa74
 generated: "2021-03-26T13:06:03.660877+11:00"

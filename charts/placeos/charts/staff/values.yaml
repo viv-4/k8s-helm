@@ -92,6 +92,8 @@ secrets:
 global:
   #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
   placeDomain: null
+  gcpbackendConfig:
+    enabled: false
 
 ingress:
   # -- enable ingress to expose the pod services

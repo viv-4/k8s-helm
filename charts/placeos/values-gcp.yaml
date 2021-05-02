@@ -34,6 +34,13 @@ frontends:
       ingress.kubernetes.io/ssl-redirect: "true"
       nginx.ingress.kubernetes.io/app-root: "/backoffice/"
 
+staff:
+  ingress:
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      ingress.kubernetes.io/ssl-redirect: "true"
+
 ###########################################
 ##### Third Party Supporting Services #####
 ###########################################
@@ -45,6 +52,8 @@ rethinkdb:
   enabled: true
 redis:
   enabled: true
+postgresql:
+  enabled: false
 
 global:
   placeDomain: ""

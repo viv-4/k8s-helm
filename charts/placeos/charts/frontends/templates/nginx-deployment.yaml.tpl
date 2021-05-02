@@ -43,14 +43,14 @@ spec:
           name: http-nginx
         livenessProbe:
           httpGet:
-            path: /backoffice
+            path: /login/
             port: 8080
           timeoutSeconds: 10
           initialDelaySeconds: 10
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /backoffice
+            path: /login/
             port: 8080
           timeoutSeconds: 10
           initialDelaySeconds: 10
