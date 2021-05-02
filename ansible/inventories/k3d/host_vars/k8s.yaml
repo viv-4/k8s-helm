@@ -128,12 +128,17 @@ etcd:
   auth:
     rbac:
       enabled: false
+  persistence.size: 100Mib
 elasticsearch:
   enabled: true
   master:
     replicas: 1
+    persistence:
+      size: 100Mib
   data:
     replicas: 1
+    persistence:
+      size: 100Mib
   coordinating:
     replicas: 0
 rethinkdb:

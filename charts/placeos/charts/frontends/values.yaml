@@ -178,3 +178,7 @@ configmap:
 # -- secrets for the deployment exposed as environment variables to the pod
 secrets:
   RETHINKDB_PASSWORD: null
+
+global:
+  gcpbackendConfig:
+    enabled: false

@@ -84,6 +84,8 @@ configmap:
   # -- value exposed as environment variable to the pod
   RETHINKDB_USER: null
   # -- value exposed as environment variable to the pod
+  REDIS_URL: null
+  # -- value exposed as environment variable to the pod
   TZ: Australia/Sydney
 
 # secrets for the deployment exposed as environment variables to the pod
@@ -104,3 +106,7 @@ ingress:
   tls:
     - hosts:
         - "_"
+
+global:
+  gcpbackendConfig:
+    enabled: false

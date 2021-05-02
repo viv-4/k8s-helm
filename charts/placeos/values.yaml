@@ -281,3 +281,18 @@ global:
   # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   # Used by the init service to configure the appropriate services
   customRedirectPort: null
+  gcpbackendConfig:
+    # -- gcpbackendConfig Create a GCP specific CustomResourceDefinition `BackendConfig` to enable a customisable L7 loabalancer instead of Nginx TCP loadbalancer
+    # See https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features
+    enabled: false
+    # -- the name of the BackendConfig Custom Resource
+    name: placeos-core
+    # -- yaml configuration for the BackendConfig
+    config: {}
+      # Example of attaching GCP CloudArmor to  the BackendConfig
+      # securityPolicy: 
+      #   name: "test"
+    # -- The name of the GCP static IP to attach the HTTP load balancer to
+    global_static_ip_name: "l7-ip"
+    # -- The type of load lalancer. External or Internal
+    loadbalancerAccessType: "External"
