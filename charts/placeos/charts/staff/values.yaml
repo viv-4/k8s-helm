@@ -89,12 +89,6 @@ secrets:
   PLACE_AUTH_SECRET: manually_update_post_deployment
 
 
-global:
-  #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
-  placeDomain: null
-  gcpbackendConfig:
-    enabled: false
-
 ingress:
   # -- enable ingress to expose the pod services
   enabled: true
@@ -108,3 +102,10 @@ ingress:
   tls:
     - hosts:
         - "_"
+
+global:
+  #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
+  placeDomain: null
+  gcpbackendConfig:
+    enabled: false
+
