@@ -38,7 +38,7 @@ spec:
         backend:
           serviceName: auth-gcp
           servicePort: 3000
-      - path: /staff/*
+      - path: /api/staff/*
         backend:
           serviceName: staff-gcp
           servicePort: 8080
