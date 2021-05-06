@@ -40,6 +40,17 @@ spec:
           - name: http
             containerPort: 8080
             protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /staff/api/v1
+            port: 8080
+          timeoutSeconds: 10
+          initialDelaySeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /staff/api/v1
+            port: 8080
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
       {{- if .Values.deployment.podPriorityClassName }}

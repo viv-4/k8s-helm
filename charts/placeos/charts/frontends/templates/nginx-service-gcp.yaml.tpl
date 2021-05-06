@@ -12,7 +12,7 @@ spec:
   type: NodePort
   ports:
     - port: {{ .Values.httpservice.port }}
-      targetPort: 8080
+      targetPort: http-nginx
       protocol: TCP
   selector:
     {{- include "frontends.selectorLabels" . | nindent 4 }}
