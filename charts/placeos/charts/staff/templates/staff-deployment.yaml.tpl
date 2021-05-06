@@ -42,14 +42,14 @@ spec:
             protocol: TCP
         livenessProbe:
           httpGet:
-            path: /staff/api/v1
+            path: /api/staff/v1
             port: 8080
           timeoutSeconds: 10
           initialDelaySeconds: 10
           failureThreshold: 3
         readinessProbe:
           httpGet:
-            path: /staff/api/v1
+            path: /api/staff/v1
             port: 8080
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
