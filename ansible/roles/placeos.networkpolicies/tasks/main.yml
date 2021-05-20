@@ -27,6 +27,12 @@
     namespace: "{{ placeos_namespace }}"
     definition: "{{ lookup('template', 'allow-external.yaml') | from_yaml }}"
 
+- name: allow access to placeos
+  community.kubernetes.k8s:
+    state: "{{ policy_state }}"
+    namespace: "{{ placeos_namespace }}"
+    definition: "{{ lookup('template', 'allow-external-placeos.yaml') | from_yaml }}"
+
 # tasks file for placeos.networkpolicies
 - name: placeos ns to service ns
   community.kubernetes.k8s:
