@@ -1,0 +1,115 @@
+# Example override values for an Openshift v4 deployment
+
+xinternalRegistry: &internalRegistry        "example.image.registry:5000"
+
+# PlaceOS Images
+xapiImageRepo: &apiImageRepo                "placeos/rest-api"
+xauthImageRepo: &authImageRepo              "placeos/auth"
+xcoreImageRepo: &coreImageRepo              "placeos/core"
+xdispatchImageRepo: &dispatchImageRepo      "placeos/dispatch"
+xrubbersoulImageRepo: &rubbersoulImageRepo  "placeos/rubber-soul"
+xtriggersImageRepo: &triggersImageRepo      "placeos/triggers"
+xinitImageRepo: &initImageRepo              "placeos/init"
+xstaffImageRepo: &staffImageRepo            "placeos/staff-api"
+xfrontendsImageRepo: &frontendsImageRepo    "placeos/frontends"
+
+# Third-party Images
+xelasticImageRepo: &elasticImageRepo        "placeos/elasticsearch"
+xetcdImageRepo: &etcdImageRepo              "placeos/etcd"
+xpostgresImageRepo: &postgresImageRepo      "placeos/postgresql"
+xredisImageRepo: &redisImageRepo            "placeos/redis"
+# RethinkDB must include the registry
+xrethinkImageRepo: &rethinkImageRepo        "example.image.registry:5000/placeos/helm-rethinkdb-cluster"
+
+# Third-party Image Tags
+xelasticTag: &elasticTag                    "7.9.1-debian-10-r10"
+xetcdTag: &etcdTag                          "3.4.13-debian-10-r0"
+xpostgresTag: &postgresTag                  "11.12.0-debian-10-r13"
+xredisTag: &redisTag                        "6.0.8-debian-10-r0"
+xrethinkTag: &rethinkTag                    "0.1.0"
+
+
+############################
+##### PlaceOS Services #####
+############################
+api:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *apiImageRepo
+
+auth:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *authImageRepo
+
+core:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *coreImageRepo
+
+dispatch:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *dispatchImageRepo
+
+rubbersoul:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *rubbersoulImageRepo
+
+triggers:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *triggersImageRepo
+
+init:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *initImageRepo
+
+staff:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *staffImageRepo
+
+frontends:
+  deployment:
+    image:
+      registry: *internalRegistry
+      repository: *frontendsImageRepo
+
+###########################################
+##### Third Party Supporting Services #####
+###########################################
+elasticsearch:
+  image:
+    registry: *internalRegistry
+    repository: *elasticImageRepo
+    tag: *elasticTag
+etcd:
+  image:
+    registry: *internalRegistry
+    repository: *etcdImageRepo
+    tag: *etcdTag
+postgresql:
+  image:
+    registry: *internalRegistry
+    repository: *postgresImageRepo
+    tag: *postgresTag
+redis:
+  image:
+    registry: *internalRegistry
+    repository: *redisImageRepo
+    tag: *redisTag
+rethinkdb:
+  image:
+    name: *rethinkImageRepo
+    tag: *rethinkTag

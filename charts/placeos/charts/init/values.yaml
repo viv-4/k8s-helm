@@ -8,10 +8,11 @@ deployment:
   # -- length of time to retain job
   ttlSecondsAfterFinished: 60
   image:
+    registry: docker.io
     repository: placeos/init
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    # tag:
+    #tag: placeos-1.2105.3
 
   imagePullSecrets: []
   nameOverride: ""
@@ -65,8 +66,6 @@ config:
   PLACE_AUTH_HOST: null
   # -- value exposed as environment variable to the pod
   PLACE_EMAIL: null
-  # -- value exposed as environment variable to the pod
-  PLACE_PASSWORD: null
   # -- value exposed as environment variable to the pod
   PLACE_TLS: true
   # -- value exposed as environment variable to the pod
