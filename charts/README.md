@@ -120,6 +120,12 @@ The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
 
 - Authenticate using the oc token login command provided by the Openshift web interface
 
+Set the kubectl context to the Openshift project namespace:
+
+```sh
+kubectl config set-context --current --namespace=placeos
+```
+
 Set the `PLACE_DOMAIN` env var:
 
 ```sh
