@@ -41,7 +41,8 @@ ansible-playbook placeos.yaml -i inventories/k3d/
 # GKE deployment
 # Check first be for deploying
 ansible-playbook placeos.yaml -i inventories/gke/  --check
-ansible-playbook placeos.yaml -i inventories/gke/
+# Define the placeDomain value when running:
+ansible-playbook placeos.yaml -i inventories/gke/ -e "placeDomain={domain/ip of cluster}"
 ansible-playbook placeos-network-policies.yaml
 
 # AKS deployment
