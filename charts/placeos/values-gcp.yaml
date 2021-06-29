@@ -52,7 +52,7 @@ rethinkdb:
   enabled: true
 redis:
   enabled: true
-postgresql:
+postgres:
   enabled: false
 
 global:
