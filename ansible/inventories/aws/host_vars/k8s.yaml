@@ -13,7 +13,7 @@ xserverSecret: &serverSecret "{{ serverSecret | default( '', true ) }}"
 
 # xelasticClientEnv configmap values for ElasticSearch Service exposed as environment variables to PlaceOS containers
 xelasticClientEnv: &elasticClientEnv
-  ES_HOST: "{{ chart_release_name }}-elasticsearch-master.{{ elasticsearch_namespace }}"
+  ES_HOST: "{{ elasticsearch_release_name }}-elasticsearch-master.{{ elasticsearch_namespace }}"
   ES_PORT: 9200
 
 # xetcdClientEnv configmap values for Etcd end point Service as environment variables to PlaceOS containers
@@ -27,7 +27,7 @@ xredisClientEnv: &redisClientEnv
 
 # xrethinkdbClientEnv configmap values for RethinkDB Service exposed as environment variables to PlaceOS containers
 xrethinkdbClientEnv: &rethinkdbClientEnv
-  RETHINKDB_HOST: "{{ chart_release_name }}-rethinkdb-proxy.{{ rethinkdb_namespace }}"
+  RETHINKDB_HOST: "{{ rethinkdb_release_name }}-rethinkdb-proxy.{{ rethinkdb_namespace }}"
   RETHINKDB_PORT: 28015
   RETHINKDB_DB: place_development
   RETHINKDB_USER: admin
