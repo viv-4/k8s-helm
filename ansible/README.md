@@ -19,7 +19,6 @@ Contains 4 roles:
 
 - Review the requirements for the [Ansible helm wrapper](https://docs.ansible.com/ansible/2.10/collections/community/kubernetes/helm_module.html)
 
-
 Note: Tested with:
 
 - Ansible collection `community.kubernetes:1.0.0`
@@ -42,6 +41,7 @@ ansible-playbook placeos.yaml -i inventories/k3d/
 # Check first be for deploying
 ansible-playbook placeos.yaml -i inventories/gke/  --check
 # Define the placeDomain value when running:
+# Terraform will output the created External IP or find `l7-ip` at `VPC Network -> External IP Addresses`
 ansible-playbook placeos.yaml -i inventories/gke/ -e "placeDomain={domain/{external IP.sslip.io}}"
 ansible-playbook placeos-network-policies.yaml
 
