@@ -98,7 +98,7 @@ dependencies:
   - name: postgresql
     version: 10.4.8
     repository: https://charts.bitnami.com/bitnami
-    condition: postgres.enabled
+    condition: postgresql.enabled
     # tags: # (optional)
     #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times

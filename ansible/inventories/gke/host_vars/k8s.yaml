@@ -191,5 +191,5 @@ mosquitto:
   enabled: false
   fullnameOverride: mosquitto
 postgresql:
-  enabled: false
-  fullnameOverride: postgres
+  enabled: true
+  fullnameOverride: postgresql
