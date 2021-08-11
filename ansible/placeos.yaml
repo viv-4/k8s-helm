@@ -12,6 +12,7 @@
       serverSecret: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
       placePassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
       rethinkdbPassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
+      postgresqlPassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
 
   roles:
   ## Override random rethinkdbPassword if it already exists

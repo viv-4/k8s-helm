@@ -2,6 +2,9 @@
 #  Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret
 xrethinkdbPassword: &rethinkdbPassword "{{ rethinkdbPassword }}"
 
+#  Used to set the postgres user password in PostgresQL if enabled then passed to multiple containers in a k8s secret
+xpostgresqlPassword: &postgresqlPassword "{{ postgresqlPassword }}"
+
 # xsmtpPassword. the smtp password used by triggers
 xsmtpPassword: &smtpPassword "{{ smtpPassword | default( '', true ) }}"
 
@@ -34,6 +37,11 @@ xrethinkdbClientEnv: &rethinkdbClientEnv
 
 xrethinkdbClientSecrets: &rethinkdbClientSecrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
+
+xpostgresqlValues: &postgresqlValues
+  postgresqlUsername: placeos
+  postgresqlDatabase: placeos
+  postgresqlPassword: *postgresqlPassword
 
 # xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
 xsmtpClientSecrets: &smtpClientSecrets
@@ -137,6 +145,7 @@ placeos:
       annotations:
         kubernetes.io/ingress.class: nginx
         ingress.kubernetes.io/ssl-redirect: "true"
+    << : *postgresqlValues
 
   global:
     placeDomain: "{{ placeDomain | default('localhost', true ) }}"
@@ -193,3 +202,4 @@ mosquitto:
 postgresql:
   enabled: true
   fullnameOverride: postgresql
+  << : *postgresqlValues
