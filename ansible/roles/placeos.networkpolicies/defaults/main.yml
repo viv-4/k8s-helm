@@ -3,22 +3,22 @@
 
 placeos_namespace: placeos
 placeos_to_ns:
-    - etcd
-    - rethinkdb
-    - elasticsearch
-    - redis
+    # - etcd
+    # - rethinkdb
+    # - elasticsearch
+    # - redis
     # - influxdb
     # - mosquitto
 internal_ns:
-    - etcd
-    - rethinkdb
-    - elasticsearch
-    - redis
+    # - etcd
+    # - rethinkdb
+    # - elasticsearch
+    # - redis
     - "{{ placeos_namespace }}"
     # - influxdb
     # - mosquitto
 policy_state: "present"
 
 ingress_upstream: "ingress-upstream"
-ingress_namespace: "ingress-nginx"
+ingress_namespace: "placeos"
 ingress_application_name: "ingress-nginx"

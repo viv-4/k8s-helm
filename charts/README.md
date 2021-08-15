@@ -7,6 +7,7 @@ Currently supported deployment scenarios are:
 - Local deployment to a k3d cluster ( kubernetes in docker )
 - GCP deployment to GKE
 - Azure deployment to AKS
+- Openshift v4
 
 Tested on k8s 1.17 and 1.18
 
@@ -20,13 +21,17 @@ For local deployments only
 - docker daemon installed and running
 - k3d installed see [K3D](https://k3d.io/).
 
+For Openshift
+
+- oc installed (for cluster login)
+
 Install third party resource dependencies
 
 ```sh
 
 helm repo add halkeye https://halkeye.github.io/helm-charts/
 helm repo add bitnami  https://charts.bitnami.com/bitnami
-helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+helm repo add stable https://charts.helm.sh/stable
 helm repo add cnieg https://cnieg.github.io/helm-charts
 cd charts/placeos
 helm dependency update .
@@ -110,6 +115,37 @@ helm install dev placeos/ -f placeos/values-azure.yaml --set global.placeDomain=
 **Note**: we use xip.io for a ready made domain for development and demonstration purposes only.
 
 The user interface should be available after a while at `${PLACE_DOMAIN}.xip.io`
+
+### Openshift
+
+- Authenticate using the oc token login command provided by the Openshift web interface
+
+Set the kubectl context to the Openshift project namespace:
+
+```sh
+kubectl config set-context --current --namespace=placeos
+```
+
+Set the `PLACE_DOMAIN` env var:
+
+```sh
+export PLACE_DOMAIN=example.cluster.domain
+```
+
+Deploy the charts:
+
+```sh
+helm install placeos placeos/ -f placeos/values-openshift.yaml --set global.placeDomain=$PLACE_DOMAIN
+```
+
+## Internal Image Registry
+
+- The registry and image names can be set in placeos/values-internal_registry.yaml
+- Once configured call these values as a second parameter to helm install:
+
+```sh
+helm install placeos placeos/ -f placeos/values-openshift.yaml -f placeos/values-internal_registry.yaml --set global.placeDomain=$PLACE_DOMAIN
+```
 
 ## Design Notes
 
