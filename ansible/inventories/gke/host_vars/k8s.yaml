@@ -157,7 +157,7 @@ placeos:
         connectionDraining:
           drainingTimeoutSec: 60
         securityPolicy:
-          name: "test"
+          name: "cloudarmor-policy"
       global_static_ip_name: "l7-ip"
       loadbalancerAccessType: "External"
 

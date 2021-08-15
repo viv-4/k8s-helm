@@ -19,6 +19,8 @@ Contains 4 roles:
 
 - Review the requirements for the [Ansible helm wrapper](https://docs.ansible.com/ansible/2.10/collections/community/kubernetes/helm_module.html)
 
+- GKE: a Cloud Armor Security must exist for the Load Balancer to associate with
+
 Note: Tested with:
 
 - Ansible collection `community.kubernetes:1.0.0`
@@ -38,6 +40,7 @@ ansible-playbook placeos.yaml -i inventories/k3d/
 
 
 # GKE deployment
+# Set the Cloud Armor security policy name in inventories/gke/host_vars/k8s.yaml as placeos.global.gcpbackendConfig.config.securityPolicy
 # Check first be for deploying
 ansible-playbook placeos.yaml -i inventories/gke/  --check
 # Define the placeDomain value when running:
