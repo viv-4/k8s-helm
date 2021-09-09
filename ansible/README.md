@@ -31,6 +31,9 @@ Note: Tested with:
 To deploy:
 
 ```sh
+# Install reprequisites
+ansible-galaxy collection install community.kubernetes
+
 # Local deployment to k3d
 # Check first be for deploying
 ansible-playbook placeos.yaml -i inventories/k3d/ --check
