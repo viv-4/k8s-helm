@@ -71,7 +71,7 @@ deployment:
   podPriorityClassName: medium
   image:
     registry: docker.io
-    repository: placeos/frontends
+    repository: placeos/frontend-loader
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
     #tag: placeos-1.2109.0
