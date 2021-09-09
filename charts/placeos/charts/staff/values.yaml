@@ -13,7 +13,7 @@ deployment:
     repository: placeos/staff-api
     pullPolicy: Always
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    tag: 8aaf84d89535968493791862dc0162c1ff71df9c
+    #tag: 8aaf84d89535968493791862dc0162c1ff71df9c
 
   imagePullSecrets: []
   nameOverride: ""
