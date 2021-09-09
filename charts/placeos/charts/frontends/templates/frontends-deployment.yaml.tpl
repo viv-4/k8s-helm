@@ -44,11 +44,11 @@ spec:
             protocol: TCP
         livenessProbe:
           httpGet:
-            path: /api/frontends/v1
+            path: /api/frontend-loader/v1
             port: http
         readinessProbe:
           httpGet:
-            path: /api/frontends/v1
+            path: /api/frontend-loader/v1
             port: http
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
