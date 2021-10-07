@@ -80,6 +80,8 @@ configmap:
   # -- value exposed as environment variable to the pod
   ES_PORT: 0
   # -- value exposed as environment variable to the pod
+  ES_DISABLE_BULK: 'false'
+  # -- value exposed as environment variable to the pod
   RETHINKDB_DB: null
   # -- value exposed as environment variable to the pod
   RETHINKDB_HOST: null
