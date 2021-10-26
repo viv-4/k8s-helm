@@ -8,5 +8,5 @@ metadata:
     "helm.sh/hook": "pre-install"
     "helm.sh/hook-delete-policy": "before-hook-creation"
 stringData:
-  PG_DATABASE_URL: postgresql://{{ .Values.postgresqlUsername }}:{{ .Values.postgresqlPassword }}@postgresql/{{ .Values.postgresqlDatabase }}
+  PG_DATABASE_URL: postgresql://{{ .Values.postgresqlUsername }}:{{ .Values.postgresqlPassword }}@postgres/{{ .Values.postgresqlDatabase }}
   {{- toYaml .Values.secrets | nindent 2 }}
