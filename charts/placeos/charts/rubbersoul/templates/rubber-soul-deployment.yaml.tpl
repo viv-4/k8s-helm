@@ -40,16 +40,14 @@ spec:
           - name: http
             containerPort: 3000
             protocol: TCP
-        {{/*
         livenessProbe:
           httpGet:
-            path: /api/rubbersoul/v1
+            path: /api/rubber-soul/v1
             port: http
         readinessProbe:
           httpGet:
-            path: /api/rubbersoul/v1
+            path: /api/rubber-soul/v1
             port: http
-        */}}
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
       {{- with .Values.deployment.nodeSelector }}

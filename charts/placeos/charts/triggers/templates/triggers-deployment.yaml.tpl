@@ -40,16 +40,14 @@ spec:
           - name: http
             containerPort: 3000
             protocol: TCP
-        {{/*
         livenessProbe:
           httpGet:
-            path: /
+            path: /api/triggers/v2
             port: http
         readinessProbe:
           httpGet:
-            path: /
+            path: /api/triggers/v2
             port: http
-        */}}
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
       {{- with .Values.deployment.nodeSelector }}
