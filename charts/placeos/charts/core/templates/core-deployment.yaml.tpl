@@ -76,7 +76,6 @@ spec:
         volumeMounts:
         - mountPath: /app/bin/drivers/
           name: {{ include "core.fullname" . }}
-        volumeMounts:
         - mountPath: /app/repositories/
           name: {{ include "core.fullname" . }}-repos
       {{- if .Values.deployment.podPriorityClassName }}
