@@ -87,6 +87,7 @@ configmap:
   REDIS_URL: null
   # -- value exposed as environment variable to the pod
   TZ: Australia/Sydney
+  RAILS_ENV: production
 
 # secrets for the deployment exposed as environment variables to the pod
 secrets:
