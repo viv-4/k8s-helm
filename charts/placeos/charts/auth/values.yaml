@@ -74,7 +74,7 @@ service:
 # configmap for the deployment exposed as environment variables to the pod
 configmap:
   # -- value exposed as environment variable to the pod
-  COAUTH_NO_SSL: true
+  COAUTH_NO_SSL: false
   # -- value exposed as environment variable to the pod
   RETHINKDB_DB: null
   # -- value exposed as environment variable to the pod
