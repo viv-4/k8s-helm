@@ -124,7 +124,7 @@ auth:
   fullnameOverride: auth
   configmap:
     << : *rethinkdbClientEnv
-    COAUTH_NO_SSL: "true"
+    COAUTH_NO_SSL: "false"
     TZ: *TZ
   secrets:
     << : *rethinkdbClientSecrets
