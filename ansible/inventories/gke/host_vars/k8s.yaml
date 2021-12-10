@@ -134,6 +134,7 @@ placeos:
       << : *rethinkdbClientSecrets
     secrets:
       PLACE_PASSWORD: *placePassword
+      PLACE_SERVER_SECRET: *placeServerSecret
   global:
     placeDomain: "{{ placeDomain | default('localhost', true ) }}"
     customRedirectPort: "{{ customRedirectPort | default( omit ) }}"
