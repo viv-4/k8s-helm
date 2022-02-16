@@ -3,7 +3,7 @@
 ############################
 ##### PlaceOS Services #####
 ############################
-frontend-loader:
+frontendloader:
   httpSidecar: true
 
 ###########################################

@@ -7,11 +7,11 @@ xapiImageRepo: &apiImageRepo                "placeos/rest-api"
 xauthImageRepo: &authImageRepo              "placeos/auth"
 xcoreImageRepo: &coreImageRepo              "placeos/core"
 xdispatchImageRepo: &dispatchImageRepo      "placeos/dispatch"
-xsearch-ingestImageRepo: &search-ingestImageRepo  "placeos/search-ingest"
+xsearchingestImageRepo: &searchingestImageRepo  "placeos/search-ingest"
 xtriggersImageRepo: &triggersImageRepo      "placeos/triggers"
 xinitImageRepo: &initImageRepo              "placeos/init"
 xstaffImageRepo: &staffImageRepo            "placeos/staff-api"
-xfrontend-loaderImageRepo: &frontend-loaderImageRepo    "placeos/frontend-loader"
+xfrontendloaderImageRepo: &frontendloaderImageRepo    "placeos/frontend-loader"
 
 # Third-party Images
 xelasticImageRepo: &elasticImageRepo        "placeos/elasticsearch"
@@ -56,11 +56,11 @@ dispatch:
       registry: *internalRegistry
       repository: *dispatchImageRepo
 
-search-ingest:
+searchingest:
   deployment:
     image:
       registry: *internalRegistry
-      repository: *search-ingestImageRepo
+      repository: *searchingestImageRepo
 
 triggers:
   deployment:
@@ -80,11 +80,11 @@ staff:
       registry: *internalRegistry
       repository: *staffImageRepo
 
-frontend-loader:
+frontendloader:
   deployment:
     image:
       registry: *internalRegistry
-      repository: *frontend-loaderImageRepo
+      repository: *frontendloaderImageRepo
 
 ###########################################
 ##### Third Party Supporting Services #####

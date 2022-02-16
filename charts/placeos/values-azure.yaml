@@ -23,7 +23,7 @@ dispatch:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 
-frontend-loader:
+frontendloader:
   httpSidecar: true
   ingress:
     annotations:

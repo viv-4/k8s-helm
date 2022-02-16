@@ -24,13 +24,13 @@ dependencies:
     version: 0.1.0
     condition: dispatch.enabled
 
-  - name: frontend-loader
+  - name: frontendloader
     version: 0.1.0
-    condition: frontend-loader.enabled
+    condition: frontendloader.enabled
 
-  - name: search-ingest
+  - name: searchingest
     version: 0.1.0
-    condition: search-ingest.enabled
+    condition: searchingest.enabled
 
   - name: triggers
     version: 0.1.0

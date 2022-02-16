@@ -1,6 +1,6 @@
 apiVersion: v2
-name: search-ingest
-description: A PlaceOS helm chart for the Rubber-Soul component
+name: frontendloader
+description: A PlaceOS helm chart for the Frontends component
 
 type: application
 
