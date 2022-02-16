@@ -49,7 +49,7 @@ xetcdClientEnv: &etcdClientEnv
 
 xplaceLoaderClientEnv: &placeLoaderClientEnv
   # -- configmap value for the frontend Service exposed as environment variables to PlaceOS containers
-  PLACE_LOADER_URI: http://frontends:3000
+  PLACE_LOADER_URI: http://frontend-loader:3000
 
 xredisClientEnv: &redisClientEnv
   # -- configmap value for the redis Service exposed as environment variables to PlaceOS containers
@@ -71,7 +71,7 @@ xrethinkdbClientSecrets: &rethinkdbClientSecrets
 
 xrubberSoulClientEnv: &rubberSoulClientEnv
   # -- configmap value for the Rubber Soul service exposed as environment variables to PlaceOS containers
-  RUBBER_SOUL_URI: http://rubbersoul:3000
+  RUBBER_SOUL_URI: http://search-ingest:3000
 
 
 xsmtpClientEnv: &smtpClientEnv
@@ -158,12 +158,12 @@ dispatch:
   fullnameOverride: dispatch
   secrets:
     << : *dispatchSecrets
-# frontends is the overide configuration for the embedded frontends subchart
-frontends:
-  # -- frontends is a core PlaoceOS chart enabled by default.
+# frontend-loader is the overide configuration for the embedded frontend-loader subchart
+frontend-loader:
+  # -- frontend-loader is a core PlaoceOS chart enabled by default.
   enabled: true
   httpSidecar: true
-  fullnameOverride: frontends
+  fullnameOverride: frontend-loader
   configmap:
     # -- path to static html resources
     PLACE_LOADER_WWW: www
@@ -171,11 +171,11 @@ frontends:
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
-# rubbersoul is the overide configuration for the embedded rubber-soul subchart
-rubbersoul:
-  # -- rubbersoul is a core PlaoceOS chart enabled by default.
+# search-ingest is the overide configuration for the embedded search-ingest subchart
+search-ingest:
+  # -- search-ingest is a core PlaoceOS chart enabled by default.
   enabled: true
-  fullnameOverride: rubbersoul
+  fullnameOverride: search-ingest
   configmap:
     << : *rethinkdbClientEnv
     << : *elasticClientEnv

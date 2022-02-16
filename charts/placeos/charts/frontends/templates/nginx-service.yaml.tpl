@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "frontends.fullname" . }}-http
+  name: {{ include "frontend-loader.fullname" . }}-http
   labels:
-    {{- include "frontends.labels" . | nindent 4 }}
+    {{- include "frontend-loader.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.httpservice.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "frontends.selectorLabels" . | nindent 4 }}
+    {{- include "frontend-loader.selectorLabels" . | nindent 4 }}

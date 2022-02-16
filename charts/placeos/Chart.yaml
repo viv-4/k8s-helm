@@ -24,13 +24,13 @@ dependencies:
     version: 0.1.0
     condition: dispatch.enabled
 
-  - name: frontends
+  - name: frontend-loader
     version: 0.1.0
-    condition: frontends.enabled
+    condition: frontend-loader.enabled
 
-  - name: rubbersoul
+  - name: search-ingest
     version: 0.1.0
-    condition: rubber-soul.enabled
+    condition: search-ingest.enabled
 
   - name: triggers
     version: 0.1.0

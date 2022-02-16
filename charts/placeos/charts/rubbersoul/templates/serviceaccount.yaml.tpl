@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ include "rubbersoul.serviceAccountName" . }}
+  name: {{ include "search-ingest.serviceAccountName" . }}
   labels:
-    {{- include "rubbersoul.labels" . | nindent 4 }}
+    {{- include "search-ingest.labels" . | nindent 4 }}
   {{- with .Values.serviceAccount.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

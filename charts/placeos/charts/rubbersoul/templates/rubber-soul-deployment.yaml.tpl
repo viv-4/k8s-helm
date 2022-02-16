@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "rubbersoul.fullname" . }}
+  name: {{ include "search-ingest.fullname" . }}
   labels:
-    {{- include "rubbersoul.labels" . | nindent 4 }}
+    {{- include "search-ingest.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      {{- include "rubbersoul.selectorLabels" . | nindent 6 }}
+      {{- include "search-ingest.selectorLabels" . | nindent 6 }}
   template:
     metadata:
     {{- with .Values.deployment.podAnnotations }}
@@ -16,13 +16,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "rubbersoul.selectorLabels" . | nindent 8 }}
+        {{- include "search-ingest.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.deployment.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "rubbersoul.serviceAccountName" . }}
+      serviceAccountName: {{ include "search-ingest.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.deployment.podSecurityContext | nindent 8 }}
       containers:
@@ -31,9 +31,9 @@ spec:
           {{- toYaml .Values.deployment.securityContext | nindent 12 }}
         envFrom:
           - configMapRef:
-              name:  {{ include "rubbersoul.fullname" . }}
+              name:  {{ include "search-ingest.fullname" . }}
           - secretRef:
-              name: {{ include "rubbersoul.fullname" . }}
+              name: {{ include "search-ingest.fullname" . }}
         image: "{{ .Values.deployment.image.registry }}/{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
@@ -42,11 +42,11 @@ spec:
             protocol: TCP
         livenessProbe:
           httpGet:
-            path: /api/rubber-soul/v1
+            path: /api/search-ingest/v1
             port: http
         readinessProbe:
           httpGet:
-            path: /api/rubber-soul/v1
+            path: /api/search-ingest/v1
             port: http
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}

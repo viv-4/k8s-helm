@@ -1,4 +1,4 @@
-# Default values for frontends.
+# Default values for frontend-loader.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -13,7 +13,7 @@ deployment:
     repository: placeos/auth
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    #tag: placeos-1.2109.0
+    #tag: placeos-1.2202.2
 
   imagePullSecrets: []
   nameOverride: ""
@@ -89,6 +89,7 @@ configmap:
   # -- value exposed as environment variable to the pod
   TZ: Australia/Sydney
   RAILS_ENV: production
+  PLACE_URI: 
 
 # secrets for the deployment exposed as environment variables to the pod
 secrets:
@@ -110,5 +111,7 @@ ingress:
         - "_"
 
 global:
+  # -- placeDomain the initial PlaceOS domain. No default value, Must be set
+  placeDomain: null
   gcpbackendConfig:
     enabled: false

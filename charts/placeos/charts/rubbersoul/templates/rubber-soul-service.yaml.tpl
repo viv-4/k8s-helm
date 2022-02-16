@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "rubbersoul.fullname" . }}
+  name: {{ include "search-ingest.fullname" . }}
   labels:
-    {{- include "rubbersoul.labels" . | nindent 4 }}
+    {{- include "search-ingest.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "rubbersoul.selectorLabels" . | nindent 4 }}
+    {{- include "search-ingest.selectorLabels" . | nindent 4 }}

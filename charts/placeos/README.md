@@ -12,9 +12,9 @@ An Umbrella Chart for PlaceOS and its dependencies
 |  | auth | 0.1.0 |
 |  | core | 0.1.0 |
 |  | dispatch | 0.1.0 |
-|  | frontends | 0.1.0 |
+|  | frontend-loader | 0.1.0 |
 |  | init | 0.1.0 |
-|  | rubbersoul | 0.1.0 |
+|  | search-ingest | 0.1.0 |
 |  | triggers | 0.1.0 |
 | https://charts.bitnami.com/bitnami | elasticsearch | ~12.6.3 |
 | https://charts.bitnami.com/bitnami | etcd | ~4.10.1 |
@@ -32,13 +32,13 @@ An Umbrella Chart for PlaceOS and its dependencies
 | api.configmap.<<.ES_PORT | int | `9200` | configmap value for ElasticSearch Service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.ETCD_HOST | string | `"etcd-headless"` | configmap value for Etcd end point Service as environment variables to PlaceOS containers |
 | api.configmap.<<.ETCD_PORT | int | `2379` | configmap value for Etcd end point Service as environment variables to PlaceOS containers |
-| api.configmap.<<.PLACE_LOADER_URI | string | `"http://frontends:3000"` | configmap value for the frontend Service exposed as environment variables to PlaceOS containers |
+| api.configmap.<<.PLACE_LOADER_URI | string | `"http://frontend-loader:3000"` | configmap value for the frontend Service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.REDIS_URL | string | `"redis://redis-headless:6379"` | configmap value for the redis Service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.RETHINKDB_DB | string | `"place_development"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.RETHINKDB_PORT | int | `28015` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.RETHINKDB_USER | string | `"admin"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| api.configmap.<<.RUBBER_SOUL_URI | string | `"http://rubbersoul:3000"` | configmap value for the Rubber Soul service exposed as environment variables to PlaceOS containers |
+| api.configmap.<<.RUBBER_SOUL_URI | string | `"http://search-ingest:3000"` | configmap value for the Rubber Soul service exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.SG_ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
 | api.configmap.<<.TZ | string | `"Australia/Sydney"` | configmap value exposed as environment variables to PlaceOS containers |
 | api.enabled | bool | `true` | api is a core PlaoceOS chart enabled by default. |
@@ -77,18 +77,18 @@ An Umbrella Chart for PlaceOS and its dependencies
 | etcd.auth.rbac.enabled | bool | `false` |  |
 | etcd.enabled | bool | `false` | etcd chart disabled by default. included for testing purposes only |
 | etcd.fullnameOverride | string | `"etcd"` |  |
-| frontends.configmap.<<.ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
-| frontends.configmap.<<.RETHINKDB_DB | string | `"place_development"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| frontends.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| frontends.configmap.<<.RETHINKDB_PORT | int | `28015` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| frontends.configmap.<<.RETHINKDB_USER | string | `"admin"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| frontends.configmap.<<.SG_ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
-| frontends.configmap.<<.TZ | string | `"Australia/Sydney"` | configmap value exposed as environment variables to PlaceOS containers |
-| frontends.configmap.PLACE_LOADER_WWW | string | `"www"` | path to static html resources |
-| frontends.enabled | bool | `true` | frontends is a core PlaoceOS chart enabled by default. |
-| frontends.fullnameOverride | string | `"frontends"` |  |
-| frontends.httpSidecar | bool | `true` |  |
-| frontends.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | secret value for the rethinkdb password exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.RETHINKDB_DB | string | `"place_development"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.RETHINKDB_PORT | int | `28015` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.RETHINKDB_USER | string | `"admin"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.SG_ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.<<.TZ | string | `"Australia/Sydney"` | configmap value exposed as environment variables to PlaceOS containers |
+| frontend-loader.configmap.PLACE_LOADER_WWW | string | `"www"` | path to static html resources |
+| frontend-loader.enabled | bool | `true` | frontend-loader is a core PlaoceOS chart enabled by default. |
+| frontend-loader.fullnameOverride | string | `"frontend-loader"` |  |
+| frontend-loader.httpSidecar | bool | `true` |  |
+| frontend-loader.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | secret value for the rethinkdb password exposed as environment variables to PlaceOS containers |
 | global.customRedirectPort | string | `nil` | customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443. Used by the init service to configure the appropriate services |
 | global.gcpbackendConfig.config | object | `{}` | yaml configuration for the BackendConfig |
 | global.gcpbackendConfig.enabled | bool | `false` | gcpbackendConfig Create a GCP specific CustomResourceDefinition `BackendConfig` to enable a customisable L7 loabalancer instead of Nginx TCP loadbalancer See https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features |
@@ -127,18 +127,18 @@ An Umbrella Chart for PlaceOS and its dependencies
 | rethinkdb.enabled | bool | `false` | rethinkdb chart disabled by default. included for testing purposes only |
 | rethinkdb.rethinkdbPassword | string | `"password"` |  |
 | rethinkdb.templateOverrides.rethinkdbFullName | string | `"rethinkdb"` | templateOverrides. A work around to override the full name of the RethinkDb deployment. See templates/_helpers.tpl |
-| rubbersoul.configmap.<<.ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.ES_HOST | string | `"elasticsearch-master"` | configmap value for ElasticSearch Service exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.ES_PORT | int | `9200` | configmap value for ElasticSearch Service exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.RETHINKDB_DB | string | `"place_development"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.RETHINKDB_PORT | int | `28015` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.RETHINKDB_USER | string | `"admin"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.SG_ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
-| rubbersoul.configmap.<<.TZ | string | `"Australia/Sydney"` | configmap value exposed as environment variables to PlaceOS containers |
-| rubbersoul.enabled | bool | `true` | rubbersoul is a core PlaoceOS chart enabled by default. |
-| rubbersoul.fullnameOverride | string | `"rubbersoul"` |  |
-| rubbersoul.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | secret value for the rethinkdb password exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.ES_HOST | string | `"elasticsearch-master"` | configmap value for ElasticSearch Service exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.ES_PORT | int | `9200` | configmap value for ElasticSearch Service exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.RETHINKDB_DB | string | `"place_development"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.RETHINKDB_HOST | string | `"rethinkdb-proxy"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.RETHINKDB_PORT | int | `28015` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.RETHINKDB_USER | string | `"admin"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.SG_ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
+| search-ingest.configmap.<<.TZ | string | `"Australia/Sydney"` | configmap value exposed as environment variables to PlaceOS containers |
+| search-ingest.enabled | bool | `true` | search-ingest is a core PlaoceOS chart enabled by default. |
+| search-ingest.fullnameOverride | string | `"search-ingest"` |  |
+| search-ingest.secrets.<<.RETHINKDB_PASSWORD | string | `"password"` | secret value for the rethinkdb password exposed as environment variables to PlaceOS containers |
 | triggers.configmap.<<.ENV | string | `"development"` | configmap value exposed as environment variables to PlaceOS containers |
 | triggers.configmap.<<.ETCD_HOST | string | `"etcd-headless"` | configmap value for Etcd end point Service as environment variables to PlaceOS containers |
 | triggers.configmap.<<.ETCD_PORT | int | `2379` | configmap value for Etcd end point Service as environment variables to PlaceOS containers |
@@ -170,7 +170,7 @@ An Umbrella Chart for PlaceOS and its dependencies
 | xinitConfigEnv.PLACE_EMAIL | string | `"support@place.tech"` | configmap value for the initialisation job exposed as environment variables for the init subchart |
 | xinitConfigEnv.PLACE_TLS | bool | `true` | configmap value for the initialisation job exposed as environment variables for the init subchart |
 | xinitConfigEnv.PLACE_USERNAME | string | `"Place Support"` | configmap value for the initialisation job exposed as environment variables for the init subchart |
-| xplaceLoaderClientEnv.PLACE_LOADER_URI | string | `"http://frontends:3000"` | configmap value for the frontend Service exposed as environment variables to PlaceOS containers |
+| xplaceLoaderClientEnv.PLACE_LOADER_URI | string | `"http://frontend-loader:3000"` | configmap value for the frontend Service exposed as environment variables to PlaceOS containers |
 | xplacePassword | string | `"development"` | yaml anchor . The value used by the init subchart to set the default domain users password |
 | xredisClientEnv.REDIS_URL | string | `"redis://redis-headless:6379"` | configmap value for the redis Service exposed as environment variables to PlaceOS containers |
 | xrethinkdbClientEnv.RETHINKDB_DB | string | `"place_development"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
@@ -179,7 +179,7 @@ An Umbrella Chart for PlaceOS and its dependencies
 | xrethinkdbClientEnv.RETHINKDB_USER | string | `"admin"` | configmap value for RethinkDB Service exposed as environment variables to PlaceOS containers |
 | xrethinkdbClientSecrets.RETHINKDB_PASSWORD | string | `"password"` | secret value for the rethinkdb password exposed as environment variables to PlaceOS containers |
 | xrethinkdbPassword | string | `"password"` | yaml anchor for the admin password for RethinkDb. Used to set the admin password in RethinkDB if enabled then passed to multiple containers in a k8s secret |
-| xrubberSoulClientEnv.RUBBER_SOUL_URI | string | `"http://rubbersoul:3000"` | configmap value for the Rubber Soul service exposed as environment variables to PlaceOS containers |
+| xrubberSoulClientEnv.RUBBER_SOUL_URI | string | `"http://search-ingest:3000"` | configmap value for the Rubber Soul service exposed as environment variables to PlaceOS containers |
 | xserverSecret | string | `"development"` | yaml anchor for the dispatch service |
 | xsmtpClientEnv.SMTP_PORT | int | `587` | configmap value for the SMTP server exposed as environment variables for the trigger service |
 | xsmtpClientEnv.SMTP_SECURE | string | `""` | configmap value for the SMTP server exposed as environment variables for the trigger service |

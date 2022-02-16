@@ -24,7 +24,7 @@ spec:
       paths:
       - path: /*
         backend:
-          serviceName: frontends-http-gcp
+          serviceName: frontend-loader-http-gcp
           servicePort: 8080
       - path: /api/*
         backend:

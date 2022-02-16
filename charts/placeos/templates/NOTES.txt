@@ -11,11 +11,11 @@ PlaceOS Services Configured:
 {{ if .Values.dispatch.enabled -}}
 - dispatch
 {{- end }}
-{{ if .Values.frontends.enabled -}}
-- frontends
+{{ if .Values.frontend-loader.enabled -}}
+- frontend-loader
 {{- end }}
-{{ if .Values.rubbersoul.enabled -}}
-- rubbersoul
+{{ if .Values.search-ingest.enabled -}}
+- search-ingest
 {{- end }}
 {{ if .Values.triggers.enabled -}}
 - triggers

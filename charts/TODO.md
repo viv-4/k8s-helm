@@ -20,7 +20,7 @@
 - ~~look at cloud provider options logic~~
 - ~~timings for all health probes ( core can take a while and gets killed sometimes )~~
 - ~~Pod Priorities~~
-- ~~Review existing env vars. k8s auto injection of env vars can break pods. eg rubber-soul~~
+- ~~Review existing env vars. k8s auto injection of env vars can break pods. eg search-ingest~~
 - ~~HPAs~~
 - Quote values and default . eg `{{ default "none" .Values.server.name }}`
 - ~~extract `domain` from init chart and put in umbrella values file/link to deployment domain~~
@@ -28,7 +28,7 @@
 - health probes for:
   - auth
   - dispatch
-  - rubber-soul
+  - search-ingest
   - triggers
 - ~~seperate namespace deployments~~
 - ~~set lifecycle hooks so init only runs once / also possibly passwords/configmaps~~

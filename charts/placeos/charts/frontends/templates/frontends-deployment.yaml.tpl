@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "frontends.fullname" . }}
+  name: {{ include "frontend-loader.fullname" . }}
   labels:
-    {{- include "frontends.labels" . | nindent 4 }}
+    {{- include "frontend-loader.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels:
-      {{- include "frontends.selectorLabels" . | nindent 6 }}
+      {{- include "frontend-loader.selectorLabels" . | nindent 6 }}
   strategy:
     type: Recreate
   template:
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "frontends.selectorLabels" . | nindent 8 }}
+        {{- include "frontend-loader.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.deployment.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "frontends.serviceAccountName" . }}
+      serviceAccountName: {{ include "frontend-loader.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.deployment.podSecurityContext | nindent 8 }}
       containers:
@@ -33,9 +33,9 @@ spec:
           {{- toYaml .Values.deployment.securityContext | nindent 12 }}
         envFrom:
           - configMapRef:
-              name:  {{ include "frontends.fullname" . }}
+              name:  {{ include "frontend-loader.fullname" . }}
           - secretRef:
-              name: {{ include "frontends.fullname" . }}
+              name: {{ include "frontend-loader.fullname" . }}
         image: "{{ .Values.deployment.image.registry }}/{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
@@ -95,4 +95,4 @@ spec:
           claimName: {{ .Values.persistentVolume.name }}
       - name: default-conf
         configMap:
-          name: {{ include "frontends.fullname" . }}-nginx-conf
+          name: {{ include "frontend-loader.fullname" . }}-nginx-conf

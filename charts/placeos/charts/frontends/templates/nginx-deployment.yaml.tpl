@@ -2,14 +2,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "frontends.fullname" . }}-nginx
+  name: {{ include "frontend-loader.fullname" . }}-nginx
   labels:
-    {{- include "frontends.labels" . | nindent 4 }}
+    {{- include "frontend-loader.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.httpDeployment.replicaCount }}
   selector:
     matchLabels:
-      {{- include "frontends.selectorLabels" . | nindent 6 }}
+      {{- include "frontend-loader.selectorLabels" . | nindent 6 }}
       {{- if .Values.global.gcpbackendConfig.enabled }}
       placeos.backend/type: "gcp" 
       {{- end }}
@@ -20,7 +20,7 @@ spec:
         {{- toYaml . | nindent 8 }}
     {{- end }}
       labels:
-        {{- include "frontends.selectorLabels" . | nindent 8 }}
+        {{- include "frontend-loader.selectorLabels" . | nindent 8 }}
         {{- if .Values.global.gcpbackendConfig.enabled }}
         placeos.backend/type: "gcp" 
         {{- end }}
@@ -29,7 +29,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "frontends.serviceAccountName" . }}
+      serviceAccountName: {{ include "frontend-loader.serviceAccountName" . }}
       securityContext:
           {{- toYaml .Values.httpDeployment.podSecurityContext | nindent 8 }}
       containers:
@@ -94,5 +94,5 @@ spec:
           claimName: {{ .Values.persistentVolume.name }}
       - name: default-conf
         configMap:
-          name: {{ include "frontends.fullname" . }}-nginx-conf
+          name: {{ include "frontend-loader.fullname" . }}-nginx-conf
 {{- end -}}

@@ -1,18 +1,18 @@
-# Default values for rubbersoul.
+# Default values for search-ingest.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# deployment configuration for the rubbersoul pod
+# deployment configuration for the search-ingest pod
 deployment:
   # -- number of replicas to deploy
   replicaCount: 1
 
   image:
     registry: docker.io
-    repository: placeos/rubber-soul
+    repository: placeos/search-ingest
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    #tag: placeos-1.2109.0
+    #tag: placeos-1.2202.2
 
   imagePullSecrets: []
   nameOverride: ""

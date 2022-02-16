@@ -1,5 +1,5 @@
 apiVersion: v2
-name: rubbersoul
+name: search-ingest
 description: A PlaceOS helm chart for the Rubber-Soul component
 
 type: application
@@ -7,4 +7,4 @@ type: application
 version: 0.1.0
 
 # This number is reflected in the container version deployed
-appVersion: placeos-1.2109.0
+appVersion: placeos-1.2202.2

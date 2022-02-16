@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "frontends.fullname" . }}-nginx-conf
+  name: {{ include "frontend-loader.fullname" . }}-nginx-conf
   labels:
-    {{- include "frontends.labels" . | nindent 4 }}
+    {{- include "frontend-loader.labels" . | nindent 4 }}
 data:
   default.conf: |
       server {

@@ -103,8 +103,8 @@ placeos:
         cloud.google.com/load-balancer-type: "Internal"
     secrets:
       << : *dispatchSecrets
-  # frontends is the overide configuration for the embedded frontends subchart
-  frontends:
+  # frontend-loader is the overide configuration for the embedded frontend-loader subchart
+  frontend-loader:
     httpSidecar: false
     ingress:
       enabled: false
@@ -117,8 +117,8 @@ placeos:
     secrets:
       << : *rethinkdbClientSecrets
       PLACE_SERVER_SECRET: *placeServerSecret
-  # rubbersoul is the overide configuration for the embedded rubber-soul subchart
-  rubbersoul:
+  # search-ingest is the overide configuration for the embedded search-ingest subchart
+  search-ingest:
     configmap:
       # Service Hosts
       << : *rethinkdbClientEnv

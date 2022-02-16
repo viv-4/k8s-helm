@@ -11,10 +11,10 @@ dependencies:
 - name: dispatch
   repository: ""
   version: 0.1.0
-- name: frontends
+- name: frontend-loader
   repository: ""
   version: 0.1.0
-- name: rubbersoul
+- name: search-ingest
   repository: ""
   version: 0.1.0
 - name: triggers

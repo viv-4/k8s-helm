@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "rubbersoul.fullname" . }}
+  name: {{ include "search-ingest.fullname" . }}
   labels:
-    {{- include "rubbersoul.labels" . | nindent 4 }}
+    {{- include "search-ingest.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "rubbersoul.fullname" . }}
+    name: {{ include "search-ingest.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
