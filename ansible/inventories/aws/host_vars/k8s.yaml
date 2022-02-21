@@ -150,6 +150,9 @@ placeos:
       annotations:
         kubernetes.io/ingress.class: nginx
         ingress.kubernetes.io/ssl-redirect: "true"
+    secrets:
+      PLACE_PASSWORD: *placePassword
+      PLACE_SERVER_SECRET: *placeServerSecret
     << : *postgresqlValues
   global:
     placeDomain: "{{ placeDomain | default('localhost', true ) }}"
