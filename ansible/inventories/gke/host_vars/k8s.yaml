@@ -104,7 +104,7 @@ placeos:
     secrets:
       << : *dispatchSecrets
   # frontend-loader is the overide configuration for the embedded frontend-loader subchart
-  frontend-loader:
+  frontendloader:
     httpSidecar: false
     ingress:
       enabled: false
@@ -118,7 +118,7 @@ placeos:
       << : *rethinkdbClientSecrets
       PLACE_SERVER_SECRET: *placeServerSecret
   # search-ingest is the overide configuration for the embedded search-ingest subchart
-  search-ingest:
+  searchingest:
     configmap:
       # Service Hosts
       << : *rethinkdbClientEnv
