@@ -10,7 +10,7 @@ etcd_chart_version: "~4.10.1"
 
 rethinkdb_namespace: "placeos"
 rethinkdb_release_name: "rethinkdb"
-rethinkdb_chart_version: "~1.1.2"
+rethinkdb_chart_version: "~1.1.9"
 
 elasticsearch_namespace: "placeos"
 elasticsearch_release_name: "elasticsearch"

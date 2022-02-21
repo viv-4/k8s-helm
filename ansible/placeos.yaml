@@ -69,7 +69,7 @@
   ## Deploy Rethinkdb
   - role: placeos.helm.thirdparty
     vars:
-      chart_repo_url: "https://charts.helm.sh/stable/"
+      chart_repo_url: "https://www.pozetron.com/helm/"
       chart_ref: "rethinkdb"
       chart_release_namespace: "{{ rethinkdb_namespace }}"
       chart_release_name: "{{ rethinkdb_release_name }}"
