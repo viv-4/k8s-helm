@@ -206,10 +206,7 @@ influxdb:
 mosquitto:
   enabled: false
   fullnameOverride: mosquitto
-<<<<<<< HEAD
 postgresql:
   enabled: true
   fullnameOverride: postgresql
   << : *postgresqlValues
-=======
->>>>>>> master
