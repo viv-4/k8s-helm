@@ -28,6 +28,7 @@ helm repo add halkeye https://halkeye.github.io/helm-charts/
 helm repo add bitnami  https://charts.bitnami.com/bitnami
 helm repo add stable https://kubernetes-charts.storage.googleapis.com/
 helm repo add cnieg https://cnieg.github.io/helm-charts
+helm repo add pozetron https://www.pozetron.com/helm/
 cd charts/placeos
 helm dependency update .
 
