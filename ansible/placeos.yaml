@@ -10,6 +10,7 @@
   - name: set passwords for services
     set_fact:
       placeServerSecret: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits length=64') }}"
+      authSecretKeyBase: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits length=64') }}"
       serverSecret: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
       placePassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"
       rethinkdbPassword: "{{ lookup('password', '/dev/null chars=ascii_letters,digits,hexdigits') }}"

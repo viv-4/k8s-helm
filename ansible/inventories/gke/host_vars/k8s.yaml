@@ -14,6 +14,9 @@ xplacePassword: &placePassword "{{ placePassword | default( '', true ) }}"
 # xplaceServerSecret for the placeos service
 xplaceServerSecret: &placeServerSecret "{{ placeServerSecret | default( '', true ) }}"
 
+# xplaceServerSecret for the placeos service
+xauthSecretKeyBase: &authSecretKeyBase "{{ authSecretKeyBase | default( '', true ) }}"
+
 # xserverSecret for the dispatch service
 xserverSecret: &serverSecret "{{ serverSecret | default( '', true ) }}"
 
@@ -82,6 +85,7 @@ placeos:
     configmap:
       << : *rethinkdbClientEnv
     secrets:
+      SECRET_KEY_BASE: *authSecretKeyBase
       << : *rethinkdbClientSecrets
   # core is the overide configuration for the embedded core subchart
   core:
