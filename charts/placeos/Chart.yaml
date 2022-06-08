@@ -46,7 +46,8 @@ dependencies:
 
 # Third party helm charts
   - name: etcd
-    version: ~4.10.1
+    version: ~8.2.5
+    #version: 3.5.4
     repository: https://charts.bitnami.com/bitnami
     condition: etcd.enabled
     # tags: # (optional)
@@ -62,7 +63,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: elasticsearch
-    version: ~12.6.3
+    version: ~18.2.9
     repository: https://charts.bitnami.com/bitnami
     condition: elasticsearch.enabled
     # tags: # (optional)
@@ -70,7 +71,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: redis
-    version: ~10.8.2
+    version: ~16.11.3
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
     # tags: # (optional)
@@ -78,7 +79,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: influxdb
-    version: ~0.6.6
+    version: ~5.3.3
     repository: https://charts.bitnami.com/bitnami
     condition: influxdb.enabled
     # tags: # (optional)
@@ -96,7 +97,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: postgresql
-    version: 10.4.8
+    version: ~11.6.3
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
     # tags: # (optional)
