@@ -45,9 +45,13 @@ xrethinkdbClientSecrets: &rethinkdbClientSecrets
   RETHINKDB_PASSWORD: *rethinkdbPassword
 
 xpostgresqlValues: &postgresqlValues
-  postgresqlUsername: placeos
-  postgresqlDatabase: placeos
-  postgresqlPassword: *postgresqlPassword
+  global:
+    postgresql:
+      auth:
+        username: placeos
+        database: placeos
+        password: *postgresqlPassword
+        postgresPassword: *postgresqlPassword
 
 # xsmtpClientSecrets secrets values exposed as environment variables for the trigger service
 xsmtpClientSecrets: &smtpClientSecrets
