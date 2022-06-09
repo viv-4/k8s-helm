@@ -276,14 +276,15 @@ redis:
   # -- redis chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: redis
-  usePassword: false
-  cluster:
+  auth:
     enabled: false
-  configmap: |-
+  architecture: standalone
+  commonConfiguration: |-
     notify-keyspace-events Kg$
-  persistence:
-    enabled: true
-    size: 1Gi
+  master:
+    persistence:
+      enabled: true
+      size: 1Gi
 # influxdb third party chart overrides
 influxdb:
   # influxdb chart disabled by default. included for testing purposes only

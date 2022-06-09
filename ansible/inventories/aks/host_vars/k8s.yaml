@@ -188,11 +188,18 @@ rethinkdb:
     replicas: 1
   rethinkdbPassword: "{{ rethinkdbPassword }}"
 redis:
-  fullnameOverride: redis
   enabled: true
-  usePassword: false
-  cluster:
+  fullnameOverride: redis
+  auth:
     enabled: false
+  architecture: standalone
+  commonConfiguration: |-
+    notify-keyspace-events Kg$
+  master:
+    persistence:
+      enabled: true
+      size: 1Gi
+  fullnameOverride: redis
 influxdb:
   fullnameOverride: influxdb
   enabled: false
