@@ -8,11 +8,10 @@ deployment:
   replicaCount: 1
 
   image:
-    registry: docker.io
     repository: placeos/dispatch
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    #tag: placeos-1.2105.3
+    tag:
 
   imagePullSecrets: []
   nameOverride: ""

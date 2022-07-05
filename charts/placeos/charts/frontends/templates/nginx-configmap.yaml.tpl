@@ -11,12 +11,6 @@ data:
         listen  [::]:8080;
         server_name  localhost;
 
-        gzip  on;
-        gzip_vary on;
-        gzip_min_length 10240;
-        gzip_proxied expired no-cache no-store private auth;
-        gzip_types text/plain text/css text/xml text/javascript application/javascript application/x-javascript application/xml image/svg+xml application/octet-stream application/json;
-  
         #charset koi8-r;
         access_log /dev/stdout;
 

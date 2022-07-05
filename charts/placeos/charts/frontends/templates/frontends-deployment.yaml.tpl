@@ -36,7 +36,7 @@ spec:
               name:  {{ include "frontends.fullname" . }}
           - secretRef:
               name: {{ include "frontends.fullname" . }}
-        image: "{{ .Values.deployment.image.registry }}/{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
           - name: http

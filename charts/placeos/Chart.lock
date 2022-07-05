@@ -14,13 +14,10 @@ dependencies:
 - name: frontends
   repository: ""
   version: 0.1.0
-- name: rubbersoul
+- name: rubber-soul
   repository: ""
   version: 0.1.0
 - name: triggers
-  repository: ""
-  version: 0.1.0
-- name: staff
   repository: ""
   version: 0.1.0
 - name: init
@@ -30,22 +27,22 @@ dependencies:
   repository: https://charts.bitnami.com/bitnami
   version: 4.10.1
 - name: rethinkdb
-  repository: https://charts.helm.sh/stable/
-  version: 1.1.4
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.1.2
 - name: elasticsearch
   repository: https://charts.bitnami.com/bitnami
-  version: 12.6.5
+  version: 12.6.3
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 10.8.2
+- name: keydb
+  repository: https://enapter.github.io/charts/
+  version: 0.13.0
 - name: influxdb
   repository: https://charts.bitnami.com/bitnami
-  version: 0.6.11
+  version: 0.6.6
 - name: mosquitto
   repository: https://halkeye.github.io/helm-charts/
   version: 0.2.0
-- name: postgresql
-  repository: https://charts.bitnami.com/bitnami
-  version: 10.4.8
-digest: sha256:f73d2516315be6779568f46716c3a4f533dde77e85aee98749cb87a61a0165df
-generated: "2021-07-23T18:14:28.752026696+10:00"
+digest: sha256:321ef7692b5a20d88704cd0b0c8417bb68f6d284d712646f552e3c31db995d75
+generated: "2020-09-16T15:13:20.700035918+10:00"

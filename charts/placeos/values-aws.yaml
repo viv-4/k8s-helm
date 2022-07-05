@@ -44,8 +44,6 @@ rethinkdb:
   enabled: true
 redis:
   enabled: true
-postgres:
-  enabled: true
 
 global:
   placeDomain: ""

@@ -10,9 +10,6 @@ spec:
   selector:
     matchLabels:
       {{- include "frontends.selectorLabels" . | nindent 6 }}
-      {{- if .Values.global.gcpbackendConfig.enabled }}
-      placeos.backend/type: "gcp" 
-      {{- end }}
   template:
     metadata:
     {{- with .Values.httpDeployment.podAnnotations }}
@@ -21,9 +18,6 @@ spec:
     {{- end }}
       labels:
         {{- include "frontends.selectorLabels" . | nindent 8 }}
-        {{- if .Values.global.gcpbackendConfig.enabled }}
-        placeos.backend/type: "gcp" 
-        {{- end }}
     spec:
       {{- with .Values.httpDeployment.imagePullSecrets }}
       imagePullSecrets:
@@ -41,20 +35,6 @@ spec:
         ports:
         - containerPort: 8080
           name: http-nginx
-        livenessProbe:
-          httpGet:
-            path: /login/
-            port: 8080
-          timeoutSeconds: 10
-          initialDelaySeconds: 10
-          failureThreshold: 3
-        readinessProbe:
-          httpGet:
-            path: /login/
-            port: 8080
-          timeoutSeconds: 10
-          initialDelaySeconds: 10
-          failureThreshold: 3
         resources:
           {{- toYaml .Values.httpDeployment.resources | nindent 12 }}
         volumeMounts:

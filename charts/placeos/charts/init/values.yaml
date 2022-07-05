@@ -8,11 +8,10 @@ deployment:
   # -- length of time to retain job
   ttlSecondsAfterFinished: 60
   image:
-    registry: docker.io
     repository: placeos/init
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    #tag: placeos-1.2105.3
+    # tag:
 
   imagePullSecrets: []
   nameOverride: ""
@@ -67,6 +66,8 @@ config:
   # -- value exposed as environment variable to the pod
   PLACE_EMAIL: null
   # -- value exposed as environment variable to the pod
+  PLACE_PASSWORD: null
+  # -- value exposed as environment variable to the pod
   PLACE_TLS: true
   # -- value exposed as environment variable to the pod
   PLACE_USERNAME: null
@@ -107,19 +108,3 @@ global:
   placeDomain: null
   # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   customRedirectPort: null
-  gcpbackendConfig:
-    enabled: false
-    loadbalancerAccessType: "External"
-    config: {}
-
-## examples for backend config
-#   healthCheck:
-#     checkIntervalSec: interval
-#     timeoutSec: timeout
-#     healthyThreshold: health-threshold
-#     unhealthyThreshold: unhealthy-threshold
-#     type: protocol
-#     requestPath: path
-#     port: port
-#   securityPolicy:
-#     name: AppArmor Policy Name

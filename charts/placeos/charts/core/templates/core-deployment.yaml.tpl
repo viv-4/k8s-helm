@@ -54,7 +54,7 @@ spec:
                 fieldPath: metadata.namespace
           - name: CORE_HOST
             value: "$(POD_NAME).{{ include "core.fullname" . }}.$(POD_NAMESPACE).svc.cluster.local"
-        image: "{{ .Values.deployment.image.registry }}/{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
           - name: http

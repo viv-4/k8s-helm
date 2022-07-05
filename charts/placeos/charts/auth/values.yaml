@@ -9,11 +9,10 @@ deployment:
   podPriorityClassName: high
 
   image:
-    registry: docker.io
     repository: placeos/auth
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    #tag: placeos-1.2105.3
+    tag:
 
   imagePullSecrets: []
   nameOverride: ""
@@ -85,7 +84,7 @@ configmap:
   # -- value exposed as environment variable to the pod
   RETHINKDB_USER: null
   # -- value exposed as environment variable to the pod
-  REDIS_URL: redis://redis-headless:6379
+  REDIS_URL: null
   # -- value exposed as environment variable to the pod
   TZ: Australia/Sydney
   RAILS_ENV: production
@@ -108,7 +107,3 @@ ingress:
   tls:
     - hosts:
         - "_"
-
-global:
-  gcpbackendConfig:
-    enabled: false
