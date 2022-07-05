@@ -19,7 +19,7 @@ Contains 4 roles:
 
 - Review the requirements for the [Ansible helm wrapper](https://docs.ansible.com/ansible/2.10/collections/community/kubernetes/helm_module.html)
 
-- GKE: a Cloud Armor Security must exist for the Load Balancer to associate with
+- GKE: a Cloud Armor Security Policy must exist for the Load Balancer to associate with
 
 Note: Tested with:
 

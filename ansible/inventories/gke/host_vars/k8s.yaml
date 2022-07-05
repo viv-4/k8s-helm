@@ -165,6 +165,7 @@ placeos:
       PLACE_PASSWORD: *placePassword
       PLACE_SERVER_SECRET: *placeServerSecret
     << : *postgresqlValues
+
   global:
     placeDomain: "{{ placeDomain | default('localhost', true ) }}"
     customRedirectPort: "{{ customRedirectPort | default( omit ) }}"
