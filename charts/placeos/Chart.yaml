@@ -36,6 +36,10 @@ dependencies:
     version: 0.1.0
     condition: triggers.enabled
 
+  - name: staff
+    version: 0.1.0
+    condition: staff.enabled
+
   - name: init
     version: 0.1.0
     condition: init.enabled
@@ -89,4 +93,12 @@ dependencies:
     #   - Tags can be used to group charts for enabling/disabling together
     # import-values: # (optional)
     #   - ImportValues holds the mapping of source values to parent key to be imported. Each item can be a string or pair of child/parent sublist items.
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: postgresql
+    version: 10.4.8
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times

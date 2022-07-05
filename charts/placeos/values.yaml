@@ -21,11 +21,17 @@ xserverSecret: &serverSecret "development"
 # -- yaml anchor the local time zone for the deployment
 xtz: &TZ Australia/Sydney
 
+# -- yaml anchor the spider-gazelle environment for the deployment
+xsgEnv: &sgEnv "production"
+
+# -- yaml anchor for the initial user email for the deployment
+xplaceEmail: &placeEmail "support@place.tech"
+
 xdeploymentEnv: &deploymentEnv
   # -- configmap value exposed as environment variables to PlaceOS containers
-  ENV: development
+  ENV: production
   # -- configmap value exposed as environment variables to PlaceOS containers
-  SG_ENV: development
+  SG_ENV: *sgEnv
   # -- configmap value exposed as environment variables to PlaceOS containers
   TZ: *TZ
 
@@ -86,7 +92,7 @@ xinitConfigEnv: &initConfigEnv
   # -- configmap value for the initialisation job exposed as environment variables for the init subchart
   PLACE_USERNAME: "Place Support"
   # -- configmap value for the initialisation job exposed as environment variables for the init subchart
-  PLACE_EMAIL: support@place.tech
+  PLACE_EMAIL: *placeEmail
   # -- configmap value for the initialisation job exposed as environment variables for the init subchart
   PLACE_TLS: true
 
@@ -97,6 +103,11 @@ xsmtpClientSecrets: &smtpClientSecrets
 xdispatchSecrets: &dispatchSecrets
   # -- secrets value exposed as environment variables for the dispatch service
   SERVER_SECRET: *serverSecret
+
+xpostgresValues: &postgresValues
+  postgresqlUsername: placeos
+  postgresqlPassword: development
+  postgresqlDatabase: placeos
 
 #####################################
 ##### -- PlaceOS Service SubCharts #####
@@ -199,6 +210,19 @@ init:
   secrets:
     # -- Default password for initial users in domain
     PLACE_PASSWORD: *placePassword
+# staff is the overide configuration for the embedded staff subchart
+staff:
+  # -- staff is an optional PlaoceOS chart enabled by default.
+  enabled: true
+  fullnameOverride: staff
+  << : *postgresValues
+  configmap:
+    PLACE_EMAIL: *placeEmail
+    SG_ENV: *sgEnv
+    STAFF_TIME_ZONE: *TZ
+  secrets:
+    # -- Default password for initial users in domain
+    PLACE_PASSWORD: *placePassword
 
 ###########################################
 ##### -- Third Party Supporting Services #####
@@ -270,6 +294,12 @@ mosquitto:
   # -- mosquitto chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: mosquitto
+# postgres third party chart overrides
+postgresql:
+  # -- postgres chart disabled by default. included for testing purposes only
+  enabled: false
+  fullnameOverride: postgres
+  << : *postgresValues
 
 global:
   #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
@@ -277,3 +307,18 @@ global:
   # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   # Used by the init service to configure the appropriate services
   customRedirectPort: null
+  gcpbackendConfig:
+    # -- gcpbackendConfig Create a GCP specific CustomResourceDefinition `BackendConfig` to enable a customisable L7 loabalancer instead of Nginx TCP loadbalancer
+    # See https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features
+    enabled: false
+    # -- the name of the BackendConfig Custom Resource
+    name: placeos-core
+    # -- yaml configuration for the BackendConfig
+    config: {}
+      # Example of attaching GCP CloudArmor to  the BackendConfig
+      # securityPolicy: 
+      #   name: "test"
+    # -- The name of the GCP static IP to attach the HTTP load balancer to
+    global_static_ip_name: "l7-ip"
+    # -- The type of load lalancer. External or Internal
+    loadbalancerAccessType: "External"

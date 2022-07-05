@@ -8,10 +8,11 @@ deployment:
   replicaCount: 1
 
   image:
+    registry: docker.io
     repository: placeos/rubber-soul
     pullPolicy: IfNotPresent
     # -- tag Overrides the image tag whose default is the chart appVersion.
-    # tag:
+    #tag: placeos-1.2105.3
 
   imagePullSecrets: []
   nameOverride: ""
