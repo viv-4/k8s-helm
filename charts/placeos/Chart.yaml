@@ -24,17 +24,21 @@ dependencies:
     version: 0.1.0
     condition: dispatch.enabled
 
-  - name: frontends
+  - name: frontendloader
     version: 0.1.0
-    condition: frontends.enabled
+    condition: frontendloader.enabled
 
-  - name: rubbersoul
+  - name: searchingest
     version: 0.1.0
-    condition: rubber-soul.enabled
+    condition: searchingest.enabled
 
   - name: triggers
     version: 0.1.0
     condition: triggers.enabled
+
+  - name: staff
+    version: 0.1.0
+    condition: staff.enabled
 
   - name: init
     version: 0.1.0
@@ -42,7 +46,8 @@ dependencies:
 
 # Third party helm charts
   - name: etcd
-    version: ~4.10.1
+    version: ~8.2.5
+    #version: 3.5.4
     repository: https://charts.bitnami.com/bitnami
     condition: etcd.enabled
     # tags: # (optional)
@@ -58,7 +63,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: elasticsearch
-    version: ~12.6.3
+    version: ~18.2.9
     repository: https://charts.bitnami.com/bitnami
     condition: elasticsearch.enabled
     # tags: # (optional)
@@ -66,7 +71,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: redis
-    version: ~10.8.2
+    version: ~16.11.3
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
     # tags: # (optional)
@@ -74,7 +79,7 @@ dependencies:
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
 
   - name: influxdb
-    version: ~0.6.6
+    version: ~5.3.3
     repository: https://charts.bitnami.com/bitnami
     condition: influxdb.enabled
     # tags: # (optional)
@@ -89,4 +94,12 @@ dependencies:
     #   - Tags can be used to group charts for enabling/disabling together
     # import-values: # (optional)
     #   - ImportValues holds the mapping of source values to parent key to be imported. Each item can be a string or pair of child/parent sublist items.
+    # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times
+
+  - name: postgresql
+    version: ~11.6.3
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
+    # tags: # (optional)
+    #   - Tags can be used to group charts for enabling/disabling together
     # alias: (optional) Alias to be used for the chart. Useful when you have to add the same chart multiple times

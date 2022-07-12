@@ -29,12 +29,15 @@ spec:
       - name: {{ .Chart.Name }}
         securityContext:
           {{- toYaml .Values.deployment.securityContext | nindent 12 }}
+        env:
+          - name: PLACE_URI
+            value: {{ include "auth.placeURI" . }}
         envFrom:
           - configMapRef:
               name:  {{ include "auth.fullname" . }}
           - secretRef:
               name: {{ include "auth.fullname" . }}
-        image: "{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
+        image: "{{ .Values.deployment.image.registry }}/{{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
         ports:
           - name: http
@@ -43,11 +46,11 @@ spec:
         {{/* 
         livenessProbe:
           httpGet:
-            path: /api/auth/v1
+            path: /auth/authority?health=true
             port: http
         readinessProbe:
           httpGet:
-            path: /api/auth/v1
+            path: /auth/authority?health=true
             port: http 
         */}}
         resources:

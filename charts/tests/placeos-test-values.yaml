@@ -80,7 +80,7 @@ dispatch:
         operator: "Exists"
         effect: "NoSchedule"
 
-frontends:
+frontend-loader:
   httpSidecar: false
   autoscaling:
     enabled: true
@@ -121,7 +121,7 @@ init:
       cpu: 100m
       memory: 128Mi
 
-rubbersoul:
+search-ingest:
   autoscaling:
     enabled: true
   serviceAccount:

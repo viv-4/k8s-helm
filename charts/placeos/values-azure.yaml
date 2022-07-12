@@ -23,7 +23,7 @@ dispatch:
     annotations:
       service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 
-frontends:
+frontendloader:
   httpSidecar: true
   ingress:
     annotations:
@@ -41,6 +41,8 @@ elasticsearch:
 rethinkdb:
   enabled: true
 redis:
+  enabled: true
+postgresql:
   enabled: true
 
 global:

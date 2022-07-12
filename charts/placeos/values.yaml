@@ -21,11 +21,17 @@ xserverSecret: &serverSecret "development"
 # -- yaml anchor the local time zone for the deployment
 xtz: &TZ Australia/Sydney
 
+# -- yaml anchor the spider-gazelle environment for the deployment
+xsgEnv: &sgEnv "production"
+
+# -- yaml anchor for the initial user email for the deployment
+xplaceEmail: &placeEmail "support@place.tech"
+
 xdeploymentEnv: &deploymentEnv
   # -- configmap value exposed as environment variables to PlaceOS containers
-  ENV: development
+  ENV: production
   # -- configmap value exposed as environment variables to PlaceOS containers
-  SG_ENV: development
+  SG_ENV: *sgEnv
   # -- configmap value exposed as environment variables to PlaceOS containers
   TZ: *TZ
 
@@ -43,7 +49,7 @@ xetcdClientEnv: &etcdClientEnv
 
 xplaceLoaderClientEnv: &placeLoaderClientEnv
   # -- configmap value for the frontend Service exposed as environment variables to PlaceOS containers
-  PLACE_LOADER_URI: http://frontends:3000
+  PLACE_LOADER_URI: http://frontend-loader:3000
 
 xredisClientEnv: &redisClientEnv
   # -- configmap value for the redis Service exposed as environment variables to PlaceOS containers
@@ -65,7 +71,7 @@ xrethinkdbClientSecrets: &rethinkdbClientSecrets
 
 xrubberSoulClientEnv: &rubberSoulClientEnv
   # -- configmap value for the Rubber Soul service exposed as environment variables to PlaceOS containers
-  RUBBER_SOUL_URI: http://rubbersoul:3000
+  RUBBER_SOUL_URI: http://search-ingest:3000
 
 
 xsmtpClientEnv: &smtpClientEnv
@@ -86,7 +92,7 @@ xinitConfigEnv: &initConfigEnv
   # -- configmap value for the initialisation job exposed as environment variables for the init subchart
   PLACE_USERNAME: "Place Support"
   # -- configmap value for the initialisation job exposed as environment variables for the init subchart
-  PLACE_EMAIL: support@place.tech
+  PLACE_EMAIL: *placeEmail
   # -- configmap value for the initialisation job exposed as environment variables for the init subchart
   PLACE_TLS: true
 
@@ -97,6 +103,15 @@ xsmtpClientSecrets: &smtpClientSecrets
 xdispatchSecrets: &dispatchSecrets
   # -- secrets value exposed as environment variables for the dispatch service
   SERVER_SECRET: *serverSecret
+
+xpostgresValues: &postgresValues
+  global:
+    postgresql:
+      auth:
+        uername: placeos
+        database: placeos
+        password: development
+        postgresPassword: development
 
 #####################################
 ##### -- PlaceOS Service SubCharts #####
@@ -147,12 +162,12 @@ dispatch:
   fullnameOverride: dispatch
   secrets:
     << : *dispatchSecrets
-# frontends is the overide configuration for the embedded frontends subchart
-frontends:
-  # -- frontends is a core PlaoceOS chart enabled by default.
+# frontend-loader is the overide configuration for the embedded frontend-loader subchart
+frontendloader:
+  # -- frontend-loader is a core PlaoceOS chart enabled by default.
   enabled: true
   httpSidecar: true
-  fullnameOverride: frontends
+  fullnameOverride: frontend-loader
   configmap:
     # -- path to static html resources
     PLACE_LOADER_WWW: www
@@ -160,11 +175,11 @@ frontends:
     << : *deploymentEnv
   secrets:
     << : *rethinkdbClientSecrets
-# rubbersoul is the overide configuration for the embedded rubber-soul subchart
-rubbersoul:
-  # -- rubbersoul is a core PlaoceOS chart enabled by default.
+# search-ingest is the overide configuration for the embedded search-ingest subchart
+searchingest:
+  # -- search-ingest is a core PlaoceOS chart enabled by default.
   enabled: true
-  fullnameOverride: rubbersoul
+  fullnameOverride: search-ingest
   configmap:
     << : *rethinkdbClientEnv
     << : *elasticClientEnv
@@ -196,6 +211,19 @@ init:
     << : *elasticClientEnv
     << : *deploymentEnv
     << : *rethinkdbClientSecrets
+  secrets:
+    # -- Default password for initial users in domain
+    PLACE_PASSWORD: *placePassword
+# staff is the overide configuration for the embedded staff subchart
+staff:
+  # -- staff is an optional PlaoceOS chart enabled by default.
+  enabled: true
+  fullnameOverride: staff
+  << : *postgresValues
+  configmap:
+    PLACE_EMAIL: *placeEmail
+    SG_ENV: *sgEnv
+    STAFF_TIME_ZONE: *TZ
   secrets:
     # -- Default password for initial users in domain
     PLACE_PASSWORD: *placePassword
@@ -252,14 +280,15 @@ redis:
   # -- redis chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: redis
-  usePassword: false
-  cluster:
+  auth:
     enabled: false
-  configmap: |-
+  architecture: standalone
+  commonConfiguration: |-
     notify-keyspace-events Kg$
-  persistence:
-    enabled: true
-    size: 1Gi
+  master:
+    persistence:
+      enabled: true
+      size: 1Gi
 # influxdb third party chart overrides
 influxdb:
   # influxdb chart disabled by default. included for testing purposes only
@@ -270,6 +299,12 @@ mosquitto:
   # -- mosquitto chart disabled by default. included for testing purposes only
   enabled: false
   fullnameOverride: mosquitto
+# postgres third party chart overrides
+postgresql:
+  # -- postgres chart disabled by default. included for testing purposes only
+  enabled: false
+  fullnameOverride: postgres
+  << : *postgresValues
 
 global:
   #placeDomain the initial PlaceOS domain. Used by the init service to configure the appropriate domain services
@@ -277,3 +312,18 @@ global:
   # -- customRedirectPort the port the API and Frontend services are listening on. Leave as null if using standard ports. ie 80 or 443.
   # Used by the init service to configure the appropriate services
   customRedirectPort: null
+  gcpbackendConfig:
+    # -- gcpbackendConfig Create a GCP specific CustomResourceDefinition `BackendConfig` to enable a customisable L7 loabalancer instead of Nginx TCP loadbalancer
+    # See https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features
+    enabled: false
+    # -- the name of the BackendConfig Custom Resource
+    name: placeos-core
+    # -- yaml configuration for the BackendConfig
+    config: {}
+      # Example of attaching GCP CloudArmor to  the BackendConfig
+      # securityPolicy: 
+      #   name: "test"
+    # -- The name of the GCP static IP to attach the HTTP load balancer to
+    global_static_ip_name: "l7-ip"
+    # -- The type of load lalancer. External or Internal
+    loadbalancerAccessType: "External"

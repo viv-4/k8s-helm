@@ -61,3 +61,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create place uri from global placeDomain
+*/}}
+{{- define "auth.placeURI" -}}
+{{- print .Values.global.placeDomain }}
+{{- end }}

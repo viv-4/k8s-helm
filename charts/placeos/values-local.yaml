@@ -3,7 +3,7 @@
 ############################
 ##### PlaceOS Services #####
 ############################
-frontends:
+frontendloader:
   httpSidecar: true
 
 ###########################################
@@ -16,6 +16,8 @@ elasticsearch:
 rethinkdb:
   enabled: true
 redis:
+  enabled: true
+postgresql:
   enabled: true
 
 global:
