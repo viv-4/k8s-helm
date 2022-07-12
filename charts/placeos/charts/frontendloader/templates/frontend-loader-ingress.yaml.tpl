@@ -2,7 +2,7 @@
 {{- $fullName := include "frontend-loader.fullname" . -}}
 {{- $svcPort := .Values.httpservice.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 {{- else -}}
 apiVersion: extensions/v1beta1
 {{- end }}
@@ -33,9 +33,12 @@ spec:
         paths:
           {{- range .paths }}
           - path: {{ . }}
+            pathType: Prefix
             backend:
-              serviceName: {{ $fullName }}-http
-              servicePort: {{ $svcPort }}
+              service:
+                name: {{ $fullName }}-http
+                port:
+                  number: {{ $svcPort }}
           {{- end }}
     {{- end }}
   {{- end }}

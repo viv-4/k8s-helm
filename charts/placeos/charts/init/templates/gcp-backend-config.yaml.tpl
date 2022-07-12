@@ -17,29 +17,46 @@ metadata:
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.global.gcpbackendConfig.global_static_ip_name }}
 spec:
   tls:
+  - hosts:
+    - {{ .Values.global.placeDomain  }}
   - secretName: {{ .Values.global.placeDomain }}
   rules:
-  - host: 
+  - host: {{ .Values.global.placeDomain  }}
     http:
       paths:
-      - path: /*
+      - path: /
+        pathType: Prefix
         backend:
-          serviceName: frontend-loader-http-gcp
-          servicePort: 8080
-      - path: /api/*
+          service:
+            name: frontend-loader-http-gcp
+            port:
+              number: 8080
+      - path: /api/
+        pathType: Prefix
         backend:
-          serviceName: api-gcp
-          servicePort: 3000
-      - path: /auth/*
+          service:
+            name: api-gcp
+            port:
+              number: 3000
+      - path: /auth/
+        pathType: Prefix
         backend:
-          serviceName: auth-gcp
-          servicePort: 3000
-      - path: /api/files/*
+          service:
+            name: auth-gcp
+            port:
+              number: 3000
+      - path: /api/files/
+        pathType: Prefix
         backend:
-          serviceName: auth-gcp
-          servicePort: 3000
-      - path: /api/staff/*
+          service:
+            name: auth-gcp
+            port:
+              number: 3000
+      - path: /api/staff/
+        pathType: Prefix
         backend:
-          serviceName: staff-gcp
-          servicePort: 8080
+          service:
+            name: staff-gcp
+            port:
+              number: 8080
 {{- end }}
