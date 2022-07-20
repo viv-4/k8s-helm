@@ -17,7 +17,7 @@
 
   - name: extract the ip
     set_fact:
-      placeDomain: "{{ ingress.status.loadBalancer.ingress[0].ip }}.xip.io"
+      placeDomain: "{{ ingress.status.loadBalancer.ingress[0].ip }}.sslip.io"
   when:
     - chart_state == 'present'
     - placeDomain is undefined
