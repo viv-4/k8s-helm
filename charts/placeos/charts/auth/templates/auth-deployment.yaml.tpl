@@ -40,6 +40,7 @@ spec:
           - name: http
             containerPort: 8080
             protocol: TCP
+        {{/* 
         livenessProbe:
           httpGet:
             path: /auth/authority?health=true
@@ -48,6 +49,7 @@ spec:
           httpGet:
             path: /auth/authority?health=true
             port: http 
+        */}}
         resources:
           {{- toYaml .Values.deployment.resources | nindent 12 }}
         volumeMounts:
