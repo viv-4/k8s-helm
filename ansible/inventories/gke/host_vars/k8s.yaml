@@ -125,6 +125,10 @@ placeos:
     secrets:
       << : *rethinkdbClientSecrets
       PLACE_SERVER_SECRET: *placeServerSecret
+    persistentVolume:
+      name: www
+      accessModes:
+        - ReadWriteOnce
   # search-ingest is the overide configuration for the embedded search-ingest subchart
   searchingest:
     configmap:
