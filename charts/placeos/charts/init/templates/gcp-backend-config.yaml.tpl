@@ -19,7 +19,7 @@ spec:
   tls:
   - hosts:
     - {{ .Values.global.placeDomain  }}
-  - secretName: {{ .Values.global.placeDomain }}
+    secretName: {{ .Values.global.placeDomain }}
   rules:
   - host: {{ .Values.global.placeDomain  }}
     http:
