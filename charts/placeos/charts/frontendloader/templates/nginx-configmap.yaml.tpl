@@ -20,6 +20,10 @@ data:
         #charset koi8-r;
         access_log /dev/stdout;
 
+        location ~ /\. {
+          deny all;
+        }
+
         location / {
             absolute_redirect on;
             if ($request_uri ~ ^([^.\?]*[^/])$) {
