@@ -6,7 +6,7 @@ deployment:
   # -- number of replicas to deploy
   replicaCount: 1
   # -- length of time to retain job
-  ttlSecondsAfterFinished: 60
+  ttlSecondsAfterFinished: 3600
   image:
     registry: docker.io
     repository: placeos/init
