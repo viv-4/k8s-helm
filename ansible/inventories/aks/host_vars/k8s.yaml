@@ -273,8 +273,7 @@ etcd:
     rbac:
       create: false
   persistence:
-    enabled: true
-    size: 500M
+    enabled: false
 elasticsearch:
   enabled: true
   master:
