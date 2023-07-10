@@ -77,9 +77,6 @@ kind: ConfigMap
 metadata:
   name: postgres-client
   namespace: placeos
-  labels:
-    app.kubernetes.io/instance: placeos
-    app.kubernetes.io/name: postgres-client
 data:
   PG_DB: placeos
   PG_HOST: postgresql
@@ -114,16 +111,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: backup
   namespace: placeos
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: placeos
-    meta.helm.sh/release-namespace: placeos
-    pv.beta.kubernetes.io/gid: '10001'
-    volume.beta.kubernetes.io/storage-provisioner: kubernetes.io/azure-disk
-    volume.kubernetes.io/storage-resizer: kubernetes.io/azure-disk
-  finalizers:
-    - kubernetes.io/pvc-protection
 spec:
   accessModes:
     - ReadWriteOnce
