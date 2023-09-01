@@ -38,6 +38,9 @@ ansible-galaxy collection install community.kubernetes
 # Update helm dependencies from charts directory
 helm dependency update ./charts/placeos
 
+# Move to the directory where the placeos.yaml playbook exists
+cd ansible
+
 # Local deployment to k3d
 # Check first be for deploying
 ansible-playbook placeos.yaml -i inventories/k3d/ --check
