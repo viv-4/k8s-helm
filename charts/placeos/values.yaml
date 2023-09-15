@@ -328,8 +328,9 @@ etcd:
     rbac:
       create: false
   persistence:
-    enabled: false
-  
+    enabled: true
+    size: 500M
+# elasticsearch third party chart overrides
 elasticsearch:
   # -- elasticsearch chart disabled by default. included for testing purposes only
   enabled: false
