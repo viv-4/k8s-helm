@@ -102,10 +102,11 @@ xpostgresValues: &postgresValues
     replicaCount: 1
   pgpool:
     numInitChildren: 500
+    replicaCount: 0
 
 xpostgresClientEnv: &postgresClientEnv
   PG_DB: *pgDatabase
-  PG_HOST: postgresql-pgpool
+  PG_HOST: postgresql-postgresql
   PG_PORT: 5432
   PG_USER: *pgUsername
   PG_QUERY: "?initial_pool_size=10&max_idle_pool_size=10"
