@@ -265,6 +265,7 @@ placeos:
 ingress-nginx:
   enabled: true
   fullnameOverride: "ingress-nginx"
+  allowSnippetAnnotations: true
 etcd:
   fullnameOverride: etcd
   enabled: true
